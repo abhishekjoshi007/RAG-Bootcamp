@@ -5,7 +5,7 @@ from datetime import date
 from pathlib import Path
 
 from .chunking import chunk_documents
-from .indexing import InMemoryIndex
+from .indexing import FaissIndex
 from .models import Document
 
 
@@ -37,7 +37,9 @@ def get_unit(units: list[dict], unit_id: str) -> dict:
     raise KeyError(f"Unknown unit id: {unit_id}")
 
 
-def build_index_from_corpus(corpus_dir: Path) -> InMemoryIndex:
+def build_index_from_corpus(
+    corpus_dir: Path, model_name: str = "all-mpnet-base-v2"
+) -> FaissIndex:
     docs = load_documents(corpus_dir)
     chunks = chunk_documents(docs)
-    return InMemoryIndex.build(chunks)
+    return FaissIndex.build(chunks, model_name=model_name)

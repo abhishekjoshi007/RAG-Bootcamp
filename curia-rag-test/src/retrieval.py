@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import date
 
-from .indexing import InMemoryIndex
+from .indexing import FaissIndex, InMemoryIndex
 from .models import SearchResult
 
 
@@ -21,7 +21,7 @@ def recency_multiplier(
 class Retriever:
     def __init__(
         self,
-        index: InMemoryIndex,
+        index: FaissIndex | InMemoryIndex,
         recency_half_life_days: int = 365,
     ) -> None:
         self.index = index

@@ -1,26 +1,35 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from .audit import AuditLog
 from .grounding import CitationCheck, check_citations
-from .indexing import InMemoryIndex
-from .llm import LocalGroundedGenerator
+from .indexing import FaissIndex, InMemoryIndex
+from .llm import LocalGroundedGenerator, OpenAIGenerator
 from .models import Recommendation, SearchResult
 from .prompts import build_recommendation_prompt
 from .query import build_query
 from .retrieval import Retriever
 
+_Generator = LocalGroundedGenerator | OpenAIGenerator
+
 
 class CuriaRagPipeline:
     def __init__(
         self,
-        index: InMemoryIndex,
+        index: FaissIndex | InMemoryIndex,
         audit_path: Path | None = None,
         source_quotas: dict[str, int] | None = None,
+        generator: _Generator | None = None,
     ) -> None:
         self.retriever = Retriever(index)
-        self.generator = LocalGroundedGenerator()
+        if generator is not None:
+            self.generator: _Generator = generator
+        elif os.environ.get("OPENAI_API_KEY"):
+            self.generator = OpenAIGenerator()
+        else:
+            self.generator = LocalGroundedGenerator()
         self.audit = AuditLog(audit_path) if audit_path else None
         self.source_quotas = source_quotas
 
