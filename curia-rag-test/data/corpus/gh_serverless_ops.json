@@ -1,0 +1,10 @@
+{
+  "id": "gh_serverless_ops",
+  "title": "Serverless Operations Toolkit",
+  "source": "github_readme",
+  "date": "2026-03-05",
+  "text": "The toolkit packages deployment templates for event-driven serverless applications. It includes structured logging, metrics dashboards, rollback automation, chaos tests, and tracing integrations. The examples compare container-based services with serverless functions and describe operational tradeoffs for latency-sensitive workloads.",
+  "metadata": {
+    "repo": "serverless-ops-toolkit"
+  }
+}

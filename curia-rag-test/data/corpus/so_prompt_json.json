@@ -1,0 +1,10 @@
+{
+  "id": "so_prompt_json",
+  "title": "How do I force an LLM to return valid JSON with citations?",
+  "source": "stackoverflow",
+  "date": "2025-07-20",
+  "text": "A common pattern is to use a strict schema, keep temperature near zero, strip markdown code fences, and retry once when JSON parsing fails. For RAG answers, include the allowed document identifiers in the prompt and verify that every cited id is present in the retrieved context before accepting the response.",
+  "metadata": {
+    "tags": ["llm", "json", "rag"]
+  }
+}

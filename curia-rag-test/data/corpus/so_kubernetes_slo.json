@@ -1,0 +1,10 @@
+{
+  "id": "so_kubernetes_slo",
+  "title": "Tracking SLOs for Kubernetes services",
+  "source": "stackoverflow",
+  "date": "2024-12-14",
+  "text": "For Kubernetes services, teams usually define service-level indicators for request latency, error rates, and availability. Prometheus metrics, OpenTelemetry traces, and alert policies can be combined to track SLO burn rates and identify failing deployments before customers report incidents.",
+  "metadata": {
+    "tags": ["kubernetes", "observability"]
+  }
+}

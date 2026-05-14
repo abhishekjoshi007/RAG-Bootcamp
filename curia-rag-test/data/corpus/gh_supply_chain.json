@@ -1,0 +1,10 @@
+{
+  "id": "gh_supply_chain",
+  "title": "Secure Build Pipeline README",
+  "source": "github_readme",
+  "date": "2025-11-12",
+  "text": "This project demonstrates software supply chain controls for build pipelines. It generates a software bill of materials, signs artifacts with provenance metadata, runs dependency vulnerability scanning, and blocks releases when package integrity checks fail. The workflow integrates SLSA-style attestations with CI/CD policy gates.",
+  "metadata": {
+    "repo": "secure-build-demo"
+  }
+}

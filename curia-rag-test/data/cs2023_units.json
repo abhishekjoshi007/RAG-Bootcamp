@@ -1,0 +1,20 @@
+[
+  {
+    "id": "cs_ai_01",
+    "title": "Generative AI and Large Language Models",
+    "description": "Students should understand transformer-based language models, prompt engineering, retrieval-augmented generation, alignment, evaluation, and deployment considerations.",
+    "current_topics": ["transformers", "prompt engineering", "model evaluation", "AI ethics"]
+  },
+  {
+    "id": "cs_sec_01",
+    "title": "Software Supply Chain Security",
+    "description": "Students should understand dependency risk, package integrity, SBOMs, vulnerability scanning, provenance, and secure build pipelines.",
+    "current_topics": ["dependency management", "static analysis", "CI/CD security"]
+  },
+  {
+    "id": "cs_cloud_01",
+    "title": "Cloud Native Systems",
+    "description": "Students should learn container orchestration, observability, serverless deployment, resilience, and distributed system operations.",
+    "current_topics": ["containers", "Kubernetes", "microservices", "observability"]
+  }
+]

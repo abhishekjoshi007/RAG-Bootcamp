@@ -1,0 +1,10 @@
+{
+  "id": "jp_llm_engineer",
+  "title": "Senior ML Engineer - Generative AI Platform",
+  "source": "job_posting",
+  "date": "2026-01-18",
+  "text": "The team is hiring a senior ML engineer to build production generative AI systems. Candidates should have hands-on experience with transformer architectures, retrieval-augmented generation, vector databases, prompt evaluation, guardrails, and model monitoring. The role requires deploying LLM services, measuring hallucination rates, and working with product teams to create safe AI-assisted workflows.",
+  "metadata": {
+    "company_type": "enterprise_software"
+  }
+}

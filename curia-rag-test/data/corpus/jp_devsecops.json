@@ -1,0 +1,10 @@
+{
+  "id": "jp_devsecops",
+  "title": "DevSecOps Engineer",
+  "source": "job_posting",
+  "date": "2026-02-02",
+  "text": "The DevSecOps engineer will improve dependency risk management, container image scanning, SBOM generation, provenance verification, and CI/CD security. Applicants should understand package registries, vulnerability remediation, secure build systems, and policy-as-code enforcement.",
+  "metadata": {
+    "company_type": "cloud_services"
+  }
+}

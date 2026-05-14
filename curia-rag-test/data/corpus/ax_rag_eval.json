@@ -1,0 +1,10 @@
+{
+  "id": "ax_rag_eval",
+  "title": "Evaluating Grounded Responses in Retrieval-Augmented Generation",
+  "source": "arxiv",
+  "date": "2025-10-04",
+  "text": "Recent work on retrieval-augmented generation emphasizes claim-level faithfulness, citation precision, and adversarial robustness. Effective systems log the retrieval query, the retrieved passages, the generated answer, and automatic grounding checks. Studies show that long contexts do not guarantee grounded answers unless prompts explicitly require citations and unsupported claims are flagged.",
+  "metadata": {
+    "area": "nlp"
+  }
+}

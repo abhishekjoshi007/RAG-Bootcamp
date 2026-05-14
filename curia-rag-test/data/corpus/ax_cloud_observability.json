@@ -1,0 +1,10 @@
+{
+  "id": "ax_cloud_observability",
+  "title": "Observability for Cloud Native Microservices",
+  "source": "arxiv",
+  "date": "2025-08-30",
+  "text": "Cloud native systems use containers, service meshes, serverless functions, and Kubernetes control planes. Recent practice emphasizes distributed tracing, service-level objectives, resilience testing, and automated incident response. Observability data helps operators diagnose latency, cascading failures, and resource saturation across microservices.",
+  "metadata": {
+    "area": "systems"
+  }
+}
