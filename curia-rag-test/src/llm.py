@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections import Counter
+
+from openai import OpenAI
 
 from .embedding import normalize_terms
 from .models import Recommendation, SearchResult
@@ -127,3 +130,54 @@ class LocalGroundedGenerator:
 
     def _clean_topic(self, term: str) -> str:
         return re.sub(r"\s+", " ", term).strip()
+
+
+class OpenAIGenerator:
+    """LLM-backed generator using the OpenAI chat completions API.
+
+    Reads OPENAI_API_KEY from the environment (set it in .env or shell).
+    Defaults to gpt-4o-mini at temperature=0 for deterministic, grounded output.
+    Retries up to 3 times on JSON parse failure before raising.
+    """
+
+    def __init__(self, model: str = "gpt-4o-mini", temperature: float = 0.0) -> None:
+        self.model = model
+        self.temperature = temperature
+        self._client: OpenAI | None = None
+
+    @property
+    def _openai(self) -> OpenAI:
+        if self._client is None:
+            key = os.environ.get("OPENAI_API_KEY")
+            if not key:
+                raise EnvironmentError(
+                    "OPENAI_API_KEY environment variable is not set. "
+                    "Add it to your .env file or export it in your shell."
+                )
+            self._client = OpenAI(api_key=key)
+        return self._client
+
+    def generate(self, unit: dict, evidence: list[SearchResult]) -> Recommendation:
+        from .prompts import build_recommendation_prompt
+
+        prompt = build_recommendation_prompt(unit, evidence)
+        last_exc: Exception = RuntimeError("No attempts made")
+        for _ in range(3):
+            try:
+                response = self._openai.chat.completions.create(
+                    model=self.model,
+                    temperature=self.temperature,
+                    max_tokens=1024,
+                    messages=[{"role": "user", "content": prompt}],
+                )
+                raw = response.choices[0].message.content or ""
+                data = parse_json_response(raw)
+                return Recommendation(
+                    signal_strength=data.get("signal_strength", "low"),
+                    summary=data.get("summary", ""),
+                    emerging_topics=list(data.get("emerging_topics", [])),
+                    evidence_ids=list(data.get("evidence_ids", [])),
+                )
+            except (json.JSONDecodeError, KeyError) as exc:
+                last_exc = exc
+        raise RuntimeError(f"LLM parse failed after 3 retries: {last_exc}") from last_exc

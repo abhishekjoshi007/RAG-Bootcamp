@@ -4,6 +4,9 @@ import math
 import re
 from collections import Counter
 
+import numpy as np
+from sentence_transformers import SentenceTransformer
+
 
 TERM_RE = re.compile(r"[a-zA-Z][a-zA-Z0-9_+#]*")
 
@@ -49,3 +52,33 @@ def cosine_sparse(left: dict[str, float], right: dict[str, float]) -> float:
     if len(left) > len(right):
         left, right = right, left
     return sum(value * right.get(term, 0.0) for term, value in left.items())
+
+
+class DenseEmbedder:
+    """Dense embedder backed by a sentence-transformers model (all-mpnet-base-v2 default).
+
+    The model is lazy-loaded on first call so importing this module doesn't
+    trigger a large download.  Vectors are L2-normalised so dot-product equals
+    cosine similarity — compatible with FAISS IndexFlatIP.
+    """
+
+    def __init__(self, model_name: str = "all-mpnet-base-v2") -> None:
+        self.model_name = model_name
+        self._model: SentenceTransformer | None = None
+
+    @property
+    def _loaded(self) -> SentenceTransformer:
+        if self._model is None:
+            self._model = SentenceTransformer(self.model_name)
+        return self._model
+
+    def embed(self, text: str) -> np.ndarray:
+        return self._loaded.encode(text, normalize_embeddings=True).astype(np.float32)
+
+    def embed_many(self, texts: list[str], batch_size: int = 32) -> np.ndarray:
+        return self._loaded.encode(
+            texts,
+            normalize_embeddings=True,
+            batch_size=batch_size,
+            show_progress_bar=len(texts) > 50,
+        ).astype(np.float32)
