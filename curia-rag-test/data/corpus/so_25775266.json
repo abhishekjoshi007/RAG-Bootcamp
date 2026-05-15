@@ -1,0 +1,13 @@
+{
+  "id": "so_25775266",
+  "title": "How to keep Docker container running after starting services?",
+  "source": "stackoverflow",
+  "date": "2014-09-10",
+  "text": "I've seen a bunch of tutorials that seem do the same thing I'm trying to do, but for some reason my Docker containers exit. Basically, I'm setting up a web-server and a few daemons inside a Docker container. I do the final parts of this through a bash script called  run-all.sh  that I run through CMD in my Dockerfile.  run-all.sh  looks like this: \n\n  service supervisor start\nservice nginx start\n  \n\n And I start it inside of my Dockerfile as follows: \n\n  CMD [\"sh\", \"/root/credentialize_and_run.sh\"]\n  \n\n I can see that the services all start up correctly when I run things manually (i.e. getting on to the image with -i -t /bin/bash), and everything looks like it runs correctly when I run the image, but it exits once it finishes starting up my processes. I'd like the processes to run indefinitely, and as far as I understand, the container has to keep running for this to happen. Nevertheless, when I run  docker ps -a , I see: \n\n  ➜  docker_test  docker ps -a\nCONTAINER ID        IMAGE                            COMMAND                CREATED             STATUS                      PORTS               NAMES\nc7706edc4189        some_name/some_repo:blah   \"sh /root/run-all.sh   8 minutes ago       Exited (0) 8 minutes ago                        grave_jones\n  \n\n What gives? Why is it exiting? I know I could just put a while loop at the end of my bash script to keep it up, but what's the right way to keep it from exiting?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/25775266/how-to-keep-docker-container-running-after-starting-services",
+    "score": 357,
+    "tag": "devops"
+  }
+}

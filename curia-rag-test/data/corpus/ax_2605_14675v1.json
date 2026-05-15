@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14675v1",
+  "title": "Agentic AI in Industry: Adoption Level and Deployment Barriers",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Agentic AI systems are entering software engineering workflows, yet empirical evidence on how industrial organizations actually adopt them remains sparse. We present a qualitative interview study with sixteen practitioners across twelve companies of varying size and domain. This study characterizes the current agentic AI adoption state of these companies, employing a six-level maturity framework adapted from established AI-driven organizations. The findings reveal that seven companies operate at Level~1 (AI Assistants), four companies at Level~2 (AI Compensators), and only one in Level~3 (Multi-Agent Orchestration), with large and safety-regulated organizations among the most advanced adopters. The primary finding is a capability-deployment verification gap, four companies demonstrated higher-level experimental AI capabilities but cannot integrate them into production workflows because adequate output verification mechanisms are absent, leaving human-in-the-loop as the only trusted verification mechanism. This gap is shaped by four recurring barriers: context window of LLMs constraints especially when diverse knowledge aggregation is needed, under-performance on proprietary …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14675v1",
+    "category": "cs.SE"
+  }
+}

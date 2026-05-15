@@ -1,0 +1,13 @@
+{
+  "id": "so_42564058",
+  "title": "How can I use local Docker images with Minikube?",
+  "source": "stackoverflow",
+  "date": "2017-03-02",
+  "text": "I have several Docker images that I want to use with  Minikube . I don't want to first have to upload and then download the same image instead of just using the local image directly. How do I do this? \n Stuff I tried: \n  1. I tried running these commands (separately, deleting the instances of Minikube both times and starting fresh) \n  kubectl run hdfs --image=fluxcapacitor/hdfs:latest --port=8989\nkubectl run hdfs --image=fluxcapacitor/hdfs:latest --port=8989 imagePullPolicy=Never\n  \n Output: \n  NAME                    READY     STATUS              RESTARTS   AGE\nhdfs-2425930030-q0sdl   0/1       ContainerCreating   0          10m\n  \n It just gets stuck on some status but never reaches the ready state. \n  2. I tried creating a registry and then putting images into it, but that didn't work either. I might've done that incorrectly but I can't find proper instructions to do this task. \n Please provide instructions to use local Docker images in a local Kubernetes instance. \n OS:  Ubuntu 16.04  (Xenial Xerus)  \nDocker: Docker version 1.13.1, build 092cba3  \nKubernetes: \n  Client Version: version.Info{Major:&quot;1&quot;, Minor:&quot;5&quot;, GitVersion:&quot;v1.5.3&quot;, GitCommit:&quot;029c3a408176b55c30846f0faedf56aae5992e9b&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2017-02-15T06:40:50Z&quot;, GoVersion:&quot;go1.7.4&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}\nServer Version: version.Info{Major:&quot;1&quot;, Minor:&quot;5&quot;, GitVersion:&quot;v1.5.2&quot;, GitCommit:&quot;08e099554f3c31f6e6f07b448ab3ed78d0520507&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;1970-01-01T00:00:00Z&quot;, GoVersion:&quot;go1.7.1&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}\n  \n What is a solution that uses docker-compose to do this? \n Images loaded in  eval $(minikube docker-env) : \n  REPOSITORY                                           TAG     IMAGE ID      CREATED       SIZE\nfluxcapacitor/jupyterhub                      …",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/42564058/how-can-i-use-local-docker-images-with-minikube",
+    "score": 688,
+    "tag": "kubernetes"
+  }
+}

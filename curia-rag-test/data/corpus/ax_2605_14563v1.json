@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14563v1",
+  "title": "Remember Your Trace: Memory-Guided Long-Horizon Agentic Framework for Consistent and Hierarchical Repository-Level Code Documentation",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Automated code documentation is essential for modern software development, providing the contextual grounding that both human developers and coding agents rely on to navigate large codebases. Existing repository-level approaches process components independently, causing redundant retrieval and conflicting descriptions across documents while producing outputs that lack hierarchical structure. Therefore, we propose MemDocAgent, a long-horizon agentic framework that generates documentation within a single, integrated context spanning the entire repository. It combines two components: (i) Dependency-Aware Traversal Guiding that predetermines a traversal order respecting dependency and granularity hierarchies; (ii) Memory-Guided Agentic Interaction, in which the agent interacts with RepoMemory, a shared memory accumulating prior work traces through read, write, and verify operations. Through an in-depth multi-criteria evaluation, MemDocAgent achieves the best performance over both open and closed-source baselines and demonstrates practical applicability in real software development workflows.",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14563v1",
+    "category": "cs.SE"
+  }
+}

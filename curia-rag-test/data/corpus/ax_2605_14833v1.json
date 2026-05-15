@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14833v1",
+  "title": "Emotion-Attended Stateful Memory (EASM):The Architecture for Hyper-Personalization at Scale",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Current language model systems remain fundamentally stateless across sessions, limiting their ability to personalize interactions over time. While retrieval-augmented generation and fine-tuning improve knowledge access and domain capability, they do not enable persistent understanding of individual users. We propose an emotion-attended stateful memory architecture that dynamically constructs user-specific conversational context using long-term history, emotional signals, and inferred intent at inference time. To evaluate its impact, we conducted a controlled A/B study across thirty non-scripted conversations spanning six emotionally distinct categories using the same underlying language model in both conditions. The memory-enriched condition consistently outperformed the stateless baseline across all evaluated scenarios. The largest gains were observed in memory grounding (95% improvement), plan clarity (57%), and emotional validation (34%). Results remained consistent even in emotionally adversarial conversations involving grief, distress, and uncertainty. These findings suggest that stateful emotional memory may represent a foundational infrastructure layer for …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14833v1",
+    "category": "cs.AI"
+  }
+}

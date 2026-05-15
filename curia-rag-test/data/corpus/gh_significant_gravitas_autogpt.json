@@ -1,0 +1,13 @@
+{
+  "id": "gh_significant_gravitas_autogpt",
+  "title": "Significant-Gravitas/AutoGPT: AutoGPT is the vision of accessible AI for everyone, to use and to build on. Our",
+  "source": "github_readme",
+  "date": "2026-05-15",
+  "text": "# AutoGPT: Build, Deploy, and Run AI Agents\n\n[![Discord Follow](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fautogpt%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&label=total%20members&logo=discord&logoColor=white&color=7289da)](https://discord.gg/autogpt) &ensp;\n[![Twitter Follow](https://img.shields.io/twitter/follow/Auto_GPT?style=social)](https://twitter.com/Auto_GPT) &ensp;\n\n \n[Deutsch](https://zdoc.app/de/Significant-Gravitas/AutoGPT) | \n[Español](https://zdoc.app/es/Significant-Gravitas/AutoGPT) | \n[français](https://zdoc.app/fr/Significant-Gravitas/AutoGPT) | \n[日本語](https://zdoc.app/ja/Significant-Gravitas/AutoGPT) | \n[한국어](https://zdoc.app/ko/Significant-Gravitas/AutoGPT) | \n[Português](https://zdoc.app/pt/Significant-Gravitas/AutoGPT) | \n[Русский](https://zdoc.app/ru/Significant-Gravitas/AutoGPT) | \n[中文](https://zdoc.app/zh/Significant-Gravitas/AutoGPT)\n\n**AutoGPT** is a powerful platform that allows you to create, deploy, and manage continuous AI agents that automate complex workflows. \n\n## Hosting Options \n   - Download to self-host (Free!)\n   - [Join the Waitlist](https://bit.ly/3ZDijAI) for the cloud-hosted beta (Closed Beta - Public release Coming Soon!)\n\n## How to Self-Host the AutoGPT Platform\n> [!NOTE]\n> Setting up and hosting the AutoGPT Platform yourself is a technical process. \n> If you'd rather something that just works, we recommend [joining the waitlist](https://bit.ly/3ZDijAI) for the …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/Significant-Gravitas/AutoGPT",
+    "stars": 184306,
+    "topic": "llm"
+  }
+}

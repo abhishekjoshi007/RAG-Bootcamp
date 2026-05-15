@@ -1,0 +1,13 @@
+{
+  "id": "so_60174",
+  "title": "How can I prevent SQL injection in PHP?",
+  "source": "stackoverflow",
+  "date": "2008-09-12",
+  "text": "If user input is inserted without modification into an SQL query, then the application becomes vulnerable to  SQL injection , like in the following example: \n\n  $unsafe_variable = $_POST['user_input']; \n\nmysql_query(\"INSERT INTO `table` (`column`) VALUES ('$unsafe_variable')\");\n  \n\n That's because the user can input something like  value'); DROP TABLE table;-- , and the query becomes: \n\n  INSERT INTO `table` (`column`) VALUES('value'); DROP TABLE table;--')\n  \n\n What can be done to prevent this from happening?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/60174/how-can-i-prevent-sql-injection-in-php",
+    "score": 2769,
+    "tag": "security"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14855v1",
+  "title": "Exploitation of Hidden Context in Dynamic Movement Forecasting: A Neural Network Journey from Recurrent to Graph Neural Networks and General Purpose Transformers",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Forecasting within signal processing pipelines is crucial for mitigating delays, particularly in predicting the dynamic movements of objects such as NBA players. This task poses significant challenges due to the inherently interactive and unpredictable nature of sports, where abrupt changes in velocity and direction are prevalent. Traditional approaches, including (S)ARIMA(X), Kalman filters (KF), and Particle filters (PF), often struggle to model the non-linear dynamics present in such scenarios. Machine learning (ML) methods, such as long short-term memory (LSTM) networks, graph neural networks (GNNs), and Transformers, offer greater flexibility and accuracy but frequently fail to explicitly capture the interplay between temporal dependencies and contextual interactions, which are critical in chaotic sports environments. In this paper, we evaluate these models and assess their strengths and weaknesses. Experimental results reveal key performance trade-offs across input history length, generalizability, and the ability to incorporate contextual information. ML-based methods demonstrated substantial improvements over linear models across forecast horizons of up to 2s. Among the …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14855v1",
+    "category": "cs.AI"
+  }
+}

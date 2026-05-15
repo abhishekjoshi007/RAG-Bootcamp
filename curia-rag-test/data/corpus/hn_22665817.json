@@ -1,0 +1,11 @@
+{
+  "id": "hn_22665817",
+  "title": "HN Hiring: The Julia Lab (MIT) | DevOps Engineer (+ More) | Onsite or Remote | Full Time |",
+  "source": "job_posting",
+  "date": "2020-03-23",
+  "text": "The Julia Lab (MIT) | DevOps Engineer (+ More) | Onsite or Remote | Full Time |  https:&#x2F;&#x2F;julia.mit.edu&#x2F;  The Julia Lab is a lab in MIT&#x27;s CSAIL which focuses on the development of software tooling for solving large-scale scientific problems. Named after it&#x27;s original result, the Julia programming language, the Julia Lab&#x27;s research ranges from scientific machine learning (SciML) [1] and differentiable programming [2] to large-scale heterogeneous parallel computing [3]. The lab is currently growing in response to new directions and collaborations, and we are looking for both researchers and devops engineers to help with the research activities. We are looking for individuals who can help accelerate scientific machine learning workflows with gitops, develop high-precision continuous benchmarking systems, build and wrap essential scientific computing binaries into Julia packages, and help with the deployment of Julia-based software to alternative architectures. Or those with sufficient compiler, numerical computing, and scientific machine learning knowledge may find alternative projects. Experience with Julia is highly preferred. [1] Universal Differential Equations for Scientific Machine Learning,  https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2001.04385  [2] A Differentiable Programming System to Bridge Machine Learning and Scientific Computing,  https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;1907.07587  [3] Rapid software prototyping for heterogeneous and distributed platforms,  https:&#x2F;&#x2F;www.sciencedirect.com&#x2F;science&#x2F;article&#x2F;abs&#x2F;pii&#x2F;S09659...",
+  "metadata": {
+    "origin": "hn_hiring",
+    "parent_post": "22665398"
+  }
+}

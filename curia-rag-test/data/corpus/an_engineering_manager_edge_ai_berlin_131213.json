@@ -1,0 +1,12 @@
+{
+  "id": "an_engineering_manager_edge_ai_berlin_131213",
+  "title": "Engineering Manager - Edge AI — SumUp",
+  "source": "job_posting",
+  "date": "2026-05-14",
+  "text": "Our AI Platform &amp; Edge team sits at the heart of how SumUp is scaling intelligent, merchant-facing experiences across millions of interactions. We build and operate the AI systems — from LLM-powered assistants to agentic platforms — that directly shape how merchants get support, resolve issues, and engage with SumUp's products. As Engineering Manager for Edge, you'll take ownership of a growing, cross-functional team of engineers and ML specialists, leading the execution of some of our most technically complex and commercially critical AI initiatives. This is a rare opportunity to lead meaningful AI work at scale — not just shipping features, but shaping how an entire platform evolves. \n What you'll do \n \n \n Lead the day-to-day execution of the Edge AI team, translating long-term product vision into clear sprint roadmaps and measurable delivery milestones \n \n \n Own the migration of our AI assistant to an autonomous agentic setup, maintaining performance while expanding AI support across all merchant-facing channels \n \n \n Set the technical direction for LLM-powered system design, making clear tradeoffs across quality, latency, and cost \n \n \n Build a data-informed engineering culture by defining performance metrics, tracking delivery velocity, and using insights to continuously improve team health and throughput \n \n \n Hire, mentor, and develop a team of engineers and ML specialists — including interns — creating an environment where people grow and do their best work \n \n \n You'll be great for this role if… \n \n \n Strong hands-on background in ML/AI engineering or data science, with experience leading a team delivering production AI products \n \n \n Deep technical knowledge of LLM-powered system design, including RAG, embeddings, tool/function calling, and orchestration frameworks such as LangChain or LlamaIndex \n \n \n Proficiency in Python and core AI/ML libraries, including PyTorch and HuggingFace Transformers, with solid LLMOps/MLOps and CI/CD practices \n \n \n …",
+  "metadata": {
+    "origin": "arbeitnow",
+    "url": "https://www.arbeitnow.com/jobs/companies/sumup/engineering-manager-edge-ai-berlin-131213",
+    "query": "machine learning"
+  }
+}

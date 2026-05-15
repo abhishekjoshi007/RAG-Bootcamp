@@ -1,0 +1,93 @@
+[0;32m[21:29:06] ✓ Loaded .env[0m
+[0;32m[21:29:06] ✓ OPENAI_API_KEY present[0m
+[0;32m[21:29:06] ✓ USAJOBS_API_KEY present[0m
+[0;32m[21:29:06] ✓ GITHUB_TOKEN present (higher rate limit)[0m
+[0;32m[21:29:06] ✓ Runtime guards set (TOKENIZERS_PARALLELISM=false, OMP_NUM_THREADS=1)[0m
+[0;36m[21:29:06][0m Using Python: /Users/abhishekjoshi/.pyenv/shims/python3 (Python 3.10.12)
+[0;36m[21:29:06][0m Installing / verifying requirements …
+
+[notice] A new release of pip is available: 23.0.1 -> 26.1.1
+[notice] To update, run: pip install --upgrade pip
+[0;32m[21:29:08] ✓ Dependencies ready[0m
+[0;36m[21:29:08][0m Fetching from all 12 sources …
+[0;36m[21:29:08][0m   Job postings: Greenhouse (~4 000 companies), Lever (~3 000 companies),
+[0;36m[21:29:08][0m   We Work Remotely, RemoteOK, Remotive, Arbeitnow, The Muse, HN Hiring, USAJOBS
+[0;36m[21:29:08][0m   Technical:    arXiv (cs.*), Stack Exchange, GitHub READMEs
+21:29:08  INFO      Loading faiss.
+21:29:08  INFO      Successfully loaded faiss.
+21:29:12  INFO      Fetching from greenhouse …
+21:29:27  INFO        greenhouse → 0 new docs (fetched 27)
+21:29:27  INFO      Fetching from lever …
+21:29:39  INFO        lever → 0 new docs (fetched 0)
+21:29:39  INFO      Fetching from weworkremotely …
+21:29:39  INFO        weworkremotely → 0 new docs (fetched 20)
+21:29:39  INFO      Fetching from remoteok …
+21:29:39  WARNING   RemoteOK tag=machine-learning: HTTP Error 403: Forbidden
+21:29:40  WARNING   RemoteOK tag=devops: HTTP Error 403: Forbidden
+21:29:41  WARNING   RemoteOK tag=backend: HTTP Error 403: Forbidden
+21:29:41  WARNING   RemoteOK tag=cloud: HTTP Error 403: Forbidden
+21:29:42  WARNING   RemoteOK tag=security: HTTP Error 403: Forbidden
+21:29:43  WARNING   RemoteOK tag=python: HTTP Error 403: Forbidden
+21:29:43  INFO        remoteok → 0 new docs (fetched 0)
+21:29:43  INFO      Fetching from remotive …
+21:29:43  WARNING   Remotive query='machine learning': HTTP Error 403: Forbidden
+21:29:44  WARNING   Remotive query='LLM': HTTP Error 403: Forbidden
+21:29:45  WARNING   Remotive query='devops': HTTP Error 403: Forbidden
+21:29:45  WARNING   Remotive query='cloud native': HTTP Error 403: Forbidden
+21:29:46  WARNING   Remotive query='cybersecurity': HTTP Error 403: Forbidden
+21:29:46  INFO        remotive → 0 new docs (fetched 0)
+21:29:46  INFO      Fetching from arbeitnow …
+21:29:49  INFO        arbeitnow → 0 new docs (fetched 5)
+21:29:49  INFO      Fetching from themuse …
+21:29:49  WARNING   TheMuse query='Software Engineer': HTTP Error 403: Forbidden
+21:29:50  WARNING   TheMuse query='Machine Learning': HTTP Error 403: Forbidden
+21:29:50  WARNING   TheMuse query='DevOps': HTTP Error 403: Forbidden
+21:29:51  WARNING   TheMuse query='Cloud': HTTP Error 403: Forbidden
+21:29:52  WARNING   TheMuse query='Security': HTTP Error 403: Forbidden
+21:29:52  INFO        themuse → 0 new docs (fetched 0)
+21:29:52  INFO      Fetching from hn_hiring …
+21:30:00  INFO        hn_hiring → 0 new docs (fetched 24)
+21:30:00  INFO      Fetching from usajobs …
+21:30:04  INFO        usajobs → 0 new docs (fetched 19)
+21:30:04  INFO      Fetching from arxiv …
+21:30:10  INFO        arxiv → 0 new docs (fetched 36)
+21:30:10  INFO      Fetching from stackoverflow …
+21:30:14  INFO        stackoverflow → 0 new docs (fetched 25)
+21:30:14  INFO      Fetching from github …
+21:30:30  INFO        github → 0 new docs (fetched 14)
+Ingesting from all 12 sources …
+
+Done. 0 new document(s) written to /Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/curia-rag-test/data/corpus
+[0;32m[21:30:30] ✓ Corpus now contains 182 documents[0m
+[0;36m[21:30:30][0m Embedding 182 documents and building IndexFlatIP …
+/Users/abhishekjoshi/.pyenv/versions/3.10.12/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+Building FAISS index with all-mpnet-base-v2 …
+Batches:   0%|          | 0/54 [00:00<?, ?it/s]Batches:   2%|▏         | 1/54 [00:02<01:53,  2.14s/it]Batches:   4%|▎         | 2/54 [00:02<01:06,  1.28s/it]Batches:   6%|▌         | 3/54 [00:03<01:00,  1.19s/it]Batches:   7%|▋         | 4/54 [00:05<01:02,  1.24s/it]Batches:   9%|▉         | 5/54 [00:06<00:57,  1.17s/it]Batches:  11%|█         | 6/54 [00:06<00:47,  1.02it/s]Batches:  13%|█▎        | 7/54 [00:07<00:44,  1.05it/s]Batches:  15%|█▍        | 8/54 [00:08<00:38,  1.19it/s]Batches:  17%|█▋        | 9/54 [00:08<00:33,  1.33it/s]Batches:  19%|█▊        | 10/54 [00:09<00:30,  1.44it/s]Batches:  20%|██        | 11/54 [00:10<00:30,  1.39it/s]Batches:  22%|██▏       | 12/54 [00:10<00:28,  1.45it/s]Batches:  24%|██▍       | 13/54 [00:11<00:26,  1.55it/s]Batches:  26%|██▌       | 14/54 [00:12<00:33,  1.21it/s]Batches:  28%|██▊       | 15/54 [00:13<00:29,  1.31it/s]Batches:  30%|██▉       | 16/54 [00:13<00:26,  1.44it/s]Batches:  31%|███▏      | 17/54 [00:14<00:25,  1.46it/s]Batches:  33%|███▎      | 18/54 [00:15<00:24,  1.49it/s]Batches:  35%|███▌      | 19/54 [00:16<00:29,  1.18it/s]Batches:  37%|███▋      | 20/54 [00:16<00:25,  1.32it/s]Batches:  39%|███▉      | 21/54 [00:17<00:23,  1.38it/s]Batches:  41%|████      | 22/54 [00:18<00:22,  1.43it/s]Batches:  43%|████▎     | 23/54 [00:18<00:20,  1.48it/s]Batches:  44%|████▍     | 24/54 [00:19<00:19,  1.51it/s]Batches:  46%|████▋     | 25/54 [00:20<00:24,  1.18it/s]Batches:  48%|████▊     | 26/54 [00:21<00:24,  1.13it/s]Batches:  50%|█████     | 27/54 [00:22<00:22,  1.22it/s]Batches:  52%|█████▏    | 28/54 [00:23<00:19,  1.32it/s]Batches:  54%|█████▎    | 29/54 [00:23<00:18,  1.38it/s]Batches:  56%|█████▌    | 30/54 [00:24<00:16,  1.42it/s]Batches:  57%|█████▋    | 31/54 [00:24<00:15,  1.44it/s]Batches:  59%|█████▉    | 32/54 [00:25<00:16,  1.33it/s]Batches:  61%|██████    | 33/54 [00:26<00:15,  1.36it/s]Batches:  63%|██████▎   | 34/54 [00:27<00:15,  1.28it/s]Batches:  65%|██████▍   | 35/54 [00:28<00:14,  1.33it/s]Batches:  67%|██████▋   | 36/54 [00:28<00:13,  1.31it/s]Batches:  69%|██████▊   | 37/54 [00:29<00:12,  1.37it/s]Batches:  70%|███████   | 38/54 [00:30<00:11,  1.38it/s]Batches:  72%|███████▏  | 39/54 [00:30<00:10,  1.46it/s]Batches:  74%|███████▍  | 40/54 [00:31<00:08,  1.64it/s]Batches:  76%|███████▌  | 41/54 [00:31<00:08,  1.62it/s]Batches:  78%|███████▊  | 42/54 [00:32<00:06,  1.79it/s]Batches:  80%|███████▉  | 43/54 [00:32<00:05,  1.85it/s]Batches:  81%|████████▏ | 44/54 [00:33<00:04,  2.12it/s]Batches:  83%|████████▎ | 45/54 [00:33<00:03,  2.33it/s]Batches:  85%|████████▌ | 46/54 [00:33<00:03,  2.38it/s]Batches:  87%|████████▋ | 47/54 [00:34<00:02,  2.62it/s]Batches:  89%|████████▉ | 48/54 [00:34<00:02,  2.62it/s]Batches:  91%|█████████ | 49/54 [00:34<00:01,  2.71it/s]Batches:  93%|█████████▎| 50/54 [00:35<00:01,  3.09it/s]Batches:  94%|█████████▍| 51/54 [00:35<00:01,  2.59it/s]Batches:  96%|█████████▋| 52/54 [00:35<00:00,  2.85it/s]Batches:  98%|█████████▊| 53/54 [00:36<00:00,  3.40it/s]Batches: 100%|██████████| 54/54 [00:36<00:00,  3.74it/s]Batches: 100%|██████████| 54/54 [00:36<00:00,  1.49it/s]
+Indexed 431 chunks → /Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/curia-rag-test/audit/faiss_index.pkl
+[0;32m[21:31:11] ✓ FAISS index saved to audit/faiss_index.pkl[0m
+[0;36m[21:31:11][0m Running unit: cs_ai_01 — Generative AI and LLMs
+/Users/abhishekjoshi/.pyenv/versions/3.10.12/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[0;32m[21:31:24] ✓ cs_ai_01 → signal=high | citation_check=passed | saved to pipeline_cs_ai_01.json[0m
+[0;36m[21:31:24][0m Running unit: cs_sec_01 — Software Supply Chain Security
+/Users/abhishekjoshi/.pyenv/versions/3.10.12/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[0;32m[21:31:32] ✓ cs_sec_01 → signal=high | citation_check=passed | saved to pipeline_cs_sec_01.json[0m
+[0;36m[21:31:32][0m Running unit: cs_cloud_01 — Cloud Native Systems
+/Users/abhishekjoshi/.pyenv/versions/3.10.12/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[0;32m[21:31:40] ✓ cs_cloud_01 → signal=high | citation_check=passed | saved to pipeline_cs_cloud_01.json[0m
+[0;36m[21:31:40][0m 5a · Retrieval eval …
+/Users/abhishekjoshi/.pyenv/versions/3.10.12/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[0;32m[21:31:44] ✓ Retrieval eval saved[0m
+[0;36m[21:31:44][0m 5b · Faithfulness eval …
+[0;32m[21:31:45] ✓ Faithfulness eval saved[0m
+[0;36m[21:31:45][0m 5c · Relevance eval …
+[0;32m[21:31:45] ✓ Relevance eval saved[0m
+[0;36m[21:31:45][0m 5d · Adversarial eval …
+/Users/abhishekjoshi/.pyenv/versions/3.10.12/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+[0;32m[21:31:49] ✓ Adversarial eval saved[0m
+[0;32m[21:31:49] ✓ All results saved to: results/20260514_212906/[0m

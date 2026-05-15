@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14526v1",
+  "title": "DiffPhD: A Unified Differentiable Solver for Projective Heterogeneous Materials in Elastodynamics with Contact-Rich GPU-Acceleration",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Differentiable simulation of soft bodies is a foundation for system identification, trajectory optimization, and Real2Sim transfer. Yet, existing methods such as the differentiable Projective Dynamics (DiffPD) struggle when faced with heterogeneous materials with extreme stiffness contrasts, hyperelasticity under large deformations, and contact-rich interactions, which are common scenarios in the real world. We present DiffPhD, a unified GPU-accelerated differentiable Projective Dynamics framework for heterogeneous materials that tackles these intertwined challenges simultaneously. Our key insight is a careful integration of: (i) stiffness-aware projective weights to embed heterogeneity into the global system; (ii) trust-region eigenvalue filtering lifted to the backward pass for stable hyperelastic gradients and a type-II Anderson Acceleration scheme with dual-gate convergence to stabilize forward iteration under large stiffness contrasts; and (iii) a unified GPU pipeline that reuses a single sparse factor across forward, backward, and contact computations, with stiffness-amplified Rayleigh damping folded into the same factor for heterogeneity-aware dissipation at zero recurring …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14526v1",
+    "category": "cs.DC"
+  }
+}

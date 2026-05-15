@@ -1,0 +1,113 @@
+{
+  "university": "Texas A&M University",
+  "short_name": "TAMU",
+  "college": "College of Engineering",
+  "website": "https://engineering.tamu.edu",
+  "curriculum_year": 2024,
+  "programs": [
+    {
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "CSCE",
+      "units": [
+        {"id":"tamu_cs_ai","title":"Generative AI and Large Language Models","description":"Transformer architectures, prompt engineering, RAG, hallucination mitigation, and responsible LLM deployment.","courses":["CSCE 636","CSCE 689"],"current_topics":["transformers","prompt engineering","RAG","RLHF","model evaluation"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_cs_sec","title":"Software Supply Chain Security","description":"SBOM generation, dependency vulnerability scanning, provenance verification, CI/CD pipeline security, and policy-as-code.","courses":["CSCE 465","CSCE 481"],"current_topics":["SBOM","dependency scanning","DevSecOps","static analysis","supply chain attacks"],"cs2023_area":"Information Assurance and Security"},
+        {"id":"tamu_cs_cloud","title":"Cloud Native Systems and Infrastructure","description":"Container orchestration with Kubernetes, microservices, serverless computing, distributed tracing, and SLOs.","courses":["CSCE 412","CSCE 435"],"current_topics":["Kubernetes","Docker","microservices","serverless","observability"],"cs2023_area":"Parallel and Distributed Computing"},
+        {"id":"tamu_cs_ml","title":"Machine Learning and Deep Learning","description":"Supervised/unsupervised learning, neural networks, CNNs, RNNs, model training and evaluation pipelines.","courses":["CSCE 421","CSCE 636"],"current_topics":["neural networks","supervised learning","deep learning","model evaluation","PyTorch"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_cs_sw","title":"Software Engineering","description":"Agile development, design patterns, testing, CI/CD, and software lifecycle management.","courses":["CSCE 431","CSCE 440","CSCE 482"],"current_topics":["agile","design patterns","unit testing","CI/CD","DevOps"],"cs2023_area":"Software Engineering"},
+        {"id":"tamu_cs_db","title":"Database Systems and Data Engineering","description":"Relational and NoSQL databases, query optimization, data pipelines, and vector databases.","courses":["CSCE 315","CSCE 450"],"current_topics":["SQL","NoSQL","indexing","ACID","vector databases"],"cs2023_area":"Data Management"},
+        {"id":"tamu_cs_net","title":"Computer Networks","description":"TCP/IP, routing, SDN, network programming, and wireless networking.","courses":["CSCE 463","CSCE 464"],"current_topics":["TCP/IP","routing","DNS","HTTP/2","SDN"],"cs2023_area":"Networking and Communications"}
+      ]
+    },
+    {
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "ECEN",
+      "units": [
+        {"id":"tamu_ee_embedded","title":"Embedded Systems and IoT","description":"Microcontroller programming, RTOS, sensor interfacing, and IoT protocols.","courses":["ECEN 449","ECEN 350"],"current_topics":["ARM Cortex","RTOS","MQTT","edge computing","I2C/SPI"],"cs2023_area":"Architecture and Organization"},
+        {"id":"tamu_ee_ml","title":"Machine Learning for Signal Processing","description":"Deep learning applied to signals, time-series, images, and sensor fusion.","courses":["ECEN 489","ECEN 649"],"current_topics":["CNNs","RNNs","sensor fusion","edge AI","TensorFlow Lite"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_ee_llm","title":"AI and Generative Models in EE","description":"Transformer architectures, LLM fine-tuning, and generative AI for engineering applications.","courses":["ECEN 489","ECEN 689"],"current_topics":["transformers","LLM fine-tuning","AI for EE","anomaly detection","time-series forecasting"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_ee_sec","title":"Cyber-Physical Systems Security","description":"SCADA security, firmware vulnerability analysis, hardware trojans, and embedded security.","courses":["ECEN 489","ECEN 676"],"current_topics":["SCADA security","firmware analysis","hardware trojans","ICS security","supply chain attacks"],"cs2023_area":"Information Assurance and Security"},
+        {"id":"tamu_ee_cloud","title":"Cloud Computing for Engineering","description":"Cloud platforms for engineering workloads, containerized simulation, and HPC on cloud.","courses":["ECEN 489","ECEN 615"],"current_topics":["AWS/GCP","HPC","containerized simulation","data lake","serverless"],"cs2023_area":"Parallel and Distributed Computing"},
+        {"id":"tamu_ee_vlsi","title":"VLSI and Hardware Acceleration","description":"CMOS design, FPGA, custom AI accelerators, and hardware-software co-design.","courses":["ECEN 454","ECEN 651"],"current_topics":["Verilog/VHDL","FPGA","AI chips","GPU architecture","synthesis"],"cs2023_area":"Architecture and Organization"}
+      ]
+    },
+    {
+      "field": "Mechanical Engineering",
+      "degree": "B.S. Mechanical Engineering",
+      "department": "MEEN",
+      "units": [
+        {"id":"tamu_meen_robot","title":"Robotics and Autonomous Systems","description":"Robot kinematics/dynamics, motion planning, ROS2, autonomous navigation, and human-robot interaction.","courses":["MEEN 461","MEEN 689"],"current_topics":["ROS2","motion planning","SLAM","deep learning for perception","human-robot interaction"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_meen_ai","title":"AI and ML in Mechanical Systems","description":"Machine learning for predictive maintenance, digital twins, generative design, and process optimization.","courses":["MEEN 489","MEEN 689"],"current_topics":["predictive maintenance","digital twin","generative design","anomaly detection","physics-informed ML"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_meen_manuf","title":"Digital Manufacturing and Industry 4.0","description":"CNC programming, additive manufacturing, smart factory, IIoT, and cobots.","courses":["MEEN 368","MEEN 460"],"current_topics":["additive manufacturing","IIoT","smart factory","cobots","CNC automation"],"cs2023_area":"Platform-based Development"},
+        {"id":"tamu_meen_sim","title":"Computational Mechanics and Simulation","description":"FEA, CFD, multibody dynamics simulation, and high-performance computing for engineering.","courses":["MEEN 412","MEEN 444"],"current_topics":["FEA","CFD","ANSYS","OpenFOAM","HPC simulation"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_meen_ctrl","title":"Control Systems and Mechatronics","description":"Classical and modern control, state-space methods, PID tuning, and mechatronic system design.","courses":["MEEN 364","MEEN 461"],"current_topics":["PID control","state-space","Kalman filter","mechatronics","model predictive control"],"cs2023_area":"Architecture and Organization"}
+      ]
+    },
+    {
+      "field": "Civil Engineering",
+      "degree": "B.S. Civil Engineering",
+      "department": "CVEN",
+      "units": [
+        {"id":"tamu_cven_gis","title":"Geospatial Data and GIS","description":"GIS, remote sensing, spatial data analysis, and AI-driven infrastructure monitoring.","courses":["CVEN 489","CVEN 612"],"current_topics":["GIS","remote sensing","LiDAR","satellite imagery","spatial ML"],"cs2023_area":"Data Management"},
+        {"id":"tamu_cven_smart","title":"Smart Infrastructure and IoT Sensors","description":"Structural health monitoring, IoT sensor networks, and real-time data pipelines for civil infrastructure.","courses":["CVEN 489","CVEN 613"],"current_topics":["structural health monitoring","IoT sensors","real-time data","digital twins","edge computing"],"cs2023_area":"Platform-based Development"},
+        {"id":"tamu_cven_transport","title":"Transportation Systems and Autonomous Vehicles","description":"Traffic modeling, connected and autonomous vehicles, smart traffic control, and mobility data analytics.","courses":["CVEN 456","CVEN 613"],"current_topics":["autonomous vehicles","traffic simulation","smart signals","V2X communication","mobility analytics"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_cven_sustain","title":"Sustainable Construction Technologies","description":"Green building materials, energy-efficient design, lifecycle assessment, and sustainable construction methods.","courses":["CVEN 320","CVEN 489"],"current_topics":["green building","BIM","lifecycle analysis","net-zero construction","circular economy"],"cs2023_area":"Social Issues and Professional Practice"}
+      ]
+    },
+    {
+      "field": "Chemical Engineering",
+      "degree": "B.S. Chemical Engineering",
+      "department": "CHEN",
+      "units": [
+        {"id":"tamu_chen_ml","title":"ML for Process Optimization","description":"Machine learning, deep learning, and data-driven process control for chemical manufacturing.","courses":["CHEN 489","CHEN 689"],"current_topics":["process optimization","neural networks","digital twin","real-time control","soft sensors"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_chen_ctrl","title":"Process Control and Automation","description":"PID control, model predictive control, distributed control systems, and plant automation.","courses":["CHEN 461","CHEN 462"],"current_topics":["MPC","DCS","PLC","SCADA","industrial automation"],"cs2023_area":"Architecture and Organization"},
+        {"id":"tamu_chen_sustain","title":"Sustainable Energy and Green Chemistry","description":"Renewable energy processes, carbon capture, green hydrogen, and circular economy principles.","courses":["CHEN 470","CHEN 489"],"current_topics":["green hydrogen","carbon capture","biomass conversion","circular economy","life cycle analysis"],"cs2023_area":"Social Issues and Professional Practice"},
+        {"id":"tamu_chen_comp","title":"Computational Chemistry and Molecular Simulation","description":"Molecular dynamics, DFT, high-throughput screening, and AI for materials discovery.","courses":["CHEN 489","CHEN 689"],"current_topics":["molecular dynamics","DFT","materials informatics","high-throughput screening","AI drug discovery"],"cs2023_area":"Computational Science"}
+      ]
+    },
+    {
+      "field": "Aerospace Engineering",
+      "degree": "B.S. Aerospace Engineering",
+      "department": "AERO",
+      "units": [
+        {"id":"tamu_aero_auto","title":"Autonomous Flight and UAV Systems","description":"UAV design, path planning, computer vision for navigation, and swarm systems.","courses":["AERO 489","AERO 689"],"current_topics":["UAV design","autonomous navigation","computer vision","swarm robotics","obstacle avoidance"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_aero_gnc","title":"Guidance, Navigation and Control","description":"State estimation, Kalman filtering, trajectory optimization, and GNC system integration.","courses":["AERO 421","AERO 622"],"current_topics":["Kalman filter","trajectory optimization","INS/GPS fusion","model predictive control","reentry guidance"],"cs2023_area":"Architecture and Organization"},
+        {"id":"tamu_aero_cfd","title":"Computational Aerodynamics","description":"Computational fluid dynamics, mesh generation, turbulence modeling, and high-fidelity simulation.","courses":["AERO 412","AERO 511"],"current_topics":["CFD","OpenFOAM","turbulence modeling","hypersonic flow","GPU-accelerated simulation"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_aero_space","title":"Satellite Systems and Space Technology","description":"CubeSat design, orbital mechanics, ground station software, and space data systems.","courses":["AERO 489","AERO 451"],"current_topics":["CubeSat","orbital mechanics","space communications","ADCS","ground station software"],"cs2023_area":"Platform-based Development"}
+      ]
+    },
+    {
+      "field": "Biomedical Engineering",
+      "degree": "B.S. Biomedical Engineering",
+      "department": "BMEN",
+      "units": [
+        {"id":"tamu_bmen_ai","title":"Medical AI and Image Analysis","description":"Deep learning for medical imaging, FDA-regulated AI, explainability, and clinical validation.","courses":["BMEN 489","BMEN 689"],"current_topics":["medical image segmentation","explainable AI","FDA 510(k)","federated learning","clinical NLP"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_bmen_wearable","title":"Wearable Health Monitoring","description":"Biosensor design, signal processing, real-time health analytics, and edge AI for health.","courses":["BMEN 365","BMEN 489"],"current_topics":["biosensors","ECG/EEG processing","edge AI","digital health","remote patient monitoring"],"cs2023_area":"Platform-based Development"},
+        {"id":"tamu_bmen_bioinf","title":"Bioinformatics and Genomics","description":"Genome sequencing pipelines, variant calling, single-cell analysis, and multi-omics integration.","courses":["BMEN 489","BMEN 635"],"current_topics":["genome sequencing","variant calling","single-cell RNA-seq","multi-omics","CRISPR informatics"],"cs2023_area":"Data Management"},
+        {"id":"tamu_bmen_neuro","title":"Neural Engineering and Brain-Computer Interfaces","description":"Neural signal acquisition, BCI system design, neural decoding, and closed-loop systems.","courses":["BMEN 489","BMEN 614"],"current_topics":["EEG/ECoG","neural decoding","BCI","deep brain stimulation","neural prosthetics"],"cs2023_area":"Intelligent Systems"}
+      ]
+    },
+    {
+      "field": "Industrial & Systems Engineering",
+      "degree": "B.S. Industrial Engineering",
+      "department": "ISEN",
+      "units": [
+        {"id":"tamu_isen_sc","title":"Supply Chain Analytics and Optimization","description":"Data-driven supply chain design, demand forecasting, inventory optimization, and logistics AI.","courses":["ISEN 489","ISEN 614"],"current_topics":["supply chain optimization","demand forecasting","last-mile logistics","ML for procurement","digital supply chain"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_isen_hrob","title":"Human-Robot Collaboration","description":"Collaborative robot (cobot) integration, human factors, safety standards, and AI-assisted automation.","courses":["ISEN 489","ISEN 460"],"current_topics":["cobots","ISO/TS 15066","human factors","AI-assisted automation","ergonomics"],"cs2023_area":"Human-Computer Interaction"},
+        {"id":"tamu_isen_dt","title":"Digital Twin and Simulation","description":"Discrete-event simulation, digital twin architecture, process optimization, and real-time synchronization.","courses":["ISEN 416","ISEN 489"],"current_topics":["digital twin","Arena simulation","Gemini","real-time synchronization","process optimization"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_isen_qa","title":"Data-Driven Quality Engineering","description":"Statistical process control, Six Sigma, machine learning for defect detection, and quality 4.0.","courses":["ISEN 315","ISEN 489"],"current_topics":["SPC","Six Sigma","computer vision inspection","predictive quality","Industry 4.0 QA"],"cs2023_area":"Computational Science"}
+      ]
+    },
+    {
+      "field": "Petroleum Engineering",
+      "degree": "B.S. Petroleum Engineering",
+      "department": "PETE",
+      "units": [
+        {"id":"tamu_pete_ml","title":"ML for Reservoir Engineering","description":"Machine learning for reservoir characterization, production optimization, and decline curve analysis.","courses":["PETE 489","PETE 625"],"current_topics":["reservoir ML","decline curve AI","production optimization","DCA","seismic interpretation ML"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_pete_dig","title":"Digital Oilfield and IIoT","description":"Sensor networks in oil fields, real-time drilling optimization, and edge computing for remote operations.","courses":["PETE 489","PETE 621"],"current_topics":["IIoT oil field","real-time drilling","edge computing","remote operations","SCADA in oil gas"],"cs2023_area":"Platform-based Development"},
+        {"id":"tamu_pete_sim","title":"Reservoir Simulation","description":"Numerical simulation of fluid flow, history matching, and high-performance computing for reservoir modeling.","courses":["PETE 420","PETE 621"],"current_topics":["reservoir simulation","history matching","HPC","ECLIPSE","CMG"],"cs2023_area":"Computational Science"}
+      ]
+    }
+  ]
+}

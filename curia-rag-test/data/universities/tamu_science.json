@@ -1,0 +1,63 @@
+{
+  "university": "Texas A&M University",
+  "short_name": "TAMU",
+  "college": "College of Science",
+  "website": "https://science.tamu.edu",
+  "curriculum_year": 2024,
+  "programs": [
+    {
+      "field": "Mathematics",
+      "degree": "B.S. Mathematics",
+      "department": "MATH",
+      "units": [
+        {"id":"tamu_math_ml","title":"Mathematics of Machine Learning","description":"Linear algebra, optimization, probability theory, and statistical learning foundations for ML.","courses":["MATH 414","MATH 447"],"current_topics":["linear algebra","gradient descent","convex optimization","probability","statistical learning"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_math_num","title":"Numerical Methods and Scientific Computing","description":"Numerical linear algebra, ODEs/PDEs, iterative solvers, and GPU-accelerated scientific computing.","courses":["MATH 417","MATH 609"],"current_topics":["numerical PDE","iterative solvers","finite difference","GPU computing","sparse matrices"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_math_opt","title":"Optimization and Operations Research","description":"Linear programming, convex optimization, combinatorial optimization, and AI-based meta-heuristics.","courses":["MATH 470","MATH 667"],"current_topics":["linear programming","convex optimization","metaheuristics","integer programming","stochastic optimization"],"cs2023_area":"Algorithms and Complexity"},
+        {"id":"tamu_math_stat","title":"Probability and Statistical Inference","description":"Probability theory, Bayesian inference, hypothesis testing, and statistical computing.","courses":["MATH 411","MATH 412"],"current_topics":["Bayesian inference","hypothesis testing","Monte Carlo","statistical computing","causal inference"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_math_dm","title":"Discrete Mathematics and Algorithms","description":"Graph theory, combinatorics, algorithm design, and cryptography foundations.","courses":["MATH 302","MATH 433"],"current_topics":["graph theory","combinatorics","algorithm complexity","cryptography foundations","formal proofs"],"cs2023_area":"Algorithms and Complexity"}
+      ]
+    },
+    {
+      "field": "Statistics",
+      "degree": "B.S. Statistics",
+      "department": "STAT",
+      "units": [
+        {"id":"tamu_stat_ml","title":"Statistical Machine Learning","description":"Regression, classification, clustering, ensemble methods, and deep learning from a statistical perspective.","courses":["STAT 636","STAT 689"],"current_topics":["random forests","gradient boosting","neural networks","model selection","cross-validation"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_stat_big","title":"Big Data Analysis","description":"Distributed computing for statistics, Spark, probabilistic data structures, and streaming analytics.","courses":["STAT 489","STAT 631"],"current_topics":["Spark","distributed statistics","sketching algorithms","streaming data","probabilistic data structures"],"cs2023_area":"Parallel and Distributed Computing"},
+        {"id":"tamu_stat_bayes","title":"Bayesian Methods and Probabilistic Programming","description":"Bayesian modeling, MCMC, variational inference, and probabilistic programming languages.","courses":["STAT 601","STAT 602"],"current_topics":["MCMC","Stan/PyMC","variational inference","hierarchical models","Bayesian deep learning"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_stat_ts","title":"Time Series Analysis and Forecasting","description":"ARIMA, state-space models, neural forecasting, and anomaly detection in sequential data.","courses":["STAT 626","STAT 689"],"current_topics":["ARIMA","LSTM forecasting","Prophet","anomaly detection","spectral analysis"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_stat_causal","title":"Causal Inference and Experimental Design","description":"Randomized experiments, observational studies, instrumental variables, and causal ML.","courses":["STAT 611","STAT 689"],"current_topics":["RCTs","difference-in-differences","propensity scores","causal forests","A/B testing"],"cs2023_area":"Computational Science"}
+      ]
+    },
+    {
+      "field": "Physics",
+      "degree": "B.S. Physics",
+      "department": "PHYS",
+      "units": [
+        {"id":"tamu_phys_quantum","title":"Quantum Computing and Information","description":"Quantum gates, quantum algorithms, error correction, and quantum machine learning.","courses":["PHYS 489","PHYS 689"],"current_topics":["quantum gates","Shor/Grover algorithms","quantum error correction","variational quantum eigensolver","quantum ML"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_phys_comp","title":"Computational Physics and Simulation","description":"Numerical methods for physics, Monte Carlo simulation, molecular dynamics, and HPC.","courses":["PHYS 302","PHYS 489"],"current_topics":["Monte Carlo","molecular dynamics","finite element physics","GPU computing","N-body simulation"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_phys_ai","title":"AI and Machine Learning for Physics","description":"Neural networks for physics discovery, symbolic regression, physics-informed neural networks.","courses":["PHYS 489","PHYS 689"],"current_topics":["physics-informed ML","symbolic regression","neural ODE","graph neural networks","scientific ML"],"cs2023_area":"Intelligent Systems"}
+      ]
+    },
+    {
+      "field": "Chemistry",
+      "degree": "B.S. Chemistry",
+      "department": "CHEM",
+      "units": [
+        {"id":"tamu_chem_comp","title":"Computational Chemistry and Molecular Modeling","description":"Density functional theory, molecular dynamics, force field development, and quantum chemistry.","courses":["CHEM 489","CHEM 621"],"current_topics":["DFT","molecular dynamics","Gaussian","AMBER","quantum chemistry"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_chem_ai","title":"AI for Drug Discovery and Materials","description":"ML for molecular property prediction, generative molecular design, and high-throughput screening.","courses":["CHEM 489","CHEM 689"],"current_topics":["molecular ML","generative chemistry","high-throughput screening","protein folding AI","materials informatics"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_chem_data","title":"Cheminformatics and Data Analysis","description":"Chemical data handling, SMILES/fingerprints, RDKit, and chemical database mining.","courses":["CHEM 489","CHEM 650"],"current_topics":["RDKit","SMILES","molecular fingerprints","chemical databases","data mining"],"cs2023_area":"Data Management"}
+      ]
+    },
+    {
+      "field": "Biology",
+      "degree": "B.S. Biology",
+      "department": "BIOL",
+      "units": [
+        {"id":"tamu_biol_bioinf","title":"Bioinformatics and Computational Biology","description":"Sequence alignment, genome assembly, variant calling, and bioinformatics pipelines.","courses":["BIOL 489","BIOL 621"],"current_topics":["sequence alignment","BLAST","genome assembly","variant calling","pipeline tools"],"cs2023_area":"Data Management"},
+        {"id":"tamu_biol_ml","title":"Machine Learning in Biology","description":"Deep learning for biological sequence analysis, protein structure prediction, and multi-omics integration.","courses":["BIOL 489","BIOL 689"],"current_topics":["AlphaFold","protein language models","single-cell ML","CRISPR ML","multi-omics integration"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_biol_data","title":"Biological Data Science","description":"Statistical analysis of biological datasets, R/Python for biology, and reproducible research practices.","courses":["BIOL 489","BIOL 410"],"current_topics":["R/Python for biology","statistical genomics","reproducible research","data visualization","large-scale biology"],"cs2023_area":"Data Management"}
+      ]
+    }
+  ]
+}

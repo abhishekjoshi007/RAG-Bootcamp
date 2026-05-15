@@ -1,0 +1,11 @@
+{
+  "id": "wwr_urban_legend_backend_engineer_mid_senior_https_weworkremotely_co",
+  "title": "Urban Legend: BACKEND ENGINEER (MID–SENIOR)",
+  "source": "job_posting",
+  "date": "2026-05-14",
+  "text": "Headquarters:  Washington, DC\n      URL:   https://urbanlegend.co/ \n \n\n LOCATION REQUIREMENTS (NO EXCEPTIONS) \n Remote: Must reside in Texas, USA \n We are unable to consider candidates outside of Texas for this remote role. \n   ROLE DESCRIPTION \n This is a full-time Backend Engineer role reporting directly to the CTO, open to either a late mid-level engineer ready to level up or a solidly senior engineer looking for ownership and impact. Title and comp will be calibrated to experience. You'll have direct access to senior technical leadership and a real voice in shaping our architecture and roadmap with no layers in between. \n You will design, develop, and maintain the scalable backend services that power Urban Legend's campaigns, creator tools, and conversion tracking. You'll work across a polyglot stack, primarily Python/Django and Ruby/Rails, and contribute to an active migration of our infrastructure from Heroku to Render. You'll partner closely with product, design, and front-end engineers to ship customer-facing features end-to-end. \n We move fast, ship often, and use modern AI tooling (Cursor in particular) as a core part of our day-to-day workflow. Above all, we are looking for someone with a strong bias toward action. You'd rather ship something today, learn from it, and iterate than spend a week debating the perfect approach. \n &nbsp; \n &nbsp; \n &nbsp; \n WHAT YOU'LL WORK ON \n &nbsp; \n Our backend ecosystem includes: \n &nbsp; \n • A Django/DRF monolith (Postgres, Redis, RQ workers, Docker) \n • Two Ruby on Rails services (Rails 7/8, Postgres, Puma) \n • A Flask service for high-throughput conversion tracking \n • A Node.js/TypeScript service (Express, Drizzle, Playwright/Puppeteer) \n • Shared infrastructure across Docker, Postgres, Redis, and AWS — currently in the middle of a Heroku → Render migration \n &nbsp; \n &nbsp; \n REQUIRED QUALIFICATIONS \n &nbsp; \n • A strong bias toward action. You ship, you measure, you iterate. You don't get stuck in analysis …",
+  "metadata": {
+    "origin": "weworkremotely",
+    "url": "https://weworkremotely.com/remote-jobs/urban-legend-backend-engineer-mid-senior"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "gh_emissary_ingress_emissary",
+  "title": "emissary-ingress/emissary: open source Kubernetes-native API gateway for microservices built on the Envoy P",
+  "source": "github_readme",
+  "date": "2026-05-13",
+  "text": "Emissary-ingress\n================\n\n \n[![Version][badge-version-img]][badge-version-link]\n[![Docker Repository][badge-docker-img]][badge-docker-link]\n[![Join Slack][badge-slack-img]][badge-slack-link]\n[![Core Infrastructure Initiative: Best Practices][badge-cii-img]][badge-cii-link]\n \n\n[badge-version-img]: https://img.shields.io/docker/v/emissaryingress/emissary?sort=semver\n[badge-version-link]: https://github.com/emissary-ingress/emissary/releases\n[badge-docker-img]: https://img.shields.io/docker/pulls/emissaryingress/emissary\n[badge-docker-link]: https://hub.docker.com/r/emissaryingress/emissary\n[badge-slack-img]: https://img.shields.io/badge/slack-join-orange.svg\n[badge-slack-link]: https://communityinviter.com/apps/cloud-native/cncf\n[badge-cii-img]: https://bestpractices.coreinfrastructure.org/projects/1852/badge\n[badge-cii-link]: https://bestpractices.coreinfrastructure.org/projects/1852\n \n \n\n \n\n[Emissary-Ingress](https://www.getambassador.io/docs/open-source) is an open-source Kubernetes-native API Gateway +\nLayer 7 load balancer + Kubernetes Ingress built on [Envoy Proxy].\nEmissary-ingress is a CNCF incubation project (and was formerly known as Ambassador API Gateway).\n\nEmissary-ingress enables its users to:\n* Manage ingress traffic with [load balancing], support for multiple protocols ([gRPC and HTTP/2], [TCP], and [web sockets]), and Kubernetes integration\n* Manage changes to routing with an easy to use declarative policy engine and [self-service configuration], via …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/emissary-ingress/emissary",
+    "stars": 4503,
+    "topic": "cloud-native"
+  }
+}

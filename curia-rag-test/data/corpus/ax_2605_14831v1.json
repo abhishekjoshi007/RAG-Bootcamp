@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14831v1",
+  "title": "Interestingness as an Inductive Heuristic for Future Compression Progress",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "One of the bottlenecks on the way towards recursively self-improving systems is the challenge of interestingness: the ability to prospectively identify which tasks or data hold the potential for future progress. We formalize interestingness as an inductive heuristic for future compression progress and investigate its predictability using tools from Kolmogorov Complexity and Algorithmic Statistics. By analyzing complexity-runtime profiles under Length, Algorithmic, and Speed priors, we demonstrate that the inductive property of interestingness -- the capacity for past progress to signal future discovery -- is theoretically viable and empirically supported. We prove that expected future progress depends exponentially on the recency of the last observed breakthrough. Furthermore, we show that the Algorithmic Prior is significantly more optimistic than the Length Prior, yielding a quadratic increase in expected discovery for the same observed profile. These findings are experimentally confirmed across three diverse universal computational paradigms.",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14831v1",
+    "category": "cs.LG"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "so_2669690",
+  "title": "Why does Google prepend while(1); to their JSON responses?",
+  "source": "stackoverflow",
+  "date": "2010-04-19",
+  "text": "Why does Google prepend  while(1);  to their (private) JSON responses? \n\n For example, here's a response while turning a calendar on and off in  Google Calendar : \n\n  while (1);\n[\n  ['u', [\n    ['smsSentFlag', 'false'],\n    ['hideInvitations', 'false'],\n    ['remindOnRespondedEventsOnly', 'true'],\n    ['hideInvitations_remindOnRespondedEventsOnly', 'false_true'],\n    ['Calendar ID stripped for privacy', 'false'],\n    ['smsVerifiedFlag', 'true']\n  ]]\n]\n  \n\n I would assume this is to prevent people from doing an  eval()  on it, but all you'd really have to do is replace the  while  and then you'd be set. I would assume the eval prevention is to make sure people write safe JSON parsing code. \n\n I've seen this used in a couple of other places, too, but a lot more so with Google (Mail, Calendar, Contacts, etc.) Strangely enough,  Google Docs  starts with  &amp;&amp;&amp;START&amp;&amp;&amp;  instead, and Google Contacts seems to start with  while(1); &amp;&amp;&amp;START&amp;&amp;&amp; . \n\n What's going on here?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/2669690/why-does-google-prepend-while1-to-their-json-responses",
+    "score": 4508,
+    "tag": "security"
+  }
+}

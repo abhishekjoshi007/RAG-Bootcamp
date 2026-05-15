@@ -1,0 +1,13 @@
+{
+  "id": "so_10059594",
+  "title": "A simple explanation of Naive Bayes Classification",
+  "source": "stackoverflow",
+  "date": "2012-04-07",
+  "text": "I am finding it hard to understand the process of Naive Bayes, and I was wondering if someone could explain it with a simple step by step process in English. I understand it takes comparisons by times occurred as a probability, but I have no idea how the training data is related to the actual dataset. \n\n Please give me an explanation of what role the training set plays. I am giving a very simple example for fruits here, like banana for example \n\n  training set---\nround-red\nround-orange\noblong-yellow\nround-red\n\ndataset----\nround-red\nround-orange\nround-red\nround-orange\noblong-yellow\nround-red\nround-orange\noblong-yellow\noblong-yellow\nround-red",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/10059594/a-simple-explanation-of-naive-bayes-classification",
+    "score": 579,
+    "tag": "machine-learning"
+  }
+}

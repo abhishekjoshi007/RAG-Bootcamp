@@ -1,3 +1,3 @@
-{"query_id":"cs_ai_01","relevant_doc_ids":["jp_llm_engineer","ax_rag_eval","so_prompt_json"]}
-{"query_id":"cs_sec_01","relevant_doc_ids":["gh_supply_chain","jp_devsecops"]}
-{"query_id":"cs_cloud_01","relevant_doc_ids":["ax_cloud_observability","gh_serverless_ops","so_kubernetes_slo"]}
+{"query_id":"cs_ai_01","relevant_doc_ids":["jp_llm_engineer","ax_rag_eval","so_prompt_json","gh_huggingface_transformers","gh_langchain_ai_langchain"]}
+{"query_id":"cs_sec_01","relevant_doc_ids":["gh_supply_chain","jp_devsecops","gh_metarget_metarget","wwr_vercel_senior_product_security_engineerhttps_weworkremotely_com_"]}
+{"query_id":"cs_cloud_01","relevant_doc_ids":["ax_cloud_observability","gh_serverless_ops","so_kubernetes_slo","gh_emissary_ingress_emissary","gh_infiniflow_ragflow"]}

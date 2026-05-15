@@ -1,0 +1,13 @@
+{
+  "id": "gh_bunkerity_bunkerweb",
+  "title": "bunkerity/bunkerweb: 🛡️ Open-source and cloud-native Web Application Firewall (WAF)",
+  "source": "github_readme",
+  "date": "2026-05-14",
+  "text": "🌐  Website \n\t &#124;\n\t🤝  Panel \n\t &#124;\n\t📓  Documentation \n\t &#124;\n\t👨‍💻  Demo \n\t &#124;\n\t📱  Demo UI \n\t &#124;\n\t🧩  Templates \n\t &#124;\n\t🛡️  Examples \n\t \n\t💬  Chat \n\t &#124;\n\t📝  Forum \n\t &#124;\n\t📝  Community \n\t &#124;\n\t🗺️  Threatmap \n\t&#124;\n\t📊  Status \n\t&#124;\n\t🔎  Feedback \n \n\n> 🛡️ Make security by default great again!\n\n# BunkerWeb\n\n \n\t \n \n\nBunkerWeb is a next-generation, open-source Web Application Firewall (WAF).\n\nBeing a full-featured web server (based on [NGINX](https://nginx.org/) under the hood), it will protect your web services to make them \"secure by default.\" BunkerWeb integrates seamlessly into your existing environments ([Linux](https://docs.bunkerweb.io/1.6.9/integrations/?utm_campaign=self&utm_source=github#linux), [Docker](https://docs.bunkerweb.io/1.6.9/integrations/?utm_campaign=self&utm_source=github#docker), [Swarm](https://docs.bunkerweb.io/1.6.9/integrations/?utm_campaign=self&utm_source=github#swarm), [Kubernetes](https://docs.bunkerweb.io/1.6.9/integrations/?utm_campaign=self&utm_source=github#kubernetes), …) as a reverse proxy and is fully configurable (don't panic, there is an [awesome web UI](https://docs.bunkerweb.io/1.6.9/web-ui/?utm_campaign=self&utm_source=github) if you don't like the CLI) to meet your own use cases. In other words, cybersecurity is no longer a hassle.\n\nBunkerWeb contains primary [security features](https://docs.bunkerweb.io/1.6.9/advanced/?utm_campaign=self&utm_source=github#security-tuning) as part of the core but can be …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/bunkerity/bunkerweb",
+    "stars": 10480,
+    "topic": "devsecops"
+  }
+}

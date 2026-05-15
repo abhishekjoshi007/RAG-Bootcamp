@@ -1,0 +1,13 @@
+{
+  "id": "gh_xonsh_xonsh",
+  "title": "xonsh/xonsh: 🐚 Python-powered shell. Full-featured, cross-platform and AI-friendly.",
+  "source": "github_readme",
+  "date": "2026-05-13",
+  "text": "xonsh\n=====\n\n.. raw:: html\n\n     \n\n**Xonsh** (sounds like \"consh\") is a full-featured and cross-platform Python-based shell. The language is a superset of Python 3 with seamless integration of shell functionality and commands. It works on all major platforms, including Linux, macOS, Windows, BSD, Jupyter, Android and Raspberry Pi.\n\n.. raw:: html\n\n     \n\n.. list-table::\n   :widths: 1 1\n\n   *  -  **Xonsh is the Shell**\n      -  **Xonsh is Python**\n\n   *  -  .. code-block:: shell\n\n            cd $HOME\n\n            id $(whoami) > ~/id.txt\n\n            cat /etc/passwd | grep root\n\n            $PROMPT = '@ '\n\n\n      -  .. code-block:: python\n\n            2 + 2\n\n            var = \"hello\".upper()\n\n            @.imp.json.loads('{\"a\":1}')\n\n            [i for i in range(0,10)]\n\n   *  -  **Xonsh is the Shell in Python**\n      -  **Xonsh is Python in the Shell**\n\n   *  -  .. code-block:: python\n\n            len($(curl -L https://xon.sh))\n\n            $PATH.append('/tmp')\n\n            p'/etc/passwd'.read_text().find('usr')\n\n            $(@json podman ps --format json)['ID']\n\n      -  .. code-block:: python\n\n            name = 'snail'\n            echo @(name) > /tmp/@(name)\n\n            with p'/tmp/dir'.mkdir().cd():\n                touch @(input('File: '))\n\n            aliases['e'] = 'echo @(2+2)'\n            aliases['a'] = lambda args: print(args)\n\n   *  -  **Xonsh is Everywhere**\n      -  **Xonsh is an Ecosystem**\n\n   *  -  .. code-block:: python\n\n            $PATH\n            # …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/xonsh/xonsh",
+    "stars": 9337,
+    "topic": "devsecops"
+  }
+}

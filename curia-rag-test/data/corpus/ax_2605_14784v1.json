@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14784v1",
+  "title": "Supervised Distributed Computing: Efficiency and Robustness under a Majority of Adversarial Workers",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "We consider a recently proposed \\emph{supervised distributed computing} paradigm \\cite{augustine2025supervised} that extends and refines the standard master-worker paradigm for parallel computations. In this paradigm, there is a supervisor, a source, a target, and a collection of workers. The distributed computation is given as an acyclic task graph that is known to the supervisor. The source initially stores the input and the target is supposed to store the output of the computation. The individual tasks of the computation are supposed to be executed by the workers under the guidance of the supervisor. The source, target and supervisor are assumed to be reliable, while a $β$-fraction of the workers might be adversarial, for some $β\\in [0,1)$. This covers, for example, the case where a supervisor has to work with untrusted volunteers. In the standard master-worker approach, the master checks whether the workers correctly execute the assigned tasks, creating a severe bottleneck, whereas in the supervised approach, the supervisor outsources this checking to the workers. Prior to this work, only supervised solutions were known for the case that $β$ is a sufficiently small constant. …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14784v1",
+    "category": "cs.DC"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14568v1",
+  "title": "Mining Subscenario Refactoring Opportunities in Behaviour-Driven Software Test Suites: ML Classifiers and LLM-Judge Baselines",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Context. Behaviour-Driven Development (BDD) software test suites accumulate duplicated step subsequences. Three published refactoring patterns are available (within-file Background, within-repo reusable-scenario invocation, cross-organisational shared higher-level step), but no prior work automates which recurring subsequences are worth extracting or which mechanism applies. Objective. Rank recurring step subsequences (\"slices\") by refactoring suitability (extraction-worthy), pre-map each to one of the three patterns, and quantify prevalence across the public BDD ecosystem. Method. Every contiguous L-step window (L in [2, 18]) in a 339-repository / 276-upstream-owner Gherkin corpus is keyed by paraphrase-robust cluster identifiers and counted under three scopes. Sentence-BERT (SBERT) / Uniform Manifold Approximation and Projection (UMAP) / Hierarchical Density-Based Clustering (HDBSCAN) recovers paraphrase-equivalent slices. Three authors label a stratified 200-slice pool against a written rubric. An eXtreme Gradient Boosting (XGBoost) extraction-worthy classifier trained under 5-fold cross-validation is compared with a tuned rule baseline and two open-weight Large Language Model …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14568v1",
+    "category": "cs.SE"
+  }
+}

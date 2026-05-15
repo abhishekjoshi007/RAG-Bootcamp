@@ -1,0 +1,13 @@
+{
+  "id": "so_75965605",
+  "title": "How to persist LangChain conversation memory (save and load)?",
+  "source": "stackoverflow",
+  "date": "2023-04-08",
+  "text": "I'm creating a conversation like so: \n  llm = ChatOpenAI(temperature=0, openai_api_key=OPENAI_API_KEY, model_name=OPENAI_DEFAULT_MODEL)\nconversation = ConversationChain(llm=llm, memory=ConversationBufferMemory())\n  \n But what I really want is to be able to save and load that  ConversationBufferMemory()  so that it's persistent between sessions. There doesn't seem to be any obvious tutorials for this but I noticed &quot;Pydantic&quot; so I tried to do this: \n  saved_dict = conversation.memory.chat_memory.dict()\ncm = ChatMessageHistory(**saved_dict) # or cm = ChatMessageHistory.parse_obj(saved_dict)\n  \n But this fails: \n  ValidationError: 6 validation errors for ChatMessageHistory\nmessages -&gt; 0\n  Can't instantiate abstract class BaseMessage with abstract method type (type=type_error)\n  \n Thoughts? I'd love links to any sort of guide, repo, reference, etc.",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/75965605/how-to-persist-langchain-conversation-memory-save-and-load",
+    "score": 22,
+    "tag": "large-language-model"
+  }
+}

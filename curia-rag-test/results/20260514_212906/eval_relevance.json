@@ -1,0 +1,23 @@
+{"recommendation_id": "faith_ai_01", "unit_id": "cs_ai_01", "rating": 4}
+{"recommendation_id": "faith_ai_02", "unit_id": "cs_ai_01", "rating": 1}
+{"recommendation_id": "faith_sec_01", "unit_id": "cs_sec_01", "rating": 5}
+{"recommendation_id": "faith_sec_02", "unit_id": "cs_sec_01", "rating": 1}
+{"recommendation_id": "faith_cloud_01", "unit_id": "cs_cloud_01", "rating": 4}
+{
+  "summary": {
+    "mean_rating": 3.0,
+    "distribution": {
+      "1": 2,
+      "4": 2,
+      "5": 1
+    },
+    "per_unit_means": {
+      "cs_ai_01": 2.5,
+      "cs_sec_01": 3.0,
+      "cs_cloud_01": 4.0
+    },
+    "n": 5,
+    "target_mean": 3.5,
+    "passed_target": false
+  }
+}

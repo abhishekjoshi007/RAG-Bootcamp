@@ -1,0 +1,13 @@
+{
+  "id": "so_57607381",
+  "title": "How do I change timezone in a docker container?",
+  "source": "stackoverflow",
+  "date": "2019-08-22",
+  "text": "I am running docker container for my development stack which I pulled from docker-hub, the image is created for a different timezone than where my application is supposed to be deployed. \n\n How do I change timezone in a docker container? \n\n I tried to change the timezone config within the container by running \n\n  echo \"Africa/Lusaka\" &gt; /etc/timezone\n  \n\n and restarted the container but I still get the same timezone.",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/57607381/how-do-i-change-timezone-in-a-docker-container",
+    "score": 109,
+    "tag": "devops"
+  }
+}

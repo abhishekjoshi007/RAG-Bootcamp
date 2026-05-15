@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14799v1",
+  "title": "Can Visual Mamba Improve AI-Generated Image Detection? An In-Depth Investigation",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "In recent years, computer vision has witnessed remarkable progress, fueled by the development of innovative architectures such as Convolutional Neural Networks (CNNs), Generative Adversarial Networks (GANs), diffusion-based architectures, Vision Transformers (ViTs), and, more recently, Vision-Language Models (VLMs). This progress has undeniably contributed to creating increasingly realistic and diverse visual content. However, such advancements in image generation also raise concerns about potential misuse in areas such as misinformation, identity theft, and threats to privacy and security. In parallel, Mamba-based architectures have emerged as versatile tools for a range of image analysis tasks, including classification, segmentation, medical imaging, object detection, and image restoration, in this rapidly evolving field. However, their potential for identifying AI-generated images remains relatively unexplored compared to established techniques. This study provides a systematic evaluation and comparative analysis of Vision Mamba models for AI-generated image detection. We benchmark multiple Vision Mamba variants against representative CNNs, ViTs, and VLM-based detectors across …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14799v1",
+    "category": "cs.CR"
+  }
+}

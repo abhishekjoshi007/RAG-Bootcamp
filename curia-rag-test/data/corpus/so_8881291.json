@@ -1,0 +1,13 @@
+{
+  "id": "so_8881291",
+  "title": "Why is char[] preferred over String for passwords?",
+  "source": "stackoverflow",
+  "date": "2012-01-16",
+  "text": "In Swing, the password field has a  getPassword()  (returns  char[] ) method instead of the usual  getText()  (returns  String ) method. Similarly, I have come across a suggestion not to use  String  to handle passwords. \n\n Why does  String  pose a threat to security when it comes to passwords?\nIt feels inconvenient to use  char[] .",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords",
+    "score": 3870,
+    "tag": "security"
+  }
+}

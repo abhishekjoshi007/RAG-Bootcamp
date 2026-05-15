@@ -1,0 +1,13 @@
+{
+  "id": "so_549",
+  "title": "The definitive guide to form-based website authentication",
+  "source": "stackoverflow",
+  "date": "2008-08-02",
+  "text": "Moderator note: \n This question is not a good fit for our question and answer format with the  topicality rules  which currently apply for Stack Overflow. We normally use a &quot;historical lock&quot; for such questions where the content still has value. However, the answers on this question are actively maintained and a historical lock doesn't permit editing of the answers. As such, a &quot;wiki answer&quot; lock has been applied to allow the answers to be edited. You should assume the topicality issues which are normally handled by a historical lock are present (i.e. this question not a good example of an on-topic question for Stack Overflow). \n \n Form-based authentication for websites \n We believe that Stack Overflow should not just be a resource for very specific technical questions, but also for general guidelines on how to solve variations on common problems. &quot;Form based authentication for websites&quot; should be a fine topic for such an experiment. \n It should include topics such as: \n \n How to log in \n How to log out \n How to remain logged in \n Managing cookies (including recommended settings) \n SSL/HTTPS encryption \n How to store passwords \n Using secret questions \n Forgotten username/password functionality \n Use of  nonces  to prevent  cross-site request forgeries (CSRF)  \n  OpenID  \n &quot;Remember me&quot; checkbox \n Browser autocompletion of usernames and passwords \n Secret URLs (public  URL  protected by digest) \n Checking password strength \n E-mail validation \n  and much more about   form based authentication ... \n \n It should not include things like: \n \n Roles and authorization \n HTTP basic authentication \n \n Please help us by: \n \n Suggesting subtopics \n Submitting good articles about this subject \n Editing the official answer",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/549/the-definitive-guide-to-form-based-website-authentication",
+    "score": 5509,
+    "tag": "security"
+  }
+}

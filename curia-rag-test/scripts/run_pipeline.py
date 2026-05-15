@@ -5,37 +5,48 @@ import json
 import sys
 from pathlib import Path
 
-
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.indexing import InMemoryIndex
+try:
+    from dotenv import load_dotenv
+    load_dotenv(ROOT / ".env")
+except ImportError:
+    pass
+
+from src.config import AUDIT_DB_PATH, INDEX_PATH, SOURCE_QUOTAS, UNITS_FILE
+from src.indexing import FaissIndex
 from src.pipeline import CuriaRagPipeline
-from src.storage import get_unit, load_units
+from src.storage import build_index_from_corpus, get_unit, load_units
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--unit-id", default="cs_ai_01")
     parser.add_argument("--k", type=int, default=6)
+    parser.add_argument("--local", action="store_true", help="Force LocalGroundedGenerator (no LLM)")
     args = parser.parse_args()
 
-    index_path = ROOT / "audit" / "local_index.pkl"
-    if not index_path.exists():
-        raise SystemExit("Index not found. Run: python3 scripts/build_index.py")
+    if INDEX_PATH.exists():
+        index = FaissIndex.load(INDEX_PATH)
+    else:
+        print("Index not found — building now (this downloads all-mpnet-base-v2 once) …")
+        index = build_index_from_corpus(ROOT / "data" / "corpus")
+        index.save(INDEX_PATH)
 
-    units = load_units(ROOT / "data" / "cs2023_units.json")
+    units = load_units(UNITS_FILE)
     unit = get_unit(units, args.unit_id)
-    index = InMemoryIndex.load(index_path)
+
+    generator = None
+    if args.local:
+        from src.llm import LocalGroundedGenerator
+        generator = LocalGroundedGenerator()
+
     pipeline = CuriaRagPipeline(
         index,
-        audit_path=ROOT / "audit" / "audit_log.db",
-        source_quotas={
-            "job_posting": 2,
-            "arxiv": 2,
-            "stackoverflow": 1,
-            "github_readme": 1,
-        },
+        audit_path=AUDIT_DB_PATH,
+        source_quotas=SOURCE_QUOTAS,
+        generator=generator,
     )
     result = pipeline.run(unit, k=args.k)
     print(json.dumps(result, indent=2))

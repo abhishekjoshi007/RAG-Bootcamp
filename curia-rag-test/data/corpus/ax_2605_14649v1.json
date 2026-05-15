@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14649v1",
+  "title": "Multi-objective application placement in fog computing using graph neural network-based reinforcement learning",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "We propose a framework designed to tackle a multi-objective optimization challenge related to the placement of applications in fog computing, employing a deep reinforcement learning (DRL) approach. Unlike other optimization techniques, such as integer linear programming or genetic algorithms, DRL models are applied in real time to solve similar problem situations after training. Our model comprises a learning process featuring a graph neural network and two actor-critics, providing a holistic perspective on the priorities concerning interconnected services that constitute an application. The learning model incorporates the relationships between services as a crucial factor in placement decisions: Services with higher dependencies take precedence in location selection. Our experimental investigation involves illustrative cases where we compare our results with baseline strategies and genetic algorithms. We observed a comparable Pareto set with negligible execution times, measured in the order of milliseconds, in contrast to the hours required by alternative approaches.",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14649v1",
+    "category": "cs.DC"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "query": "Cloud Native Systems. Students should learn container orchestration, observability, serverless deployment, resilience, and distributed system operations.. Topics: containers, Kubernetes, microservices, observability",
+  "prompt": "You are evaluating whether current computing curriculum should be updated.\n\nCS2023 unit:\nTitle: Cloud Native Systems\nDescription: Students should learn container orchestration, observability, serverless deployment, resilience, and distributed system operations.\nCurrent topics: containers, Kubernetes, microservices, observability\n\nRetrieved evidence (cite using SOURCE_ID values exactly as shown):\n[1] SOURCE_ID=ax_cloud_observability | source=arxiv | date=2025-08-30 | score=0.612\n    title=Observability for Cloud Native Microservices\n    Cloud native systems use containers, service meshes, serverless functions, and Kubernetes control planes. Recent practice emphasizes distributed tracing, service - level objectives, resilience testing, and automated incident response. Observability data helps operators diagnose latency, cascading failures, and resource saturation across microservices.\n\n[2] SOURCE_ID=gh_emissary_ingress_emissary | source=github_readme | date=2026-05-13 | score=0.521\n    title=emissary-ingress/emissary: open source Kubernetes-native API gateway for microservices built on the Envoy P\n    gRPC and HTTP / 2 ], [ TCP ], and [ web sockets ]), and Kubernetes integration * Manage changes to routing with an easy to use declarative policy engine and [ self - service configuration ], via \u2026\n\n[3] SOURCE_ID=wwr_close_senior_software_engineer_backend_python_usa_only_100_remot | source=job_posting | date=2026-05-14 | score=0.444\n    title=Close: Senior Software Engineer - Backend/Python - USA Only (100% Remote)\n    nbsp; Our backend tech stack consists primarily of Python Flask web apps with our TaskTiger scheduler handling many of the backend asynchronous task processing chores. Our data stores include MongoDB, PostgreSQL, Elasticsearch, and Redis. The underlying infrastructure runs on AWS using a combination of managed services like EKS, MSK, RDS and ElasticCache and non - managed services running on EC2 instances. We have CI / CD pipelines that build Docker images, run automated tests and deploy to Kubernetes clusters. We also use these images in our local development environment allowing coding locally against all of our services. We have a well - documented public API that is consumed by our front - end JavaScript app as well as numerous integrations. Our infrastructure is heavily automated using Terraform, Ansible and other AWS tools. & nbsp; Our product development process is inspired by Shape Up.\n\n[4] SOURCE_ID=so_kubernetes_slo | source=stackoverflow | date=2024-12-14 | score=0.397\n    title=Tracking SLOs for Kubernetes services\n    For Kubernetes services, teams usually define service - level indicators for request latency, error rates, and availability. Prometheus metrics, OpenTelemetry traces, and alert policies can be combined to track SLO burn rates and identify failing deployments before customers report incidents.\n\n[5] SOURCE_ID=wwr_close_senior_software_engineer_backend_python_usa_only_100_remot | source=job_posting | date=2026-05-14 | score=0.378\n    title=Close: Senior Software Engineer - Backend/Python - USA Only (100% Remote)\n    numerous integrations. Our infrastructure is heavily automated using Terraform, Ansible and other AWS tools. & nbsp; Our product development process is inspired by Shape Up. We love open sourcing our code and ideas on our GitHub and on The Making of Close, our behind - the - scenes Product & amp; Engineering blog. Check out our open source projects like SocketShark, TaskTiger, LimitLion and ciso8601. & nbsp; & nbsp; About the Role You will be joining one of our six cross - functional teams. These are the CRM, Admin & amp; Onboarding, Conversations, Messaging & amp; Scheduling, Automations & amp; Integrations and Data \u2026\n\n[6] SOURCE_ID=gh_ats_scaleai_4654510005 | source=job_posting | date=2026-05-08 | score=0.359\n    title=AI Applications Ops Lead, GPS \u2014 Scaleai (Doha, Qatar; London, UK\n    services to spread the impact of AI & lt; / li & gt; & lt; / ul & gt; & lt; p & gt; As a Production AI Ops Lead, you will design and develop the production lifecycle of full - stack AI applications, while supporting end - to - end system reliability, real - time inference observability, sovereign data orchestration, high - security software integration, and the resilient cloud infrastructure required for our international government partners. & lt; / p & gt; & lt; p & gt; At Scale, we \u2019 re not just building AI solutions \u2014 we \u2019 re enabling the public sector to transform their operations and better serve citizens through cutting - edge technology. If you \u2019 re ready to shape the future of AI in the public sector and be a founding member of our\n\n[7] SOURCE_ID=ax_2605_14649v1 | source=arxiv | date=2026-05-14 | score=0.304\n    title=Multi-objective application placement in fog computing using graph neural network-based reinforcement learning\n    We propose a framework designed to tackle a multi - objective optimization challenge related to the placement of applications in fog computing, employing a deep reinforcement learning (DRL) approach. Unlike other optimization techniques, such as integer linear programming or genetic algorithms, DRL models are applied in real time to solve similar problem situations after training. Our model comprises a learning process featuring a graph neural network and two actor - critics, providing a holistic perspective on the priorities concerning interconnected services that constitute an application. The learning model incorporates the relationships between services as a crucial factor in placement decisions: Services with higher dependencies take precedence in location selection. Our experimental investigation involves illustrative cases where we compare our results with baseline strategies and genetic algorithms. We observed a comparable Pareto set with negligible execution times, measured in the order of milliseconds, in contrast to the\n\n[8] SOURCE_ID=so_41509439 | source=stackoverflow | date=2017-01-06 | score=0.252\n    title=Difference between ClusterIP, NodePort and LoadBalancer service types in Kubernetes?\n    Question 1 - I ' m reading the documentation and I ' m slightly confused with the wording. It says: ClusterIP: Exposes the service on a cluster - internal IP. Choosing this value makes the service only reachable from within the cluster. This is the default ServiceType NodePort: Exposes the service on each Node \u2019 s IP at a static port (the NodePort). A ClusterIP service, to which the NodePort service will route, is automatically created. You \u2019 ll be able to contact the NodePort service, from outside the cluster, by requesting & lt; NodeIP & gt;: & lt; NodePort & gt;. LoadBalancer: Exposes the service externally using a cloud provider \u2019 s load balancer. NodePort and ClusterIP services, to which the external load balancer will route, are automatically created. Does the NodePort service type\n\nAvailable SOURCE_IDs you may cite: ['ax_cloud_observability', 'gh_emissary_ingress_emissary', 'wwr_close_senior_software_engineer_backend_python_usa_only_100_remot', 'so_kubernetes_slo', 'wwr_close_senior_software_engineer_backend_python_usa_only_100_remot', 'gh_ats_scaleai_4654510005', 'ax_2605_14649v1', 'so_41509439']\n\nReturn ONLY a JSON object with these exact fields:\n- signal_strength: one of \"high\", \"medium\", \"low\"\n- summary: 2-3 sentences. After every factual claim write the SOURCE_ID in parentheses, e.g. (jp_001).\n- emerging_topics: array of concise topic strings (max 8)\n- evidence_ids: array of SOURCE_ID strings you cited (must be from the available list above)\n\nRules:\n- Only cite SOURCE_IDs from the available list above \u2014 never invent new IDs.\n- Do not introduce facts not present in the retrieved evidence.\n",
+  "evidence": [
+    {
+      "chunk_id": "ax_cloud_observability_c0",
+      "parent_id": "ax_cloud_observability",
+      "title": "Observability for Cloud Native Microservices",
+      "source": "arxiv",
+      "date": "2025-08-30",
+      "similarity": 0.6925,
+      "score": 0.6123,
+      "text": "Cloud native systems use containers, service meshes, serverless functions, and Kubernetes control planes. Recent practice emphasizes distributed tracing, service - level objectives, resilience testing, and automated incident response. Observability data helps operators diagnose latency, cascading failures, and resource saturation across microservices."
+    },
+    {
+      "chunk_id": "gh_emissary_ingress_emissary_c3",
+      "parent_id": "gh_emissary_ingress_emissary",
+      "title": "emissary-ingress/emissary: open source Kubernetes-native API gateway for microservices built on the Envoy P",
+      "source": "github_readme",
+      "date": "2026-05-13",
+      "similarity": 0.5209,
+      "score": 0.5206,
+      "text": "gRPC and HTTP / 2 ], [ TCP ], and [ web sockets ]), and Kubernetes integration * Manage changes to routing with an easy to use declarative policy engine and [ self - service configuration ], via \u2026"
+    },
+    {
+      "chunk_id": "wwr_close_senior_software_engineer_backend_python_usa_only_100_remot_c1",
+      "parent_id": "wwr_close_senior_software_engineer_backend_python_usa_only_100_remot",
+      "title": "Close: Senior Software Engineer - Backend/Python - USA Only (100% Remote)",
+      "source": "job_posting",
+      "date": "2026-05-14",
+      "similarity": 0.4439,
+      "score": 0.4439,
+      "text": "nbsp; Our backend tech stack consists primarily of Python Flask web apps with our TaskTiger scheduler handling many of the backend asynchronous task processing chores. Our data stores include MongoDB, PostgreSQL, Elasticsearch, and Redis. The underlying infrastructure runs on AWS using a combination of managed services like EKS, MSK, RDS and ElasticCache and non - managed services running on EC2 instances. We have CI / CD pipelines that build Docker images, run automated tests and deploy to Kubernetes clusters. We also use these images in our local development environment allowing coding locally against all of our services. We have a well - documented public API that is consumed by our front - end JavaScript app as well as numerous integrations. Our infrastructure is heavily automated using Terraform, Ansible and other AWS tools. & nbsp; Our product development process is inspired by Shape Up."
+    },
+    {
+      "chunk_id": "so_kubernetes_slo_c0",
+      "parent_id": "so_kubernetes_slo",
+      "title": "Tracking SLOs for Kubernetes services",
+      "source": "stackoverflow",
+      "date": "2024-12-14",
+      "similarity": 0.488,
+      "score": 0.3965,
+      "text": "For Kubernetes services, teams usually define service - level indicators for request latency, error rates, and availability. Prometheus metrics, OpenTelemetry traces, and alert policies can be combined to track SLO burn rates and identify failing deployments before customers report incidents."
+    },
+    {
+      "chunk_id": "wwr_close_senior_software_engineer_backend_python_usa_only_100_remot_c2",
+      "parent_id": "wwr_close_senior_software_engineer_backend_python_usa_only_100_remot",
+      "title": "Close: Senior Software Engineer - Backend/Python - USA Only (100% Remote)",
+      "source": "job_posting",
+      "date": "2026-05-14",
+      "similarity": 0.3783,
+      "score": 0.3783,
+      "text": "numerous integrations. Our infrastructure is heavily automated using Terraform, Ansible and other AWS tools. & nbsp; Our product development process is inspired by Shape Up. We love open sourcing our code and ideas on our GitHub and on The Making of Close, our behind - the - scenes Product & amp; Engineering blog. Check out our open source projects like SocketShark, TaskTiger, LimitLion and ciso8601. & nbsp; & nbsp; About the Role You will be joining one of our six cross - functional teams. These are the CRM, Admin & amp; Onboarding, Conversations, Messaging & amp; Scheduling, Automations & amp; Integrations and Data \u2026"
+    },
+    {
+      "chunk_id": "gh_ats_scaleai_4654510005_c1",
+      "parent_id": "gh_ats_scaleai_4654510005",
+      "title": "AI Applications Ops Lead, GPS \u2014 Scaleai (Doha, Qatar; London, UK",
+      "source": "job_posting",
+      "date": "2026-05-08",
+      "similarity": 0.3604,
+      "score": 0.3592,
+      "text": "services to spread the impact of AI & lt; / li & gt; & lt; / ul & gt; & lt; p & gt; As a Production AI Ops Lead, you will design and develop the production lifecycle of full - stack AI applications, while supporting end - to - end system reliability, real - time inference observability, sovereign data orchestration, high - security software integration, and the resilient cloud infrastructure required for our international government partners. & lt; / p & gt; & lt; p & gt; At Scale, we \u2019 re not just building AI solutions \u2014 we \u2019 re enabling the public sector to transform their operations and better serve citizens through cutting - edge technology. If you \u2019 re ready to shape the future of AI in the public sector and be a founding member of our"
+    },
+    {
+      "chunk_id": "ax_2605_14649v1_c0",
+      "parent_id": "ax_2605_14649v1",
+      "title": "Multi-objective application placement in fog computing using graph neural network-based reinforcement learning",
+      "source": "arxiv",
+      "date": "2026-05-14",
+      "similarity": 0.3039,
+      "score": 0.3039,
+      "text": "We propose a framework designed to tackle a multi - objective optimization challenge related to the placement of applications in fog computing, employing a deep reinforcement learning (DRL) approach. Unlike other optimization techniques, such as integer linear programming or genetic algorithms, DRL models are applied in real time to solve similar problem situations after training. Our model comprises a learning process featuring a graph neural network and two actor - critics, providing a holistic perspective on the priorities concerning interconnected services that constitute an application. The learning model incorporates the relationships between services as a crucial factor in placement decisions: Services with higher dependencies take precedence in location selection. Our experimental investigation involves illustrative cases where we compare our results with baseline strategies and genetic algorithms. We observed a comparable Pareto set with negligible execution times, measured in the order of milliseconds, in contrast to the"
+    },
+    {
+      "chunk_id": "so_41509439_c0",
+      "parent_id": "so_41509439",
+      "title": "Difference between ClusterIP, NodePort and LoadBalancer service types in Kubernetes?",
+      "source": "stackoverflow",
+      "date": "2017-01-06",
+      "similarity": 0.3598,
+      "score": 0.252,
+      "text": "Question 1 - I ' m reading the documentation and I ' m slightly confused with the wording. It says: ClusterIP: Exposes the service on a cluster - internal IP. Choosing this value makes the service only reachable from within the cluster. This is the default ServiceType NodePort: Exposes the service on each Node \u2019 s IP at a static port (the NodePort). A ClusterIP service, to which the NodePort service will route, is automatically created. You \u2019 ll be able to contact the NodePort service, from outside the cluster, by requesting & lt; NodeIP & gt;: & lt; NodePort & gt;. LoadBalancer: Exposes the service externally using a cloud provider \u2019 s load balancer. NodePort and ClusterIP services, to which the external load balancer will route, are automatically created. Does the NodePort service type"
+    }
+  ],
+  "recommendation": {
+    "signal_strength": "high",
+    "summary": "The current computing curriculum on Cloud Native Systems should be updated to include more emphasis on resilience testing and automated incident response, as these are critical for diagnosing issues in microservices (ax_cloud_observability). Additionally, the integration of service-level objectives (SLOs) and observability practices is essential for tracking performance and reliability in Kubernetes environments (so_kubernetes_slo).",
+    "emerging_topics": [
+      "resilience testing",
+      "automated incident response",
+      "service-level objectives",
+      "distributed tracing",
+      "cloud infrastructure",
+      "observability practices",
+      "serverless deployment",
+      "microservices management"
+    ],
+    "evidence_ids": [
+      "ax_cloud_observability",
+      "so_kubernetes_slo"
+    ]
+  },
+  "citation_check": {
+    "passed": true,
+    "cited_ids": [
+      "ax_cloud_observability",
+      "so_kubernetes_slo"
+    ],
+    "retrieved_ids": [
+      "ax_2605_14649v1",
+      "ax_cloud_observability",
+      "gh_ats_scaleai_4654510005",
+      "gh_emissary_ingress_emissary",
+      "so_41509439",
+      "so_kubernetes_slo",
+      "wwr_close_senior_software_engineer_backend_python_usa_only_100_remot"
+    ],
+    "missing_ids": []
+  },
+  "audit_id": 11
+}

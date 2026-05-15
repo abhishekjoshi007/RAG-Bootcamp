@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14839v1",
+  "title": "GenAI for Energy-Efficient and Interference-Aware Compressed Sensing of GNSS Signals on a Google Edge TPU",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Traditional methods for classifying global navigation satellite system (GNSS) jamming signals typically involve post-processing raw or spectral data streams, requiring complex and costly data transmission to cloud-based interference classification systems. In contrast, our proposed approach efficiently compresses GNSS data streams directly at the hardware receiver while simultaneously classifying jamming and spoofing attacks in real time. Given the growing prevalence of GNSS jamming, there is a critical need for real-time solutions suitable for power-constrained environments. This paper introduces a novel method for compressing and classifying GNSS jamming threats using generative artificial intelligence (GenAI), specifically variational autoencoders (VAEs), deployed on Google Edge tensor processing units (TPUs). The study evaluates various autoencoder (AE) architectures to compress and reconstruct GNSS signals, focusing on preserving interference characteristics while minimizing data size near the receiver hardware. The pipeline adapts large-scale AE models for Google Edge TPUs through 8-bit quantization to ensure energy-efficient deployment. Tests on raw in-phase and …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14839v1",
+    "category": "cs.LG"
+  }
+}

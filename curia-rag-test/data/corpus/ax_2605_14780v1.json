@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14780v1",
+  "title": "Mat2Boundary: Treating User-Defined Boundary Condition as SpMV for Distributed PDE Solvers on Block-Structured Grids",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Boundary-condition (BC) handling is a major source of complexity in PDE solvers on structured and block-structured grids, especially for high-order methods and distributed-memory execution. We present Mat2Boundary, a DSL and compiler for boundary computations that models a broad class of boundary-conditions as affine sparse linear operators. This abstraction unifies halo copying, circular and symmetric mappings, zero padding, block-edge synchronization, and user-defined interpolation, while exposing a modular basic sub-matrix interface for declarative composition. To make this representation efficient, Mat2Boundary combines multi-stage programming and polyhedral analysis to generate matrix-free kernels for structured cases, support user-defined sparse matrices for irregular cases, eliminate redundant boundary work, and synthesize reusable communication schedules for distributed execution. Evaluated on two shallow-water equation solvers on cubed-sphere grids and HPCG, Mat2Boundary achieves up to 7.6$\\times$ BC-kernel speedup, reduces BC code by over 70%, and scales to 1,344 CPU cores with 72%-88% efficiency.",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14780v1",
+    "category": "cs.DC"
+  }
+}

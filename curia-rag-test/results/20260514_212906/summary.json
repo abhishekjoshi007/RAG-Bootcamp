@@ -1,0 +1,22 @@
+{
+  "results_dir": "results/20260514_212906",
+  "retrieval": {},
+  "faithfulness": {},
+  "relevance_mean": null,
+  "adversarial_max_drop": null,
+  "targets": {
+    "recall@8_min": 0.7,
+    "citation_precision_min": 0.95,
+    "claim_grounding_min": 0.85,
+    "relevance_mean_min": 3.5,
+    "adversarial_max_drop": 0.3
+  },
+  "targets_passed": {
+    "recall@8": false,
+    "citation_precision": false,
+    "claim_grounding": false,
+    "relevance_mean": false,
+    "adversarial_drop": false
+  },
+  "all_targets_met": false
+}

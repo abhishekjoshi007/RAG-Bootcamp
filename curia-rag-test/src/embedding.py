@@ -7,6 +7,8 @@ from collections import Counter
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
+from .config import EMBED_BATCH_SIZE
+
 
 TERM_RE = re.compile(r"[a-zA-Z][a-zA-Z0-9_+#]*")
 
@@ -69,16 +71,23 @@ class DenseEmbedder:
     @property
     def _loaded(self) -> SentenceTransformer:
         if self._model is None:
-            self._model = SentenceTransformer(self.model_name)
+            import torch
+            # Force single-threaded CPU: MPS and multi-threaded BLAS both
+            # cause segfaults on macOS when encoding large batches.
+            torch.set_num_threads(1)
+            self._model = SentenceTransformer(self.model_name, device="cpu")
         return self._model
 
     def embed(self, text: str) -> np.ndarray:
-        return self._loaded.encode(text, normalize_embeddings=True).astype(np.float32)
+        return self._loaded.encode(
+            text, normalize_embeddings=True, convert_to_numpy=True
+        ).astype(np.float32)
 
-    def embed_many(self, texts: list[str], batch_size: int = 32) -> np.ndarray:
+    def embed_many(self, texts: list[str], batch_size: int = EMBED_BATCH_SIZE) -> np.ndarray:
         return self._loaded.encode(
             texts,
             normalize_embeddings=True,
             batch_size=batch_size,
             show_progress_bar=len(texts) > 50,
+            convert_to_numpy=True,
         ).astype(np.float32)

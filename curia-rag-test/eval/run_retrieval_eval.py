@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from src.indexing import InMemoryIndex
+from src.indexing import FaissIndex
 from src.query import build_query
 from src.retrieval import Retriever
 from src.storage import build_index_from_corpus, get_unit, load_units
@@ -46,9 +46,9 @@ def unique_parent_ids(results) -> list[str]:
 
 
 def main() -> None:
-    index_path = ROOT / "audit" / "local_index.pkl"
+    index_path = ROOT / "audit" / "faiss_index.pkl"
     if index_path.exists():
-        index = InMemoryIndex.load(index_path)
+        index = FaissIndex.load(index_path)
     else:
         index = build_index_from_corpus(ROOT / "data" / "corpus")
         index.save(index_path)
@@ -80,7 +80,7 @@ def main() -> None:
 
     count = max(len(rows), 1)
     aggregate = {key: round(value / count, 4) for key, value in totals.items()}
-    print(json.dumps({"aggregate": aggregate}, indent=2))
+    print(json.dumps({"aggregate": aggregate}))
 
 
 if __name__ == "__main__":

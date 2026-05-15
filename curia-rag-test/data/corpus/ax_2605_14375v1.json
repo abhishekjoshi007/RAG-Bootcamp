@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14375v1",
+  "title": "Semi-Synchronous Exploration in Dynamic Graphs",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "We study the fundamental problem of graph exploration in dynamic graphs using mobile agents. We consider $1$-interval connected dynamic graphs, where the topology may change arbitrarily from round to round as long as the graph remains connected, and edges are assigned with the dynamic port labeling at each round. The execution follows a semi-synchronous scheduler, under which an adversary may deactivate an arbitrary subset of agents in each round. For a graph with $n$ nodes and $k$ agents, we show that exploration is impossible if the adversary can deactivate at least $ \\left\\lceil \\frac{k}{n-2} \\right\\rceil - 1$ agents per round, even when agents are equipped with unbounded memory, have global communication and full visibility. This yields an upper bound, implying that exploration is solvable only when the adversary deactivates at most $\\left\\lceil \\frac{k}{n-2} \\right\\rceil - 2$ agents per round. We further establish that achieving exploration at this threshold requires agents to have both $1$-hop visibility and $1$-hop communication. Finally, we present the exploration algorithm using $k$ agents when the adversary deactivates at most $ \\left\\lceil \\frac{k}{n-2} \\right\\rceil - …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14375v1",
+    "category": "cs.DC"
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "university": "Texas A&M University",
+  "short_name": "TAMU",
+  "field": "Computer Science",
+  "degree": "B.S. Computer Science",
+  "department": "Department of Computer Science and Engineering (CSCE)",
+  "website": "https://engineering.tamu.edu/csce",
+  "curriculum_year": 2024,
+  "units": [
+    {
+      "id": "tamu_cs_ds",
+      "title": "Data Structures and Algorithm Design",
+      "description": "Fundamental data structures including lists, stacks, queues, trees, graphs, and hash tables. Algorithm analysis and design paradigms including divide-and-conquer, dynamic programming, and greedy algorithms.",
+      "courses": ["CSCE 221", "CSCE 411"],
+      "current_topics": ["linked lists", "binary search trees", "graph algorithms", "complexity analysis", "sorting algorithms"],
+      "cs2023_area": "Algorithms and Complexity"
+    },
+    {
+      "id": "tamu_cs_arch",
+      "title": "Computer Architecture and Organization",
+      "description": "Digital logic, processor design, memory hierarchy, instruction set architecture, pipelining, and performance evaluation of computer systems.",
+      "courses": ["CSCE 312", "CSCE 313"],
+      "current_topics": ["RISC-V", "cache memory", "pipeline hazards", "virtual memory", "I/O systems"],
+      "cs2023_area": "Architecture and Organization"
+    },
+    {
+      "id": "tamu_cs_os",
+      "title": "Operating Systems",
+      "description": "Process management, memory management, file systems, synchronization primitives, scheduling algorithms, and system calls.",
+      "courses": ["CSCE 410", "CSCE 313"],
+      "current_topics": ["process scheduling", "virtual memory", "file systems", "concurrency", "semaphores"],
+      "cs2023_area": "Operating Systems"
+    },
+    {
+      "id": "tamu_cs_sw",
+      "title": "Software Engineering and Development",
+      "description": "Software development lifecycle, requirements engineering, design patterns, testing methodologies, version control, and agile development practices.",
+      "courses": ["CSCE 431", "CSCE 440", "CSCE 482"],
+      "current_topics": ["agile", "UML", "unit testing", "CI/CD", "design patterns", "requirements specification"],
+      "cs2023_area": "Software Engineering"
+    },
+    {
+      "id": "tamu_cs_ai",
+      "title": "Artificial Intelligence and Machine Learning",
+      "description": "Search algorithms, knowledge representation, machine learning fundamentals, neural networks, natural language processing, and generative AI systems.",
+      "courses": ["CSCE 421", "CSCE 636", "CSCE 689"],
+      "current_topics": ["search", "neural networks", "supervised learning", "deep learning", "NLP"],
+      "cs2023_area": "Intelligent Systems"
+    },
+    {
+      "id": "tamu_cs_llm",
+      "title": "Generative AI and Large Language Models",
+      "description": "Transformer architectures, pre-training and fine-tuning, prompt engineering, retrieval-augmented generation, AI alignment, and responsible deployment of large language models.",
+      "courses": ["CSCE 636", "CSCE 689"],
+      "current_topics": ["transformers", "prompt engineering", "RLHF", "RAG", "model evaluation"],
+      "cs2023_area": "Intelligent Systems"
+    },
+    {
+      "id": "tamu_cs_sec",
+      "title": "Software Supply Chain Security",
+      "description": "Dependency management, vulnerability scanning, software bill of materials (SBOM), provenance verification, CI/CD pipeline security, and policy-as-code enforcement.",
+      "courses": ["CSCE 465", "CSCE 481"],
+      "current_topics": ["SBOM", "vulnerability scanning", "dependency management", "DevSecOps", "static analysis"],
+      "cs2023_area": "Information Assurance and Security"
+    },
+    {
+      "id": "tamu_cs_crypto",
+      "title": "Cryptography and Network Security",
+      "description": "Symmetric and asymmetric cryptography, PKI, TLS/SSL, network protocols, intrusion detection, and security policy frameworks.",
+      "courses": ["CSCE 465", "CSCE 463"],
+      "current_topics": ["AES", "RSA", "TLS", "firewalls", "intrusion detection"],
+      "cs2023_area": "Information Assurance and Security"
+    },
+    {
+      "id": "tamu_cs_cloud",
+      "title": "Cloud Native Systems and Infrastructure",
+      "description": "Container orchestration with Kubernetes, microservices architecture, serverless computing, distributed tracing, service-level objectives, and cloud observability.",
+      "courses": ["CSCE 412", "CSCE 435"],
+      "current_topics": ["Kubernetes", "Docker", "microservices", "serverless", "observability", "SLOs"],
+      "cs2023_area": "Parallel and Distributed Computing"
+    },
+    {
+      "id": "tamu_cs_net",
+      "title": "Computer Networks",
+      "description": "Network protocols, TCP/IP stack, routing algorithms, congestion control, wireless networks, software-defined networking, and network programming.",
+      "courses": ["CSCE 463", "CSCE 464"],
+      "current_topics": ["TCP/IP", "routing", "DNS", "HTTP/2", "SDN", "network security"],
+      "cs2023_area": "Networking and Communications"
+    },
+    {
+      "id": "tamu_cs_db",
+      "title": "Database Systems and Data Engineering",
+      "description": "Relational and non-relational databases, SQL, query optimization, transaction management, distributed databases, and modern data pipeline architectures.",
+      "courses": ["CSCE 315", "CSCE 450"],
+      "current_topics": ["SQL", "indexing", "NoSQL", "ACID", "data pipelines", "vector databases"],
+      "cs2023_area": "Data Management"
+    },
+    {
+      "id": "tamu_cs_pl",
+      "title": "Programming Languages and Compilers",
+      "description": "Language paradigms, type systems, lexical analysis, parsing, code generation, and runtime systems.",
+      "courses": ["CSCE 434", "CSCE 314"],
+      "current_topics": ["type inference", "parsing", "functional programming", "garbage collection", "LLVM"],
+      "cs2023_area": "Programming Languages"
+    }
+  ]
+}

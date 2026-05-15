@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14750v1",
+  "title": "EVA: Editing for Versatile Alignment against Jailbreaks",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Large Language Models (LLMs) and Vision Language Models (VLMs) have demonstrated impressive capabilities but remain vulnerable to jailbreaking attacks, where adversaries exploit textual or visual triggers to bypass safety guardrails. Recent defenses typically rely on safety fine-tuning or external filters to reduce the model's likelihood of producing harmful content. While effective to some extent, these methods often incur significant computational overheads and suffer from the safety utility trade-off, degrading the model's performance on benign tasks. To address these challenges, we propose EVA (Editing for Versatile Alignment against Jailbreaks), a novel framework that pioneers the application of direct model editing for safety alignment. EVA reframes safety alignment as a precise knowledge correction task. Instead of retraining massive parameters, EVA identifies and surgically edits specific neurons responsible for the model's susceptibility to harmful instructions, while leaving the vast majority of the model unchanged. By localizing the updates, EVA effectively neutralizes harmful behaviors without compromising the model's general reasoning capabilities. Extensive …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14750v1",
+    "category": "cs.CR"
+  }
+}

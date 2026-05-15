@@ -1,0 +1,13 @@
+{
+  "id": "so_76451205",
+  "title": "Difference between Instruction Tuning vs Non Instruction Tuning Large Language Models",
+  "source": "stackoverflow",
+  "date": "2023-06-11",
+  "text": "What is the difference between instruction tuning and normal fine-tuning for large language models? \n Also the instruction-tuning I'm referring to isn't the in-context/prompt one. \n All the recent papers about fine-tuning seem to be about instruction tuning. \n I have looked at a couple of papers about fine-tuning/instruction tuning (e.g. FLAN) and none really describe the difference between instruction tuning and the alternatives (whatever the alternatives are). \n I understand instruction-tuning is a form of fine-tuning but with an instruction dataset. But are all datasets not instruction datasets? What other kinds are there?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/76451205/difference-between-instruction-tuning-vs-non-instruction-tuning-large-language-m",
+    "score": 28,
+    "tag": "large-language-model"
+  }
+}

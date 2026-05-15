@@ -1,0 +1,11 @@
+{"query_id": "cs_ai_01", "retrieved": ["gh_huggingface_transformers", "jp_llm_engineer", "ax_2605_14503v1", "ax_2605_14750v1", "ax_2605_14460v1", "gh_langchain_ai_langchain", "ax_2605_14833v1"], "recall@4": 0.3333333333333333, "recall@8": 0.3333333333333333, "mrr": 0.5, "ndcg@8": 0.2960819109658652}
+{"query_id": "cs_sec_01", "retrieved": ["gh_supply_chain", "jp_devsecops", "wwr_vercel_senior_product_security_engineerhttps_weworkremotely_com_", "uj_q2_2026_0006", "uj_ustc_26_12956939_dh", "uj_csd_dha_12958816_26_kr", "gh_metarget_metarget", "gh_ats_vercel_5789770004"], "recall@4": 1.0, "recall@8": 1.0, "mrr": 1.0, "ndcg@8": 1.0}
+{"query_id": "cs_cloud_01", "retrieved": ["ax_cloud_observability", "gh_emissary_ingress_emissary", "gh_infiniflow_ragflow", "gh_serverless_ops", "wwr_close_senior_software_engineer_backend_python_usa_only_100_remot", "gh_prowler_cloud_prowler", "gh_metarget_metarget", "so_kubernetes_slo"], "recall@4": 0.6666666666666666, "recall@8": 1.0, "mrr": 1.0, "ndcg@8": 0.8194270280062366}
+{
+  "aggregate": {
+    "recall@4": 0.6667,
+    "recall@8": 0.7778,
+    "mrr": 0.8333,
+    "ndcg@8": 0.7052
+  }
+}

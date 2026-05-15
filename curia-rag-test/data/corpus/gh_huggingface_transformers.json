@@ -1,0 +1,13 @@
+{
+  "id": "gh_huggingface_transformers",
+  "title": "huggingface/transformers: 🤗 Transformers: the model-definition framework for state-of-the-art machine lear",
+  "source": "github_readme",
+  "date": "2026-05-15",
+  "text": "English  |\n         简体中文  |\n         繁體中文  |\n         한국어  |\n         Español  |\n         日本語  |\n         हिन्दी  |\n         Русский  |\n         Português  |\n         తెలుగు  |\n         Français  |\n         Deutsch  |\n         Italiano  |\n         Tiếng Việt  |\n         العربية  |\n         اردو  |\n         বাংলা  |\n         فارسی  |\n     \n \n\n \n     State-of-the-art pretrained models for inference and training \n \n\n \n     \n \n\nTransformers acts as the model-definition framework for state-of-the-art machine learning with text, computer\nvision, audio, video, and multimodal models, for both inference and training.\n\nIt centralizes the model definition so that this definition is agreed upon across the ecosystem. `transformers` is the\npivot across frameworks: if a model definition is supported, it will be compatible with the majority of training\nframeworks (Axolotl, Unsloth, DeepSpeed, FSDP, PyTorch-Lightning, ...), inference engines (vLLM, SGLang, TGI, ...),\nand adjacent modeling libraries (llama.cpp, mlx, ...) which leverage the model definition from `transformers`.\n\nWe pledge to help support new state-of-the-art models and democratize their usage by having their model definition be\nsimple, customizable, and efficient.\n\nThere are over 1M+ Transformers [model checkpoints](https://huggingface.co/models?library=transformers&sort=trending) on the [Hugging Face Hub](https://huggingface.com/models) you can use.\n\nExplore the [Hub](https://huggingface.com/) today to find a model and use …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/huggingface/transformers",
+    "stars": 160623,
+    "topic": "machine-learning"
+  }
+}

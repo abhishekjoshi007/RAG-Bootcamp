@@ -1,0 +1,75 @@
+{
+  "university": "Texas A&M University",
+  "short_name": "TAMU",
+  "field": "Electrical Engineering",
+  "degree": "B.S. Electrical Engineering",
+  "department": "Department of Electrical and Computer Engineering (ECE)",
+  "website": "https://engineering.tamu.edu/electrical",
+  "curriculum_year": 2024,
+  "units": [
+    {
+      "id": "tamu_ee_signals",
+      "title": "Signals, Systems and Digital Signal Processing",
+      "description": "Continuous and discrete-time signals, Fourier transforms, Laplace transforms, filter design, sampling theory, and digital signal processing algorithms.",
+      "courses": ["ECEN 314", "ECEN 315", "ECEN 414"],
+      "current_topics": ["Fourier analysis", "Z-transforms", "FIR/IIR filters", "FFT", "sampling theorem"],
+      "cs2023_area": "Computational Science"
+    },
+    {
+      "id": "tamu_ee_embedded",
+      "title": "Embedded Systems and IoT",
+      "description": "Microcontroller programming, real-time operating systems, hardware-software co-design, sensor interfacing, and IoT architectures and protocols.",
+      "courses": ["ECEN 449", "ECEN 350"],
+      "current_topics": ["ARM Cortex", "RTOS", "UART/SPI/I2C", "MQTT", "edge computing"],
+      "cs2023_area": "Architecture and Organization"
+    },
+    {
+      "id": "tamu_ee_ml",
+      "title": "Machine Learning for Electrical Engineers",
+      "description": "Statistical learning theory, regression, classification, neural networks, and deep learning applications in signal processing, control systems, and power systems.",
+      "courses": ["ECEN 489", "ECEN 649"],
+      "current_topics": ["linear regression", "CNNs", "reinforcement learning", "edge AI", "model compression"],
+      "cs2023_area": "Intelligent Systems"
+    },
+    {
+      "id": "tamu_ee_power_ml",
+      "title": "AI and Generative Models in Power Systems",
+      "description": "Application of large language models, transformer architectures, and generative AI to power system monitoring, fault detection, grid optimization, and automated reporting.",
+      "courses": ["ECEN 489", "ECEN 689"],
+      "current_topics": ["transformers", "time-series forecasting", "LLM fine-tuning", "anomaly detection", "grid AI"],
+      "cs2023_area": "Intelligent Systems"
+    },
+    {
+      "id": "tamu_ee_sec",
+      "title": "Cyber-Physical Systems Security",
+      "description": "Security of industrial control systems, SCADA security, firmware vulnerability analysis, hardware security, and supply chain risks in embedded systems.",
+      "courses": ["ECEN 489", "ECEN 676"],
+      "current_topics": ["SCADA security", "firmware analysis", "hardware trojans", "ICS security", "supply chain attacks"],
+      "cs2023_area": "Information Assurance and Security"
+    },
+    {
+      "id": "tamu_ee_cloud",
+      "title": "Cloud Computing for Engineering Applications",
+      "description": "Cloud platforms for engineering workloads, distributed computing, serverless data pipelines, and infrastructure for large-scale simulation and data analysis.",
+      "courses": ["ECEN 489", "ECEN 615"],
+      "current_topics": ["AWS/GCP", "HPC on cloud", "containerized simulations", "data lake", "serverless"],
+      "cs2023_area": "Parallel and Distributed Computing"
+    },
+    {
+      "id": "tamu_ee_comm",
+      "title": "Wireless Communications and 5G/6G",
+      "description": "Modulation techniques, channel coding, OFDM, MIMO, 5G NR architecture, network slicing, and emerging 6G technologies.",
+      "courses": ["ECEN 455", "ECEN 664"],
+      "current_topics": ["OFDM", "MIMO", "5G NR", "beamforming", "network slicing"],
+      "cs2023_area": "Networking and Communications"
+    },
+    {
+      "id": "tamu_ee_vlsi",
+      "title": "VLSI Design and Hardware Acceleration",
+      "description": "CMOS circuit design, digital VLSI, hardware description languages, FPGA design, custom AI accelerators, and hardware-software co-design.",
+      "courses": ["ECEN 454", "ECEN 651"],
+      "current_topics": ["Verilog/VHDL", "synthesis", "FPGAs", "GPU architecture", "AI chips"],
+      "cs2023_area": "Architecture and Organization"
+    }
+  ]
+}

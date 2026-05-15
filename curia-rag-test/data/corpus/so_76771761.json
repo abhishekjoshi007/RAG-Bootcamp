@@ -1,0 +1,13 @@
+{
+  "id": "so_76771761",
+  "title": "Why does llama-index still require an OpenAI key when using Hugging Face local embedding model?",
+  "source": "stackoverflow",
+  "date": "2023-07-26",
+  "text": "I am creating a very simple question and answer app based on documents using llama-index. Previously, I had it working with OpenAI. Now I want to try using no external APIs so I'm trying the Hugging Face example  in this link . \n It says in the example in the link: &quot;Note that for a completely private experience, also setup a local embedding model (example here).&quot; I'm assuming the example given below is the example being referred to. So, naturally, I'm trying to copy the example ( fuller example here ). \n Here is my code: \n  from pathlib import Path\nimport gradio as gr\nimport sys\nimport logging\nimport os\n\nfrom llama_index.llms import HuggingFaceLLM\nfrom llama_index.prompts.prompts import SimpleInputPrompt\n\nlogging.basicConfig(stream=sys.stdout, level=logging.DEBUG)\nlogging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))\n\n\nfrom llama_index import SimpleDirectoryReader, VectorStoreIndex, ServiceContext, load_index_from_storage, StorageContext\n\nstorage_path = &quot;storage/&quot;\n\ndocs_path=&quot;docs&quot;\n\ndef construct_index(directory_path):\n    max_input_size = 4096\n    num_outputs = 512\n    #max_chunk_overlap = 20\n    chunk_overlap_ratio = 0.1\n    chunk_size_limit = 600\n\n    #prompt_helper = PromptHelper(max_input_size, num_outputs, chunk_overlap_ratio, chunk_size_limit=chunk_size_limit)\n\n    system_prompt = &quot;&quot;&quot;&lt;|SYSTEM|&gt;# StableLM Tuned (Alpha version)\n    - StableLM is a helpful and harmless open-source AI language model developed by StabilityAI.\n    - StableLM is excited to be able to help the user, but will refuse to do anything that could be considered harmful to the user.\n    - StableLM is more than just an information source, StableLM is also able to write poetry, short stories, and make jokes.\n    - StableLM will refuse to participate in anything that could harm a human.\n    &quot;&quot;&quot;\n\n    # This will wrap the default prompts that are internal to llama-index\n    query_wrapper_prompt = …",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/76771761/why-does-llama-index-still-require-an-openai-key-when-using-hugging-face-local-e",
+    "score": 23,
+    "tag": "large-language-model"
+  }
+}

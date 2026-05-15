@@ -1,0 +1,13 @@
+{
+  "id": "gh_jina_ai_serve",
+  "title": "jina-ai/serve: ☁️ Build multimodal AI applications with cloud-native stack",
+  "source": "github_readme",
+  "date": "2025-03-24",
+  "text": "# Jina-Serve\n   \n   \n   \n   \n\nJina-serve is a framework for building and deploying AI services that communicate via gRPC, HTTP and WebSockets. Scale your services from local development to production while focusing on your core logic.\n\n## Key Features\n\n- Native support for all major ML frameworks and data types\n- High-performance service design with scaling, streaming, and dynamic batching\n- LLM serving with streaming output\n- Built-in Docker integration and Executor Hub\n- One-click deployment to Jina AI Cloud\n- Enterprise-ready with Kubernetes and Docker Compose support\n\n \n  Comparison with FastAPI  \n\nKey advantages over FastAPI:\n\n- DocArray-based data handling with native gRPC support\n- Built-in containerization and service orchestration\n- Seamless scaling of microservices\n- One-command cloud deployment\n \n\n## Install \n\n```bash\npip install jina\n```\n\nSee guides for [Apple Silicon](https://jina.ai/serve/get-started/install/apple-silicon-m1-m2/) and [Windows](https://jina.ai/serve/get-started/install/windows/).\n\n## Core Concepts\n\nThree main layers:\n- **Data**: BaseDoc and DocList for input/output\n- **Serving**: Executors process Documents, Gateway connects services\n- **Orchestration**: Deployments serve Executors, Flows create pipelines\n\n## Build AI Services\n\nLet's create a gRPC-based AI service using StableLM:\n\n```python\nfrom jina import Executor, requests\nfrom docarray import DocList, BaseDoc\nfrom transformers import pipeline\n\n\nclass Prompt(BaseDoc):\n    text: str\n\n\nclass …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/jina-ai/serve",
+    "stars": 21872,
+    "topic": "cloud-native"
+  }
+}

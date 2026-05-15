@@ -1,0 +1,13 @@
+{
+  "id": "so_34240703",
+  "title": "What are logits? What is the difference between softmax and softmax_cross_entropy_with_logits?",
+  "source": "stackoverflow",
+  "date": "2015-12-12",
+  "text": "In the  tensorflow API docs  they use a keyword called  logits . What is it? A lot of methods are written like: \n  tf.nn.softmax(logits, name=None)\n  \n If  logits  is just a generic  Tensor  input, why is it named  logits ? \n \n Secondly, what is the difference between the following two methods? \n  tf.nn.softmax(logits, name=None)\ntf.nn.softmax_cross_entropy_with_logits(logits, labels, name=None)\n  \n I know what  tf.nn.softmax  does, but not the other. An example would be really helpful.",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/34240703/what-are-logits-what-is-the-difference-between-softmax-and-softmax-cross-entrop",
+    "score": 488,
+    "tag": "machine-learning"
+  }
+}

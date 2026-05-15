@@ -1,0 +1,13 @@
+{
+  "id": "gh_openbb_finance_openbb",
+  "title": "OpenBB-finance/OpenBB: Financial data platform for analysts, quants and AI agents.",
+  "source": "github_readme",
+  "date": "2026-05-13",
+  "text": "[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/openbb_finance.svg?style=social&label=Follow%20%40openbb_finance)](https://x.com/openbb_finance)\n[![Discord Shield](https://img.shields.io/discord/831165782750789672)](https://discord.com/invite/xPHTuHCmuV)\n[![Open in Dev Containers](https://img.shields.io/static/v1?label=Dev%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/OpenBB-finance/OpenBB)\n \n   \n \n \n   \n \n[![PyPI](https://img.shields.io/pypi/v/openbb?color=blue&label=PyPI%20Package)](https://pypi.org/project/openbb/)\n\nOpen Data Platform by OpenBB (ODP) is the open-source toolset that helps data engineers integrate proprietary, licensed, and public data sources into downstream applications like AI copilots and research dashboards.\n\nODP operates as the \"connect once, consume everywhere\" infrastructure layer that consolidates and exposes data to multiple surfaces at once: Python environments for quants, OpenBB Workspace and Excel for analysts, MCP servers for AI agents, and REST APIs for other applications.\n\n \n   \n   \n   \n \n\nGet started with: `pip install openbb`\n\n```python\nfrom openbb import obb\noutput = obb.equity.price.historical(\"AAPL\")\ndf = output.to_dataframe()\n```\n\nData integrations available can be found here:  \n\n---\n\n## OpenBB Workspace\n\nWhile the Open Data Platform provides the open-source data integration foundation, …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/OpenBB-finance/OpenBB",
+    "stars": 67582,
+    "topic": "machine-learning"
+  }
+}

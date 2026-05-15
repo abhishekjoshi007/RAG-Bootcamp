@@ -1,0 +1,13 @@
+{
+  "id": "so_76551067",
+  "title": "How to create a langchain doc from an str?",
+  "source": "stackoverflow",
+  "date": "2023-06-25",
+  "text": "I've searched all over langchain documentation on their official website but I didn't find how to create a langchain doc from a str variable in python so I searched in their GitHub code and I found this : \n    doc=Document(\n                page_content=&quot;text&quot;,\n                metadata={&quot;source&quot;: &quot;local&quot;}\n            )\n\n  \n PS: I added the metadata attribute \nthen I tried using that doc with my chain: \nMemory and Chain: \n  memory = ConversationBufferMemory(memory_key=&quot;chat_history&quot;, input_key=&quot;human_input&quot;)\nchain = load_qa_chain(\n    llm, chain_type=&quot;stuff&quot;, memory=memory, prompt=prompt\n)\n\n  \n the call method: \n    chain({&quot;input_documents&quot;: doc, &quot;human_input&quot;: query})\n  \n prompt template: \n  template = &quot;&quot;&quot;You are a senior financial analyst analyzing the below document and having a conversation with a human.\n{context}\n{chat_history}\nHuman: {human_input}\nsenior financial analyst:&quot;&quot;&quot;\n\nprompt = PromptTemplate(\n    input_variables=[&quot;chat_history&quot;, &quot;human_input&quot;, &quot;context&quot;], template=template\n)\n  \n but I am  getting the following error: \n  AttributeError: 'tuple' object has no attribute 'page_content'\n\n  \n when I tried to check the type and the page content of the Document object before using it with the chain I got this \n  print(type(doc))\n&lt;class 'langchain.schema.Document'&gt;\nprint(doc.page_content)\n&quot;text&quot;",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/76551067/how-to-create-a-langchain-doc-from-an-str",
+    "score": 31,
+    "tag": "large-language-model"
+  }
+}

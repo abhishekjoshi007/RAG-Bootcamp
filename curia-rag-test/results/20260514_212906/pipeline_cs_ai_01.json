@@ -1,0 +1,121 @@
+{
+  "query": "Generative AI and Large Language Models. Students should understand transformer-based language models, prompt engineering, retrieval-augmented generation, alignment, evaluation, and deployment considerations.. Topics: transformers, prompt engineering, model evaluation, AI ethics",
+  "prompt": "You are evaluating whether current computing curriculum should be updated.\n\nCS2023 unit:\nTitle: Generative AI and Large Language Models\nDescription: Students should understand transformer-based language models, prompt engineering, retrieval-augmented generation, alignment, evaluation, and deployment considerations.\nCurrent topics: transformers, prompt engineering, model evaluation, AI ethics\n\nRetrieved evidence (cite using SOURCE_ID values exactly as shown):\n[1] SOURCE_ID=gh_huggingface_transformers | source=github_readme | date=2026-05-15 | score=0.618\n    title=huggingface/transformers: \ud83e\udd17 Transformers: the model-definition framework for state-of-the-art machine lear\n    English | \u7b80\u4f53\u4e2d\u6587 | \u7e41\u9ad4\u4e2d\u6587 | \ud55c\uad6d\uc5b4 | Espa\u00f1ol | \u65e5\u672c\u8a9e | \u0939 \u093f \u0928 \u094d \u0926 \u0940 | \u0420\u0443\u0441\u0441\u043a\u0438\u0439 | Portugu\u00eas | \u0c24 \u0c46 \u0c32 \u0c41 \u0c17 \u0c41 | Fran\u00e7ais | Deutsch | Italiano | Ti\u1ebfng Vi\u1ec7t | \u0627\u0644\u0639\u0631\u0628\u064a\u0629 | \u0627\u0631\u062f\u0648 | \u09ac \u09be \u0982 \u09b2 \u09be | \u0641\u0627\u0631\u0633\u06cc | State - of - the - art pretrained models for inference and training Transformers acts as the model - definition framework for state - of - the - art machine learning with text, computer vision, audio, video, and multimodal models, for both inference and training. It centralizes the model definition so that this definition is agreed upon across the ecosystem. ` transformers ` is the pivot across frameworks: if a model definition is supported, it will be compatible with the majority of training frameworks (Axolotl, Unsloth, DeepSpeed, FSDP, PyTorch - Lightning,...\n\n[2] SOURCE_ID=jp_llm_engineer | source=job_posting | date=2026-01-18 | score=0.530\n    title=Senior ML Engineer - Generative AI Platform\n    The team is hiring a senior ML engineer to build production generative AI systems. Candidates should have hands - on experience with transformer architectures, retrieval - augmented generation, vector databases, prompt evaluation, guardrails, and model monitoring. The role requires deploying LLM services, measuring hallucination rates, and working with product teams to create safe AI - assisted workflows.\n\n[3] SOURCE_ID=ax_2605_14503v1 | source=arxiv | date=2026-05-14 | score=0.514\n    title=Not All RAGs Are Created Equal: A Component-Wise Empirical Study for Software Engineering Tasks\n    summarization, and repair. Our empirical findings reveal a crucial insight: the retriever - side components, particularly the choice of the retrieval algorithm, often exert a more significant influence on final system performance than the selection of the generator model. Strikingly, the classic lexical retriever BM25 demonstrates exceptionally robust performance across diverse tasks. Our analysis provides a practical, data - driven roadmap for \u2026\n\n[4] SOURCE_ID=ax_2605_14503v1 | source=arxiv | date=2026-05-14 | score=0.512\n    title=Not All RAGs Are Created Equal: A Component-Wise Empirical Study for Software Engineering Tasks\n    While Retrieval - Augmented Generation (RAG) is increasingly adopted to ground Large Language Models (LLMs) in software artifacts, the optimal configuration of its components remains an open question for software engineering (SE) tasks. The lack of systematic guidance forces practitioners into costly, ad - hoc experimentation. This paper presents a comprehensive, component - wise empirical study that dissects the RAG pipeline, evaluating over 21 distinct models and methods. Our study systematically isolates and evaluates 4 query processing techniques, 7 retrieval models spanning sparse, dense, and hybrid paradigms, 4 context refinement methods, and 6 distinct generators. We test these components on a suite of 3 core SE tasks: code generation, summarization, and repair. Our empirical findings reveal a crucial insight: the retriever - side components, particularly the choice of the retrieval algorithm, often exert a\n\n[5] SOURCE_ID=gh_ats_scaleai_4654510005 | source=job_posting | date=2026-05-08 | score=0.439\n    title=AI Applications Ops Lead, GPS \u2014 Scaleai (Doha, Qatar; London, UK\n    & lt; h3 & gt; Role Overview & lt; / h3 & gt; & lt; p & gt; Scale \u2019 s rapidly growing Global Public Sector team is focused on using AI to address critical challenges facing the public sector around the world. Our core work consists of: & lt; / p & gt; & lt; ul & gt; & lt; li & gt; Creating custom AI applications that will impact millions of citizens & lt; / li & gt; & lt; li & gt; Generating high - quality training data for national LLMs & lt; / li & gt; & lt; li & gt; Upskilling and advisory services to spread the impact of AI & lt; / li & gt; & lt; / ul & gt; & lt; p & gt;\n\n[6] SOURCE_ID=gh_ats_scaleai_4654510005 | source=job_posting | date=2026-05-08 | score=0.434\n    title=AI Applications Ops Lead, GPS \u2014 Scaleai (Doha, Qatar; London, UK\n    serve citizens through cutting - edge technology. If you \u2019 re ready to shape the future of AI in the public sector and be a founding member of our team, we \u2019 d love to hear from you. & lt; / p & gt; & lt; h3 & gt; & lt; strong & gt; You will: & lt; / strong & gt; & lt; / h3 & gt; & lt; ul & gt; & lt; li & gt; & lt; strong & gt; Own the production outcome: & lt; / strong & gt; Take full accountability for the long - term performance and reliability of AI use cases deployed across international government agencies. & lt; / li & gt; & lt; li & gt; & lt; strong & gt; Ensure\n\n[7] SOURCE_ID=so_76990736 | source=stackoverflow | date=2023-08-28 | score=0.290\n    title=Differences between Langchain &amp; LlamaIndex\n    I ' m currently working on developing a chatbot powered by a Large Language Model (LLM), and I want it to provide responses based on my own documents. I understand that using a fine - tuned model on my documents might not yield direct responses, so I ' m exploring the concept of Retrieval - Augmented Generation (RAG) to enhance its performance. In my research, I ' ve come across two tools, Langchain and LlamaIndex, that seem to facilitate RAG. However, I ' m struggling to understand the main differences between them. I ' ve noticed that some tutorials and resources use both tools simultaneously, and I ' m curious about why one might choose to use one over the other or when it makes sense to use them together. Could someone please provide insights into the key distinctions between Langchain and LlamaIndex for\n\n[8] SOURCE_ID=so_76771761 | source=stackoverflow | date=2023-07-26 | score=0.261\n    title=Why does llama-index still require an OpenAI key when using Hugging Face local embedding model?\n    quot; & quot; & lt; | SYSTEM | & gt; # StableLM Tuned (Alpha version) - StableLM is a helpful and harmless open - source AI language model developed by StabilityAI. - StableLM is excited to be able to help the user, but will refuse to do anything that could be considered harmful to the user. - StableLM is more than just an information source, StableLM is also able to write poetry, short stories, and make jokes. - StableLM will refuse to participate in anything that could harm a human. & quot; & quot; & quot; # This will wrap the default prompts that are internal to llama - index query_wrapper_prompt = \u2026\n\nAvailable SOURCE_IDs you may cite: ['gh_huggingface_transformers', 'jp_llm_engineer', 'ax_2605_14503v1', 'ax_2605_14503v1', 'gh_ats_scaleai_4654510005', 'gh_ats_scaleai_4654510005', 'so_76990736', 'so_76771761']\n\nReturn ONLY a JSON object with these exact fields:\n- signal_strength: one of \"high\", \"medium\", \"low\"\n- summary: 2-3 sentences. After every factual claim write the SOURCE_ID in parentheses, e.g. (jp_001).\n- emerging_topics: array of concise topic strings (max 8)\n- evidence_ids: array of SOURCE_ID strings you cited (must be from the available list above)\n\nRules:\n- Only cite SOURCE_IDs from the available list above \u2014 never invent new IDs.\n- Do not introduce facts not present in the retrieved evidence.\n",
+  "evidence": [
+    {
+      "chunk_id": "gh_huggingface_transformers_c0",
+      "parent_id": "gh_huggingface_transformers",
+      "title": "huggingface/transformers: \ud83e\udd17 Transformers: the model-definition framework for state-of-the-art machine lear",
+      "source": "github_readme",
+      "date": "2026-05-15",
+      "similarity": 0.6177,
+      "score": 0.6177,
+      "text": "English | \u7b80\u4f53\u4e2d\u6587 | \u7e41\u9ad4\u4e2d\u6587 | \ud55c\uad6d\uc5b4 | Espa\u00f1ol | \u65e5\u672c\u8a9e | \u0939 \u093f \u0928 \u094d \u0926 \u0940 | \u0420\u0443\u0441\u0441\u043a\u0438\u0439 | Portugu\u00eas | \u0c24 \u0c46 \u0c32 \u0c41 \u0c17 \u0c41 | Fran\u00e7ais | Deutsch | Italiano | Ti\u1ebfng Vi\u1ec7t | \u0627\u0644\u0639\u0631\u0628\u064a\u0629 | \u0627\u0631\u062f\u0648 | \u09ac \u09be \u0982 \u09b2 \u09be | \u0641\u0627\u0631\u0633\u06cc | State - of - the - art pretrained models for inference and training Transformers acts as the model - definition framework for state - of - the - art machine learning with text, computer vision, audio, video, and multimodal models, for both inference and training. It centralizes the model definition so that this definition is agreed upon across the ecosystem. ` transformers ` is the pivot across frameworks: if a model definition is supported, it will be compatible with the majority of training frameworks (Axolotl, Unsloth, DeepSpeed, FSDP, PyTorch - Lightning,..."
+    },
+    {
+      "chunk_id": "jp_llm_engineer_c0",
+      "parent_id": "jp_llm_engineer",
+      "title": "Senior ML Engineer - Generative AI Platform",
+      "source": "job_posting",
+      "date": "2026-01-18",
+      "similarity": 0.5638,
+      "score": 0.5303,
+      "text": "The team is hiring a senior ML engineer to build production generative AI systems. Candidates should have hands - on experience with transformer architectures, retrieval - augmented generation, vector databases, prompt evaluation, guardrails, and model monitoring. The role requires deploying LLM services, measuring hallucination rates, and working with product teams to create safe AI - assisted workflows."
+    },
+    {
+      "chunk_id": "ax_2605_14503v1_c1",
+      "parent_id": "ax_2605_14503v1",
+      "title": "Not All RAGs Are Created Equal: A Component-Wise Empirical Study for Software Engineering Tasks",
+      "source": "arxiv",
+      "date": "2026-05-14",
+      "similarity": 0.5142,
+      "score": 0.5142,
+      "text": "summarization, and repair. Our empirical findings reveal a crucial insight: the retriever - side components, particularly the choice of the retrieval algorithm, often exert a more significant influence on final system performance than the selection of the generator model. Strikingly, the classic lexical retriever BM25 demonstrates exceptionally robust performance across diverse tasks. Our analysis provides a practical, data - driven roadmap for \u2026"
+    },
+    {
+      "chunk_id": "ax_2605_14503v1_c0",
+      "parent_id": "ax_2605_14503v1",
+      "title": "Not All RAGs Are Created Equal: A Component-Wise Empirical Study for Software Engineering Tasks",
+      "source": "arxiv",
+      "date": "2026-05-14",
+      "similarity": 0.5121,
+      "score": 0.5121,
+      "text": "While Retrieval - Augmented Generation (RAG) is increasingly adopted to ground Large Language Models (LLMs) in software artifacts, the optimal configuration of its components remains an open question for software engineering (SE) tasks. The lack of systematic guidance forces practitioners into costly, ad - hoc experimentation. This paper presents a comprehensive, component - wise empirical study that dissects the RAG pipeline, evaluating over 21 distinct models and methods. Our study systematically isolates and evaluates 4 query processing techniques, 7 retrieval models spanning sparse, dense, and hybrid paradigms, 4 context refinement methods, and 6 distinct generators. We test these components on a suite of 3 core SE tasks: code generation, summarization, and repair. Our empirical findings reveal a crucial insight: the retriever - side components, particularly the choice of the retrieval algorithm, often exert a"
+    },
+    {
+      "chunk_id": "gh_ats_scaleai_4654510005_c0",
+      "parent_id": "gh_ats_scaleai_4654510005",
+      "title": "AI Applications Ops Lead, GPS \u2014 Scaleai (Doha, Qatar; London, UK",
+      "source": "job_posting",
+      "date": "2026-05-08",
+      "similarity": 0.4405,
+      "score": 0.439,
+      "text": "& lt; h3 & gt; Role Overview & lt; / h3 & gt; & lt; p & gt; Scale \u2019 s rapidly growing Global Public Sector team is focused on using AI to address critical challenges facing the public sector around the world. Our core work consists of: & lt; / p & gt; & lt; ul & gt; & lt; li & gt; Creating custom AI applications that will impact millions of citizens & lt; / li & gt; & lt; li & gt; Generating high - quality training data for national LLMs & lt; / li & gt; & lt; li & gt; Upskilling and advisory services to spread the impact of AI & lt; / li & gt; & lt; / ul & gt; & lt; p & gt;"
+    },
+    {
+      "chunk_id": "gh_ats_scaleai_4654510005_c2",
+      "parent_id": "gh_ats_scaleai_4654510005",
+      "title": "AI Applications Ops Lead, GPS \u2014 Scaleai (Doha, Qatar; London, UK",
+      "source": "job_posting",
+      "date": "2026-05-08",
+      "similarity": 0.4355,
+      "score": 0.434,
+      "text": "serve citizens through cutting - edge technology. If you \u2019 re ready to shape the future of AI in the public sector and be a founding member of our team, we \u2019 d love to hear from you. & lt; / p & gt; & lt; h3 & gt; & lt; strong & gt; You will: & lt; / strong & gt; & lt; / h3 & gt; & lt; ul & gt; & lt; li & gt; & lt; strong & gt; Own the production outcome: & lt; / strong & gt; Take full accountability for the long - term performance and reliability of AI use cases deployed across international government agencies. & lt; / li & gt; & lt; li & gt; & lt; strong & gt; Ensure"
+    },
+    {
+      "chunk_id": "so_76990736_c0",
+      "parent_id": "so_76990736",
+      "title": "Differences between Langchain &amp; LlamaIndex",
+      "source": "stackoverflow",
+      "date": "2023-08-28",
+      "similarity": 0.3891,
+      "score": 0.2902,
+      "text": "I ' m currently working on developing a chatbot powered by a Large Language Model (LLM), and I want it to provide responses based on my own documents. I understand that using a fine - tuned model on my documents might not yield direct responses, so I ' m exploring the concept of Retrieval - Augmented Generation (RAG) to enhance its performance. In my research, I ' ve come across two tools, Langchain and LlamaIndex, that seem to facilitate RAG. However, I ' m struggling to understand the main differences between them. I ' ve noticed that some tutorials and resources use both tools simultaneously, and I ' m curious about why one might choose to use one over the other or when it makes sense to use them together. Could someone please provide insights into the key distinctions between Langchain and LlamaIndex for"
+    },
+    {
+      "chunk_id": "so_76771761_c2",
+      "parent_id": "so_76771761",
+      "title": "Why does llama-index still require an OpenAI key when using Hugging Face local embedding model?",
+      "source": "stackoverflow",
+      "date": "2023-07-26",
+      "similarity": 0.3514,
+      "score": 0.2611,
+      "text": "quot; & quot; & lt; | SYSTEM | & gt; # StableLM Tuned (Alpha version) - StableLM is a helpful and harmless open - source AI language model developed by StabilityAI. - StableLM is excited to be able to help the user, but will refuse to do anything that could be considered harmful to the user. - StableLM is more than just an information source, StableLM is also able to write poetry, short stories, and make jokes. - StableLM will refuse to participate in anything that could harm a human. & quot; & quot; & quot; # This will wrap the default prompts that are internal to llama - index query_wrapper_prompt = \u2026"
+    }
+  ],
+  "recommendation": {
+    "signal_strength": "high",
+    "summary": "The current computing curriculum should be updated to include more emphasis on retrieval-augmented generation (RAG) techniques, as they significantly influence the performance of generative AI systems (ax_2605_14503v1). Additionally, hands-on experience with deployment considerations and monitoring of large language models (LLMs) is increasingly sought after in job postings, indicating a need for practical skills in these areas (jp_llm_engineer).",
+    "emerging_topics": [
+      "retrieval-augmented generation",
+      "model deployment",
+      "model monitoring",
+      "transformer architectures",
+      "prompt evaluation",
+      "AI ethics",
+      "vector databases",
+      "hallucination rates"
+    ],
+    "evidence_ids": [
+      "jp_llm_engineer",
+      "ax_2605_14503v1"
+    ]
+  },
+  "citation_check": {
+    "passed": true,
+    "cited_ids": [
+      "ax_2605_14503v1",
+      "jp_llm_engineer"
+    ],
+    "retrieved_ids": [
+      "ax_2605_14503v1",
+      "gh_ats_scaleai_4654510005",
+      "gh_huggingface_transformers",
+      "jp_llm_engineer",
+      "so_76771761",
+      "so_76990736"
+    ],
+    "missing_ids": []
+  },
+  "audit_id": 9
+}

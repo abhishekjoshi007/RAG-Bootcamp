@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14612v1",
+  "title": "In-IDE Toolkit for Developers of AI-Based Features",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "AI-enabled features built on LLMs and agentic workflows are difficult to test, debug, and reproduce, especially for product-focused software engineers without a machine learning background. We present the AI Toolkit plugin for JetBrains IDEs, which brings tracing and evaluation directly into the Run/Debug loop. A mixed methods study with practitioners presents three consistent needs: (1) make evaluation regular and repeatable, (2) expose traces at the moment of execution, and (3) minimize setup and context switching. Guided by these needs, the AI Toolkit introduces an IDE-native workflow: run-triggered trace capture; immediate, hierarchical inspection; one-click \"Add to Dataset\" from traces; and unit-test-like evaluations with pluggable metrics. The first release in PyCharm shows promising early signals - strong conversion when promoted at Run, sustained usage among those who capture traces, and low churn - suggesting that IDE-native observability lowers activation energy and helps developers adopt disciplined practices. We detail the design and implementation of the AI Agents Debugger and AI Evaluation, report initial adoption telemetry, and outline next steps to broaden …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14612v1",
+    "category": "cs.SE"
+  }
+}

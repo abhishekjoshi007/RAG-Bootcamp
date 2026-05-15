@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14840v1",
+  "title": "In-Context Learning for Data-Driven Censored Inventory Control",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "We study inventory control with decision-dependent censoring, focusing on the censored or repeated newsvendor (R-NV), where each order quantity determines whether demand is fully observed or censored by sales. Existing approaches based on parametric Thompson sampling (TS) can be brittle under prior mismatch, while offline imputation methods need not transfer to online learning. Motivated by the predictive view of decision making, we combine these ideas by taking oracle actions on learned completions of latent demand. We propose in-context generative posterior sampling (ICGPS), which uses modern generative models that are meta-trained offline and deployed online by in-context autoregressive generation. Theoretically, we show that the Bayesian regret of ICGPS with a learned completion kernel is bounded by the Bayesian regret of a TS benchmark with the ideal completion kernel plus a deployment penalty scaling as $\\sqrt{T}$ times the square root of the completion mismatch. This yields a plug-in template for operational problems with known TS regret bounds. For R-NV, we derive sublinear Bayesian regret by reducing censored feedback to bandit convex optimization feedback. We also show …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14840v1",
+    "category": "cs.LG"
+  }
+}

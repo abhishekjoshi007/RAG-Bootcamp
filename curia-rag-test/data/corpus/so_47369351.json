@@ -1,0 +1,13 @@
+{
+  "id": "so_47369351",
+  "title": "kubectl apply vs kubectl create?",
+  "source": "stackoverflow",
+  "date": "2017-11-18",
+  "text": "What I understood by the documentation is that: \n \n \n  kubectl create\n  \nCreates a new k8s resource in the cluster \n \n  kubectl replace\n  \nUpdates a resource in the live cluster \n \n  kubectl apply\n  \nIf I want to do create + replace (  Reference  ) \n \n  My questions are  \n \n Why are there three operations for doing the same task in a cluster? \n What are the use cases for these operations? \n How do they differ from each other under the hood?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/47369351/kubectl-apply-vs-kubectl-create",
+    "score": 484,
+    "tag": "kubernetes"
+  }
+}

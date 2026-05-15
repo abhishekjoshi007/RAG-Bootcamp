@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14718v1",
+  "title": "Adapting AlphaEvolve to Optimize Fully Homomorphic Encryption on TPUs",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "The deployment of Fully Homomorphic Encryption (FHE) at scale is hindered due to its heavy computational overhead. While specialized hardware accelerators like Google Tensor Processing Units (TPUs) can help, mapping complex cryptographic kernels onto such architectures remains a challenge. Efficient execution requires co-optimization between the systolic array-based Matrix Multiplication Unit (MXU) and Vector Processing Units (VPUs), as well as the orchestration of data movement across the vector register files. Existing compiler stacks often abstract low-level hardware utilization, requiring developers to adopt a manual trial-and-error process that often results in fragmented execution and underutilized resources. To accelerate this development process, we use AlphaEvolve to automate the exploration of hardware-aware cryptographic-kernel optimizations. We frame optimization as an evolutionary search problem, utilizing the closed-loop system provided by AlphaEvolve, that leverages LLM-driven code generation. We use real-world feedback from hardware execution and rigorous correctness testing to guide the evolution process. We evaluate AlphaEvolve optimization on primitives for both …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14718v1",
+    "category": "cs.CR"
+  }
+}

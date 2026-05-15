@@ -7,6 +7,14 @@ from collections import Counter
 
 from openai import OpenAI
 
+from .config import (
+    LLM_MAX_RETRIES,
+    LLM_MAX_TOKENS,
+    LLM_MODEL,
+    LLM_TEMPERATURE,
+    LOCAL_SIGNAL_HIGH,
+    LOCAL_SIGNAL_MEDIUM,
+)
 from .embedding import normalize_terms
 from .models import Recommendation, SearchResult
 
@@ -97,7 +105,7 @@ class LocalGroundedGenerator:
                 evidence_ids.append(result.chunk.parent_id)
 
         avg_score = sum(result.score for result in top) / len(top)
-        signal = "high" if avg_score >= 0.28 else "medium" if avg_score >= 0.14 else "low"
+        signal = "high" if avg_score >= LOCAL_SIGNAL_HIGH else "medium" if avg_score >= LOCAL_SIGNAL_MEDIUM else "low"
         topics = self._extract_topics(unit, top)
         topic_text = ", ".join(topics[:5]) if topics else "the retrieved technical evidence"
         citation_text = ", ".join(evidence_ids[:3])
@@ -140,7 +148,7 @@ class OpenAIGenerator:
     Retries up to 3 times on JSON parse failure before raising.
     """
 
-    def __init__(self, model: str = "gpt-4o-mini", temperature: float = 0.0) -> None:
+    def __init__(self, model: str = LLM_MODEL, temperature: float = LLM_TEMPERATURE) -> None:
         self.model = model
         self.temperature = temperature
         self._client: OpenAI | None = None
@@ -162,12 +170,12 @@ class OpenAIGenerator:
 
         prompt = build_recommendation_prompt(unit, evidence)
         last_exc: Exception = RuntimeError("No attempts made")
-        for _ in range(3):
+        for _ in range(LLM_MAX_RETRIES):
             try:
                 response = self._openai.chat.completions.create(
                     model=self.model,
                     temperature=self.temperature,
-                    max_tokens=1024,
+                    max_tokens=LLM_MAX_TOKENS,
                     messages=[{"role": "user", "content": prompt}],
                 )
                 raw = response.choices[0].message.content or ""

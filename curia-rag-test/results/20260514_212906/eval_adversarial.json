@@ -1,0 +1,17 @@
+{"baseline_recall@8": {"cs_ai_01": 0.3333, "cs_sec_01": 1.0, "cs_cloud_01": 1.0}}
+{"perturbation": "synonym_substitution", "base_unit_id": "cs_ai_01", "modified_unit_id": "cs_ai_01_syn", "description": "Title and description paraphrased with synonyms", "recall@8": 0.3333, "ndcg@8": 0.1672, "baseline_recall@8": 0.3333, "recall_drop": 0.0}
+{"perturbation": "synonym_substitution", "base_unit_id": "cs_sec_01", "modified_unit_id": "cs_sec_01_syn", "description": "Title and description paraphrased with synonyms", "recall@8": 1.0, "ndcg@8": 0.8772, "baseline_recall@8": 1.0, "recall_drop": 0.0}
+{"perturbation": "topics_removed", "base_unit_id": "cs_ai_01", "modified_unit_id": "cs_ai_01_notopics", "description": "current_topics field stripped", "recall@8": 0.3333, "ndcg@8": 0.4693, "baseline_recall@8": 0.3333, "recall_drop": 0.0}
+{"perturbation": "topics_removed", "base_unit_id": "cs_cloud_01", "modified_unit_id": "cs_cloud_01_notopics", "description": "current_topics field stripped", "recall@8": 0.6667, "ndcg@8": 0.7039, "baseline_recall@8": 1.0, "recall_drop": 0.3333}
+{"perturbation": "misleading_topics", "base_unit_id": "cs_ai_01", "modified_unit_id": "cs_ai_01_mislead", "description": "Topics replaced with unrelated terms from a different unit", "recall@8": 0.0, "ndcg@8": 0.0, "baseline_recall@8": 0.3333, "recall_drop": 0.3333}
+{"perturbation": "misleading_topics", "base_unit_id": "cs_cloud_01", "modified_unit_id": "cs_cloud_01_mislead", "description": "Topics replaced with unrelated terms from a different unit", "recall@8": 0.6667, "ndcg@8": 0.7654, "baseline_recall@8": 1.0, "recall_drop": 0.3333}
+{
+  "adversarial_summary": {
+    "num_perturbations": 6,
+    "avg_recall_drop": 0.1666,
+    "max_recall_drop": 0.3333,
+    "worst_case": "topics_removed on cs_cloud_01",
+    "target_max_drop": 0.3,
+    "passed_target": false
+  }
+}

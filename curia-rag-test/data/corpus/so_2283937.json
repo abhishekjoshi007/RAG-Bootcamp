@@ -1,0 +1,13 @@
+{
+  "id": "so_2283937",
+  "title": "How should I ethically approach user password storage for later plaintext retrieval?",
+  "source": "stackoverflow",
+  "date": "2010-02-17",
+  "text": "As I continue to build more and more websites and web applications I am often asked to store user's passwords in a way that they can be retrieved if/when the user has an issue (either to email a forgotten password link, walk them through over the phone, etc.)  When I can I fight bitterly against this practice and I do a lot of ‘extra’ programming to make password resets and administrative assistance possible without storing their actual password. \n\n When I can’t fight it (or can’t win) then I always encode the password in some way so that it, at least, isn’t stored as plaintext in the database—though I am aware that if my DB gets hacked it wouldn't take much for the culprit to crack the passwords, so that makes me uncomfortable. \n\n In a perfect world folks would update passwords frequently and not duplicate them across many different sites—unfortunately I know MANY people that have the same work/home/email/bank password, and have even freely given it to me when they need assistance.  I don’t want to be the one responsible for their financial demise if my DB security procedures fail for some reason. \n\n Morally and ethically I feel responsible for protecting what can be, for some users, their livelihood even if they are treating it with much less respect.\nI am certain that there are many avenues to approach and arguments to be made for salting hashes and different encoding options, but is there a single ‘best practice’ when you have to store them?  In almost all cases I am using PHP and MySQL if that makes any difference in the way I should handle the specifics. \n\n  Additional Information for Bounty  \n\n I want to clarify that I know this is not something you want to have to do and that in most cases refusal to do so is best.  I am, however, not looking for a lecture on the merits of taking this approach I am looking for the best steps to take if you do take this approach. \n\n In a note below I made the point that websites geared largely toward the elderly, mentally …",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/2283937/how-should-i-ethically-approach-user-password-storage-for-later-plaintext-retrie",
+    "score": 1340,
+    "tag": "security"
+  }
+}

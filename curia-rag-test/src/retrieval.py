@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from datetime import date
 
+from .config import RECENCY_BASE_WEIGHT, RECENCY_BONUS_WEIGHT, RECENCY_HALF_LIFE_DAYS, RETRIEVAL_CANDIDATE_K, RETRIEVAL_K
 from .indexing import FaissIndex, InMemoryIndex
 from .models import SearchResult
 
@@ -15,14 +16,14 @@ def recency_multiplier(
     today = today or date.today()
     age_days = max((today - doc_date).days, 0)
     recency_weight = 0.5 ** (age_days / half_life_days)
-    return 0.7 + 0.3 * recency_weight
+    return RECENCY_BASE_WEIGHT + RECENCY_BONUS_WEIGHT * recency_weight
 
 
 class Retriever:
     def __init__(
         self,
         index: FaissIndex | InMemoryIndex,
-        recency_half_life_days: int = 365,
+        recency_half_life_days: int = RECENCY_HALF_LIFE_DAYS,
     ) -> None:
         self.index = index
         self.recency_half_life_days = recency_half_life_days
@@ -30,8 +31,8 @@ class Retriever:
     def retrieve(
         self,
         query: str,
-        k: int = 8,
-        candidate_k: int = 50,
+        k: int = RETRIEVAL_K,
+        candidate_k: int = RETRIEVAL_CANDIDATE_K,
         source_quotas: dict[str, int] | None = None,
         today: date | None = None,
     ) -> list[SearchResult]:

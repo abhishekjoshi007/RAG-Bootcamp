@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14478v1",
+  "title": "When Retrieval Hurts Code Completion: A Diagnostic Study of Stale Repository Context",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Context: Retrieval-augmented code generation relies on cross-file repository context, but retrieved snippets may come from obsolete project states.\n  Objectives: We study whether temporally stale repository snippets act as harmless noise or actively induce current-state-incompatible code.\n  Methods: We conduct a controlled diagnostic study on a curated 17-sample set of production-helper signature changes from five Python repositories. For each sample, we compare current-only, stale-only, no-retrieval, and mixed current/stale retrieval conditions under prompts that hide commit freshness and expected current signatures.\n  Results: Under neutralized prompts, stale-only retrieval induces stale helper references on 15/17 Qwen2.5-Coder-7B-Instruct samples and 13/17 gpt-4.1-mini samples, corresponding to 88.2 and 76.5 percentage-point increases over current-only retrieval. No retrieval produces zero stale references but only 1/17 passing completions. The two models share 75.0% Jaccard overlap among stale-triggering samples, and mixed conditions show that adding valid current evidence largely rescues stale-only failures.\n  Conclusion: Temporal validity of retrieved repository context is a …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14478v1",
+    "category": "cs.SE"
+  }
+}

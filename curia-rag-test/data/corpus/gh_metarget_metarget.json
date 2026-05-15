@@ -1,0 +1,13 @@
+{
+  "id": "gh_metarget_metarget",
+  "title": "Metarget/metarget: Metarget is a framework providing automatic constructions of vulnerable infrastr",
+  "source": "github_readme",
+  "date": "2025-04-16",
+  "text": "[中文](README-zh.md) | [English](README.md)\n\n## 1 Introduction\n\nMetarget = `meta-` + `target`, a framework providing automatic constructions of vulnerable infrastructures, used to deploy simple or complicated vulnerable cloud native targets swiftly and automatically.\n\n### 1.1 Why Metarget?\n\nDuring security researches, we might find that the deployment of vulnerable environment often takes much time, while the time spent on testing PoC or ExP is comparatively short. In the field of cloud native security, thanks to the complexity of cloud native systems, this issue is more terrible.\n\nThere are already some excellent security projects like [Vulhub](https://github.com/vulhub/vulhub), [VulApps](https://github.com/Medicean/VulApps) in the open-source community, which pack vulnerable scenes into container images, so that researchers could utilize them and deploy scenes quickly.\n\nHowever, these projects mainly focus on vulnerabilities in applications. What if we need to study the vulnerabilities in the infrastructures like Docker, Kubernetes and even Linux kernel?\n\nHence, we develop Metarget and hope to solve the deployment issue above to some extent. Furthermore, we also expect that Metarget could help to construct **multilayer** vulnerable cloud native scenes automatically.\n\n### 1.2 Install Vulnerability!\n\nIn this project, we come up with concepts like *installing vulnerabilities* and *installing vulnerable scenes*. Why not install vulnerabilities just like installing softwares? We …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/Metarget/metarget",
+    "stars": 1386,
+    "topic": "cloud-native"
+  }
+}

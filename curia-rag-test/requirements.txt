@@ -1,8 +1,13 @@
-sentence-transformers>=3.0.0
+# Pin sentence-transformers + transformers to versions compatible with torch 2.4.x
+sentence-transformers==3.1.1
+transformers==4.44.2
+tokenizers>=0.19,<0.20
 faiss-cpu>=1.8.0
+openai>=1.40.0
+python-dotenv>=1.0.0
+numpy>=1.24.0
 duckdb>=1.0.0
 pydantic>=2.7.0
 anthropic>=0.34.0
-openai>=1.40.0
 ragas>=0.1.15
 pytest>=8.0.0

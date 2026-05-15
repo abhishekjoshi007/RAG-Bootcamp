@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14540v1",
+  "title": "Analysis of wireless network access logs for a hierarchical characterization of user mobility",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "This paper presents a method that generates a hierarchical user mobility model from the analysis of the data available from Wi-Fi connections. The data obtained from the Wi-Fi infrastructure is defined in terms of the coverage areas of the access points that the users move through. These access points are recursively grouped into different levels of granularity based on their geospatial features. The track of a user is defined as a sequence of Wi-Fi access points, which is enough to simulate user mobility in, for example, fog scenarios. The hierarchical definition of the region under study is proposed to reduce the complexity of the model in high-scale scenarios and to increase the adaptability between scenarios with different geospatial features. The model creation is based on a user profiling method that uses a clustering algorithm and each user type is defined with a transition matrix between coverage areas and a time length vector for the areas. The method is applied to the case of the campus of the University of the Balearic Islands. From the analysis of the mean square error of the results, we determined that the proposed method obtains good results for the transition …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14540v1",
+    "category": "cs.DC"
+  }
+}

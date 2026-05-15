@@ -1,0 +1,13 @@
+{
+  "id": "so_35453792",
+  "title": "Pods stuck in Terminating status",
+  "source": "stackoverflow",
+  "date": "2016-02-17",
+  "text": "I tried to delete a  ReplicationController  with 12 pods and I could see that some of the pods are stuck in  Terminating  status.  \n\n My Kubernetes cluster consists of one control plane node and three worker nodes installed on Ubuntu virtual machines.  \n\n What could be the reason for this issue? \n\n  NAME        READY     STATUS        RESTARTS   AGE\npod-186o2   1/1       Terminating   0          2h\npod-4b6qc   1/1       Terminating   0          2h\npod-8xl86   1/1       Terminating   0          1h\npod-d6htc   1/1       Terminating   0          1h\npod-vlzov   1/1       Terminating   0          1h",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/35453792/pods-stuck-in-terminating-status",
+    "score": 582,
+    "tag": "kubernetes"
+  }
+}

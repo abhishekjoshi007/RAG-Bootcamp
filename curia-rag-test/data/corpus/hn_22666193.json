@@ -1,0 +1,11 @@
+{
+  "id": "hn_22666193",
+  "title": "HN Hiring: Khan Academy | Mountain View, CA and REMOTE USA&#x2F;CANADA | Senior Backend &#x",
+  "source": "job_posting",
+  "date": "2020-03-23",
+  "text": "Khan Academy | Mountain View, CA and REMOTE USA&#x2F;CANADA | Senior Backend &#x2F; Fullstack |  https:&#x2F;&#x2F;khanacademy.org&#x2F;careers  We&#x27;re a non-profit with a mission to provide a free, world-class education to anyone, anywhere. It&#x27;s a big mission that we&#x27;re taking on step by step. While we want anyone to be able to get a great education independently, we&#x27;ve been focusing a lot on trying to help teachers working in their classrooms (and a lot of teachers and parents are using Khan away from their classrooms right now!) Our site has been built on Python 2 and Google App Engine for its first 10 years of existence. We&#x27;re now in the midst of a rebuild in Go (still on App Engine).[1] Parts of that new Go-based infrastructure are already running in production. To say that this is an exciting time for us would be an understatement, I think, but we continue to have working sustainably as an engineering principle. (Our principles are available publicly[2].) [1]:  http:&#x2F;&#x2F;engineering.khanacademy.org&#x2F;posts&#x2F;goliath.htm \n[2]:  https:&#x2F;&#x2F;docs.google.com&#x2F;presentation&#x2F;d&#x2F;1ZQ-HTuH38L8sf4ZObfJN...",
+  "metadata": {
+    "origin": "hn_hiring",
+    "parent_post": "22665398"
+  }
+}

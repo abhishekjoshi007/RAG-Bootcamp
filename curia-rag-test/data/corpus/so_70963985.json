@@ -1,0 +1,13 @@
+{
+  "id": "so_70963985",
+  "title": "Error: Failed to download metadata for repo &#39;appstream&#39;: Cannot prepare internal mirrorlist: No URLs in mirrorlist",
+  "source": "stackoverflow",
+  "date": "2022-02-02",
+  "text": "I am trying to download java using yum on centOs which I specified in a Dockerfile.\nAfter pulling centOs image the run crashed and threw this error!?\nalso to mention that my server instance is AWS EC2! \n  Step 2/9 : RUN yum install java -y\n ---&gt; Running in 39fc233aa965\nCentOS Linux 8 - AppStream                      184  B/s |  38  B     00:00\nError: Failed to download metadata for repo 'appstream': Cannot prepare internal mirrorlist: No URLs in mirrorlist\nThe command '/bin/sh -c yum install java -y' returned a non-zero code: 1",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/70963985/error-failed-to-download-metadata-for-repo-appstream-cannot-prepare-internal",
+    "score": 123,
+    "tag": "devops"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "gh_langchain_ai_langchain",
+  "title": "langchain-ai/langchain: The agent engineering platform.",
+  "source": "github_readme",
+  "date": "2026-05-14",
+  "text": "The agent engineering platform. \n \n\n \n     \n     \n     \n     \n \n\n \n\nLangChain is a framework for building agents and LLM-powered applications. It helps you chain together interoperable components and third-party integrations to simplify AI application development — all while future-proofing decisions as the underlying technology evolves.\n\n> [!TIP]\n> Just getting started? Check out **[Deep Agents](http://docs.langchain.com/oss/python/deepagents/)** — a higher-level package built on LangChain for agents that have built-in capabilites for common usage patterns such as planning, subagents, file system usage, and more.\n\n## Quickstart\n\n```bash\npip install langchain\n# or\nuv add langchain\n```\n\n```python\nfrom langchain.chat_models import init_chat_model\n\nmodel = init_chat_model(\"openai:gpt-5.4\")\nresult = model.invoke(\"Hello, world!\")\n```\n\nIf you're looking for more advanced customization or agent orchestration, check out [LangGraph](https://docs.langchain.com/oss/python/langgraph/overview), our framework for building controllable agent workflows.\n\nFor an equivalent JS/TS library, check out [LangChain.js](https://github.com/langchain-ai/langchainjs).\n\n> [!TIP]\n> For developing, debugging, and deploying AI agents and LLM applications, see [LangSmith](https://docs.langchain.com/langsmith/home).\n\n## LangChain ecosystem\n\nWhile the LangChain framework can be used standalone, it also integrates seamlessly with any LangChain product, giving developers a full suite of tools when building LLM …",
+  "metadata": {
+    "origin": "github",
+    "url": "https://github.com/langchain-ai/langchain",
+    "stars": 136748,
+    "topic": "rag"
+  }
+}

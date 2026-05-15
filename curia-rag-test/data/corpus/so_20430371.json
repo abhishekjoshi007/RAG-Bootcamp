@@ -1,0 +1,13 @@
+{
+  "id": "so_20430371",
+  "title": "My docker container has no internet",
+  "source": "stackoverflow",
+  "date": "2013-12-06",
+  "text": "I had it working allright but now it stopped. I tried the following commands with no avail: \n\n  docker run -dns 8.8.8.8 base ping google.com  \n\n  docker run base ping google.com  \n\n  sysctl -w net.ipv4.ip_forward=1  - both on the host and on the container \n\n All I get is  unknown host google.com .  Docker version 0.7.0 \n\n Any ideas? \n\n P.S.  ufw  disabled as well",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/20430371/my-docker-container-has-no-internet",
+    "score": 286,
+    "tag": "devops"
+  }
+}

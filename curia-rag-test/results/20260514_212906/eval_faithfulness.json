@@ -1,0 +1,15 @@
+{"recommendation_id": "faith_ai_01", "unit_id": "cs_ai_01", "citation_precision": 1.0, "claim_grounding": 1.0, "num_claims": 4, "num_cited": 2}
+{"recommendation_id": "faith_ai_02", "unit_id": "cs_ai_01", "citation_precision": 1.0, "claim_grounding": 0.0, "num_claims": 3, "num_cited": 2}
+{"recommendation_id": "faith_sec_01", "unit_id": "cs_sec_01", "citation_precision": 1.0, "claim_grounding": 1.0, "num_claims": 4, "num_cited": 2}
+{"recommendation_id": "faith_sec_02", "unit_id": "cs_sec_01", "citation_precision": 0.6667, "claim_grounding": 0.0, "num_claims": 3, "num_cited": 3}
+{"recommendation_id": "faith_cloud_01", "unit_id": "cs_cloud_01", "citation_precision": 1.0, "claim_grounding": 1.0, "num_claims": 4, "num_cited": 3}
+{
+  "aggregate": {
+    "citation_precision": 0.9333,
+    "claim_grounding": 0.6
+  },
+  "n": 5,
+  "target_citation_precision": 0.95,
+  "target_claim_grounding": 0.85,
+  "passed_target": false
+}

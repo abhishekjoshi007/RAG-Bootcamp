@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14828v1",
+  "title": "K-Models: a Flexible and Interpretable Method for Ordinal Clustering with Application to Antigen-Antibody Interaction Profiles",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Existing clustering methods for functional data often prioritize partitioning accuracy over interpretability, making it challenging to extract meaningful insights when the data-generating process follows a specific underlying structure and an ordinal relationship among clusters is suspected. This work introduces K-Models, a novel framework that integrates ordinal constraints and estimates key underlying elements of the random process generating the observed functional profiles, improving both interpretability and structure identification. The proposed method is evaluated through simulations and real-world applications. In particular, it is tested on Region of Interest (ROI) curves, which represent reaction profiles from a reflectometric sensor monitoring biomolecular interactions, such as antigen-antibody binding. These curves represent changes in reflected light intensity over time at multiple measurement spots with immobilized antigens during analyte exposure, capturing the binding dynamics of the system. The goal is to identify intrinsic signal patterns solely from the observed dynamics, making this dataset an ideal benchmark for assessing the added interpretability of the …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14828v1",
+    "category": "cs.LG"
+  }
+}

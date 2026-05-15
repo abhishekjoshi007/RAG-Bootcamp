@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14605v1",
+  "title": "One Step to the Side: Why Defenses Against Malicious Finetuning Fail Under Adaptive Adversaries",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Model providers increasingly release open weights or allow users to fine-tune foundation models through APIs. Although these models are safety-aligned before release, their safeguards can often be removed by fine-tuning on harmful data. Recent defenses aim to make models robust to such malicious fine-tuning, but they are largely evaluated only against fixed attacks that do not account for the defense. We show that these robustness claims are incomplete. Surveying 15 recent defenses, we identify several defense mechanisms and show that they share a single weakness: they obscure or misdirect the path to harmful behavior without removing the behavior itself. We then develop a unified adaptive attack that breaks defenses across all defense mechanisms. Our results show that current approaches do not provide robust security; they mainly stop the attacks they were designed against. We hope that our unified adaptive adversary for this domain will help future researchers and practitioners stress-test new defenses before deployment.",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14605v1",
+    "category": "cs.CR"
+  }
+}

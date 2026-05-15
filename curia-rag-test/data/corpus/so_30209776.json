@@ -1,0 +1,13 @@
+{
+  "id": "so_30209776",
+  "title": "Docker container will automatically stop after &quot;docker run -d&quot;",
+  "source": "stackoverflow",
+  "date": "2015-05-13",
+  "text": "According to tutorial I read so far, use \" docker run -d \" will start a container from image, and the container will run in background. This is how it looks like, we can see we already have container id. \n\n  root@docker:/home/root# docker run -d centos\n605e3928cdddb844526bab691af51d0c9262e0a1fc3d41de3f59be1a58e1bd1d\n  \n\n But if I ran \"  docker ps  \", nothing was returned. \n\n So I tried \"  docker ps -a  \", I can see container already exited: \n\n  root@docker:/home/root# docker ps -a\nCONTAINER ID        IMAGE                 COMMAND             CREATED             STATUS                         PORTS               NAMES\n605e3928cddd        centos:latest         \"/bin/bash\"         31 minutes ago      Exited (0) 31 minutes ago                          kickass_swartz\n  \n\n Anything I did wrong? How can I troubleshoot this issue?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/30209776/docker-container-will-automatically-stop-after-docker-run-d",
+    "score": 590,
+    "tag": "devops"
+  }
+}

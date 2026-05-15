@@ -6,31 +6,33 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs
 
-from src.indexing import InMemoryIndex
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent / ".env")
+except ImportError:
+    pass
+
+from src.config import AUDIT_DB_PATH, CORPUS_DIR, INDEX_PATH, SOURCE_QUOTAS, UNITS_FILE
+from src.indexing import FaissIndex
 from src.pipeline import CuriaRagPipeline
 from src.storage import build_index_from_corpus, get_unit, load_units
 
 
 ROOT = Path(__file__).resolve().parent
-INDEX_PATH = ROOT / "audit" / "local_index.pkl"
-UNITS = load_units(ROOT / "data" / "cs2023_units.json")
+UNITS = load_units(UNITS_FILE)
 
 
 def load_pipeline() -> CuriaRagPipeline:
     if INDEX_PATH.exists():
-        index = InMemoryIndex.load(INDEX_PATH)
+        index = FaissIndex.load(INDEX_PATH)
     else:
-        index = build_index_from_corpus(ROOT / "data" / "corpus")
+        print("Building FAISS index on first run (downloads all-mpnet-base-v2 once) …")
+        index = build_index_from_corpus(CORPUS_DIR)
         index.save(INDEX_PATH)
     return CuriaRagPipeline(
         index,
-        audit_path=ROOT / "audit" / "audit_log.db",
-        source_quotas={
-            "job_posting": 2,
-            "arxiv": 2,
-            "stackoverflow": 1,
-            "github_readme": 1,
-        },
+        audit_path=AUDIT_DB_PATH,
+        source_quotas=SOURCE_QUOTAS,
     )
 
 

@@ -1,0 +1,12 @@
+{
+  "id": "ax_2605_14633v1",
+  "title": "Capacitive Touchscreens at Risk: A Practical Side-Channel Attack on Smartphones via Electromagnetic Emanations",
+  "source": "arxiv",
+  "date": "2026-05-14",
+  "text": "Capacitive touchscreens in modern smartphones introduce severe side-channel vulnerabilities. However, existing attacks often require restrictive conditions or invasive measurements. This paper presents TESLA, a novel, contactless electromagnetic (EM) side-channel attack that exploits inherent EM emanations during touchscreen scanning. We demonstrate that these emanations encode the spatiotemporal evolution of touch interactions, forming a unified leakage basis. By secretly placing an EM probe near the victim's device, TESLA enables attackers to extract highly sensitive information, including screen-unlocking PIN codes, keyboard inputs, interacting application categories, and continuous handwriting trajectories. Compared to existing attacks, TESLA offers a broader range of attack targets, more efficient sample acquisition, and operations in practical attack scenarios. Extensive evaluations on popular commercial smartphones, specifically the iPhone X, Xiaomi 10 Pro, Samsung S10, and Huawei Mate 30 Pro, validate the effectiveness of TESLA. It achieves remarkable inference accuracy in diverse settings such as private meeting rooms and public libraries, with success rates of 99.3% for …",
+  "metadata": {
+    "origin": "arxiv",
+    "arxiv_id": "2605_14633v1",
+    "category": "cs.CR"
+  }
+}

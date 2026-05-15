@@ -1,0 +1,13 @@
+{
+  "id": "so_45079988",
+  "title": "Ingress vs Load Balancer",
+  "source": "stackoverflow",
+  "date": "2017-07-13",
+  "text": "I am quite confused about the roles of Ingress and Load Balancer in Kubernetes. \n\n As far as I understand Ingress is used to map incoming traffic from the internet to the services running in the cluster. \n\n The role of load balancer is to forward traffic to a host. In that regard how does ingress differ from load balancer? Also what is the concept of load balancer inside kubernetes as compared to Amazon ELB and ALB?",
+  "metadata": {
+    "origin": "stackoverflow",
+    "url": "https://stackoverflow.com/questions/45079988/ingress-vs-load-balancer",
+    "score": 471,
+    "tag": "kubernetes"
+  }
+}
