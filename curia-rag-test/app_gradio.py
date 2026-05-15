@@ -1,15 +1,12 @@
 """
 CURIA — Curriculum Intelligence via Industry Agents
-Gradio frontend: select university + field of study, run the 4-agent pipeline.
+Single-page, step-by-step: Field → A (skills) → B → C → D (curriculum map)
 """
 
 from __future__ import annotations
 
 import os
 import sys
-import json
-import time
-import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -26,21 +23,15 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 import gradio as gr
 
-from src.config import CORPUS_DIR, SOURCE_QUOTAS, INDEX_PATH, AUDIT_DB_PATH
+from src.config import AUDIT_DB_PATH, CORPUS_DIR, INDEX_PATH, SOURCE_QUOTAS
+from src.field_config import get_ingestion_config
 from src.indexing import FaissIndex
 from src.pipeline import CuriaRagPipeline
 from src.storage import build_index_from_corpus
-from src.university import (
-    UNIVERSITY_OPTIONS,
-    FIELD_OPTIONS,
-    curriculum_summary,
-    get_unit_titles,
-    get_unit_by_title,
-    get_all_units,
-)
+from src.university import ALL_FIELDS, get_all_units
 
 # ---------------------------------------------------------------------------
-# Pipeline singleton (loaded once, reused across requests)
+# Pipeline singleton
 # ---------------------------------------------------------------------------
 
 _pipeline: CuriaRagPipeline | None = None
@@ -55,385 +46,342 @@ def _get_pipeline() -> CuriaRagPipeline:
             index = build_index_from_corpus(CORPUS_DIR)
             index.save(INDEX_PATH)
         _pipeline = CuriaRagPipeline(
-            index,
-            audit_path=AUDIT_DB_PATH,
-            source_quotas=SOURCE_QUOTAS,
+            index, audit_path=AUDIT_DB_PATH, source_quotas=SOURCE_QUOTAS
         )
     return _pipeline
 
 
 # ---------------------------------------------------------------------------
-# UI helpers
+# HTML card builder
 # ---------------------------------------------------------------------------
 
-SIGNAL_EMOJI = {"high": "🟢 High", "medium": "🟡 Medium", "low": "🔴 Low"}
-
-AGENT_STATUS = {
-    "A": ("Signal Fusion Agent", "Aggregates job postings, GitHub, arXiv, Stack Overflow"),
-    "B": ("Forecasting Agent",   "Predicts 12–24 month skill demand trajectories"),
-    "C": ("Drift Detection Agent","Detects semantic shift within stable skill labels"),
-    "D": ("Curriculum Mapper",   "Maps industry signals onto CS2023 competency framework"),
-}
-
-
-def _agent_html(letter: str, status: str) -> str:
-    colours = {"done": "#22c55e", "running": "#3b82f6", "pending": "#94a3b8", "unavailable": "#f59e0b"}
-    labels  = {"done": "✓ Done", "running": "⟳ Running", "pending": "Queued", "unavailable": "⚠ Not yet built"}
-    colour = colours[status]
-    label  = labels[status]
-    name, desc = AGENT_STATUS[letter]
+def _card(letter: str, title: str, status: str, body: str) -> str:
+    colors = {
+        "done":        ("#22c55e", "✓ Done"),
+        "running":     ("#3b82f6", "⟳ Running…"),
+        "pending":     ("#64748b", "Waiting"),
+        "unavailable": ("#f59e0b", "⚠ Needs more data"),
+    }
+    col, label = colors.get(status, ("#64748b", status))
     return f"""
-    <div style="
-        display:flex; align-items:center; gap:14px;
-        background:#1e293b; border-radius:10px; padding:14px 18px;
-        border-left:4px solid {colour}; margin-bottom:8px;">
-      <div style="font-size:22px; font-weight:800; color:{colour}; min-width:28px;">
-        {letter}
+<div style="background:#1e293b;border-radius:12px;border-left:5px solid {col};
+            padding:20px 22px;margin-bottom:14px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+    <div style="background:{col}22;border-radius:8px;padding:6px 12px;
+                font-size:18px;font-weight:800;color:{col};">Agent {letter}</div>
+    <div style="font-weight:700;color:#f1f5f9;font-size:15px;">{title}</div>
+    <div style="margin-left:auto;font-size:12px;color:{col};font-weight:600;">{label}</div>
+  </div>
+  {body}
+</div>"""
+
+
+def _pending_card(letter: str, title: str) -> str:
+    return _card(letter, title, "pending",
+                 f'<div style="color:#64748b;font-size:13px;">Waiting for previous step…</div>')
+
+
+def _skill_bar(skill: str, score: float, rank: int) -> str:
+    pct = min(int(score * 100), 100)
+    level = "HIGH" if score > 0.55 else "MEDIUM" if score > 0.35 else "LOW"
+    col = "#22c55e" if level == "HIGH" else "#f59e0b" if level == "MEDIUM" else "#ef4444"
+    return f"""
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+      <div style="font-size:11px;color:#64748b;min-width:18px;text-align:right;">{rank}</div>
+      <div style="flex:1;font-size:13px;color:#e2e8f0;">{skill}</div>
+      <div style="width:120px;background:#0f172a;border-radius:4px;height:8px;">
+        <div style="width:{pct}%;background:{col};height:8px;border-radius:4px;"></div>
       </div>
-      <div style="flex:1">
-        <div style="font-weight:600; color:#f1f5f9; font-size:14px;">{name}</div>
-        <div style="color:#94a3b8; font-size:12px; margin-top:2px;">{desc}</div>
-      </div>
-      <div style="font-size:12px; color:{colour}; font-weight:600; white-space:nowrap;">{label}</div>
+      <div style="min-width:52px;font-size:11px;font-weight:700;color:{col};">{level}</div>
     </div>"""
 
 
-def _evidence_html(evidence: list[dict]) -> str:
-    cards = []
-    for i, ev in enumerate(evidence, 1):
-        source_icon = {"job_posting": "💼", "arxiv": "📄", "stackoverflow": "💬",
-                       "github_readme": "🐙"}.get(ev["source"], "📎")
-        score_pct = min(int(ev["score"] * 100), 100)
-        bar_col = "#22c55e" if score_pct > 60 else "#f59e0b" if score_pct > 35 else "#ef4444"
-        cards.append(f"""
-        <div style="background:#1e293b; border-radius:10px; padding:14px 16px;
-                    margin-bottom:10px; border:1px solid #334155;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-            <span style="font-weight:600; color:#f1f5f9; font-size:13px;">
-              {source_icon} [{i}] {ev['parent_id']}
-            </span>
-            <span style="font-size:11px; color:#64748b;">{ev['source']} · {ev['date']}</span>
-          </div>
-          <div style="font-size:12px; color:#94a3b8; margin-bottom:8px;">{ev['title']}</div>
-          <div style="font-size:12px; color:#cbd5e1; line-height:1.5;">
-            {ev['text'][:300]}{'…' if len(ev['text'])>300 else ''}
-          </div>
-          <div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
-            <div style="flex:1; background:#0f172a; border-radius:4px; height:5px;">
-              <div style="width:{score_pct}%; background:{bar_col};
-                          height:5px; border-radius:4px;"></div>
-            </div>
-            <span style="font-size:11px; color:#64748b;">score {ev['score']:.3f}</span>
-          </div>
-        </div>""")
-    return "\n".join(cards)
+# ---------------------------------------------------------------------------
+# Agent A  — extract top skills from corpus
+# ---------------------------------------------------------------------------
+
+def _run_agent_a(field: str) -> str:
+    cfg  = get_ingestion_config(field)
+    pipe = _get_pipeline()
+    corpus_size = len(pipe.retriever.index.chunks)
+
+    # Score each job title term against corpus
+    signals: list[tuple[str, float]] = []
+    seen: set[str] = set()
+    for term in cfg.get("job_titles", []) + cfg.get("so_tags", [])[:3]:
+        if term in seen:
+            continue
+        seen.add(term)
+        results = pipe.retriever.retrieve(term, k=8)
+        if results:
+            top_score = max(r.score for r in results)
+            signals.append((term, top_score))
+
+    signals.sort(key=lambda x: x[1], reverse=True)
+    top10 = signals[:10]
+
+    bars = "".join(_skill_bar(skill, score, i + 1) for i, (skill, score) in enumerate(top10))
+
+    arxiv = " · ".join(cfg.get("arxiv_cats", []))
+    body = f"""
+    <div style="font-size:12px;color:#94a3b8;margin-bottom:12px;">
+      Corpus: <b style="color:#38bdf8">{corpus_size} chunks</b> ·
+      arXiv: <span style="color:#94a3b8">{arxiv}</span>
+    </div>
+    <div style="font-size:12px;font-weight:600;color:#64748b;
+                text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">
+      Top skills in industry demand
+    </div>
+    {bars}"""
+
+    return _card("A", "Signal Fusion", "done", body)
 
 
 # ---------------------------------------------------------------------------
-# Main analysis function
+# Agent B  — forecasting placeholder
 # ---------------------------------------------------------------------------
 
-def run_analysis(university: str, field: str, unit_title: str, progress=gr.Progress()):
-    if not unit_title:
-        return ("", "", "", "", _agent_html("A","pending")+_agent_html("B","unavailable")+
-                _agent_html("C","unavailable")+_agent_html("D","pending"), "")
+def _run_agent_b(field: str) -> str:
+    months_collected = 1   # current state — only 1 month of data
+    months_needed    = 12
 
-    progress(0.05, desc="Loading pipeline …")
-    pipeline = _get_pipeline()
-
-    # Agent A — corpus already ingested, show as done
-    agent_html = (
-        _agent_html("A", "done") +
-        _agent_html("B", "unavailable") +
-        _agent_html("C", "unavailable") +
-        _agent_html("D", "running")
-    )
-
-    progress(0.30, desc="Retrieving evidence …")
-    unit = get_unit_by_title(university, field, unit_title)
-    result = pipeline.run(unit)
-
-    progress(0.90, desc="Processing results …")
-    rec   = result["recommendation"]
-    cc    = result["citation_check"]
-    evs   = result["evidence"]
-
-    # Signal badge
-    sig_label = SIGNAL_EMOJI.get(rec["signal_strength"], rec["signal_strength"])
-    citation_ok = "✅ All citations verified" if cc["passed"] else f"⚠️ Unverified: {cc['missing_ids']}"
-
-    # Recommendation markdown
-    rec_md = f"""### {sig_label}  ·  Audit #{result['audit_id']}
-
-{rec['summary']}
-
-**Emerging topics to add:**
-{chr(10).join(f'- `{t}`' for t in rec['emerging_topics'])}
-
-**Citation check:** {citation_ok}
-
----
-*Query used:* `{result['query']}`
-"""
-
-    # Topics plain text for the chips display
-    topics_text = "  ·  ".join(rec["emerging_topics"]) if rec["emerging_topics"] else "None identified"
-
-    # Agent pipeline — all done
-    agent_done_html = (
-        _agent_html("A", "done") +
-        _agent_html("B", "unavailable") +
-        _agent_html("C", "unavailable") +
-        _agent_html("D", "done")
-    )
-
-    # Evidence HTML
-    ev_html = _evidence_html(evs)
-
-    # Metrics table
-    metrics_md = f"""| Metric | Value |
-|---|---|
-| Signal strength | **{rec['signal_strength'].upper()}** |
-| Documents retrieved | {len(evs)} |
-| Documents cited | {len(cc['cited_ids'])} |
-| Citation check | {'✅ Passed' if cc['passed'] else '❌ Failed'} |
-| Emerging topics | {len(rec['emerging_topics'])} |
-| Audit ID | #{result['audit_id']} |
-"""
-
-    progress(1.0, desc="Done")
-    return rec_md, topics_text, ev_html, metrics_md, agent_done_html, json.dumps(result, indent=2)
+    pct = int(months_collected / months_needed * 100)
+    body = f"""
+    <div style="margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+        <span style="font-size:13px;color:#e2e8f0;">Historical corpus build</span>
+        <span style="font-size:13px;font-weight:700;color:#f59e0b;">{months_collected}/{months_needed} months</span>
+      </div>
+      <div style="background:#0f172a;border-radius:6px;height:10px;">
+        <div style="width:{pct}%;background:#f59e0b;height:10px;border-radius:6px;"></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:#94a3b8;line-height:1.6;">
+      <b style="color:#f1f5f9">What Agent B will do:</b> Train a Temporal Fusion Transformer
+      on {months_needed}+ months of skill-demand time-series to forecast which skills will rise or
+      fall over the next 12–24 months for <b style="color:#f1f5f9">{field}</b>.<br><br>
+      <b style="color:#f1f5f9">Baselines when ready:</b> ARIMA, LSTM, Temporal KG Embeddings
+      (arXiv 2504.07233).<br><br>
+      <span style="color:#f59e0b;">⚠ Run the ingestion pipeline monthly to build the historical corpus.</span>
+    </div>"""
+    return _card("B", "Skill Demand Forecasting", "unavailable", body)
 
 
 # ---------------------------------------------------------------------------
-# Run all units
+# Agent C  — drift detection placeholder
 # ---------------------------------------------------------------------------
 
-def run_all_units(university: str, field: str, progress=gr.Progress()):
-    units = get_all_units(university, field)
-    if not units:
-        return "No units found.", "", ""
+def _run_agent_c(field: str) -> str:
+    body = f"""
+    <div style="font-size:12px;color:#94a3b8;line-height:1.6;">
+      <b style="color:#f1f5f9">What Agent C will do:</b> Compute monthly contextual embedding
+      centroids for ~500 tracked skill labels in <b style="color:#f1f5f9">{field}</b>,
+      then apply Maximum Mean Discrepancy (MMD) tests on 12-month rolling windows to flag
+      skills whose meaning has shifted — even when the label stayed the same.<br><br>
+      <b style="color:#f1f5f9">Example of drift:</b> "Cloud computing" in 2019 → VMs &amp; storage.
+      "Cloud computing" in 2024 → Kubernetes &amp; serverless. Same label, different competency.<br><br>
+      <span style="color:#f59e0b;">⚠ Requires 2+ years of monthly centroid snapshots.
+      First drift signals expected after Month 12.</span>
+    </div>"""
+    return _card("C", "Semantic Drift Detection", "unavailable", body)
 
-    pipeline = _get_pipeline()
-    rows = []
+
+# ---------------------------------------------------------------------------
+# Agent D  — full curriculum mapping
+# ---------------------------------------------------------------------------
+
+SIGNAL_ICON = {"high": "🟢", "medium": "🟡", "low": "🔴"}
+
+
+def _run_agent_d(field: str, progress_cb=None) -> str:
+    units  = get_all_units(field)
+    pipe   = _get_pipeline()
+    rows   = []
+
     for i, unit in enumerate(units):
-        progress((i + 1) / len(units), desc=f"Analysing: {unit['title'][:40]} …")
-        result = pipeline.run(unit)
-        rec = result["recommendation"]
-        cc  = result["citation_check"]
+        if progress_cb:
+            progress_cb(0.65 + 0.33 * (i / max(len(units), 1)),
+                        desc=f"Agent D — {unit['title'][:40]} …")
+        result = pipe.run(unit)
+        rec    = result["recommendation"]
+        topics = ", ".join(rec["emerging_topics"][:4]) or "—"
         rows.append({
-            "Unit": unit["title"],
-            "CS2023 Area": unit.get("cs2023_area", "—"),
-            "Signal": rec["signal_strength"].upper(),
-            "Emerging Topics": ", ".join(rec["emerging_topics"][:3]),
-            "Citations OK": "✅" if cc["passed"] else "⚠️",
-            "Audit #": result["audit_id"],
+            "unit":    unit["title"],
+            "courses": ", ".join(unit.get("courses", [])),
+            "area":    unit.get("cs2023_area", "—"),
+            "signal":  rec["signal_strength"],
+            "topics":  topics,
+            "audit":   result["audit_id"],
         })
 
-    # Summary markdown table
-    table_md = "| Unit | Area | Signal | Top Topics | Citations |\n|---|---|---|---|---|\n"
+    # Summary counts
+    high   = sum(1 for r in rows if r["signal"] == "high")
+    medium = sum(1 for r in rows if r["signal"] == "medium")
+    low    = sum(1 for r in rows if r["signal"] == "low")
+
+    # Table rows
+    table_rows = ""
     for r in rows:
-        table_md += f"| {r['Unit']} | {r['CS2023 Area']} | **{r['Signal']}** | {r['Emerging Topics']} | {r['Citations OK']} |\n"
+        icon = SIGNAL_ICON.get(r["signal"], "⚪")
+        table_rows += f"""
+        <tr>
+          <td style="padding:10px 12px;border-bottom:1px solid #334155;color:#e2e8f0;font-size:13px;">
+            {r['unit']}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #334155;color:#64748b;font-size:12px;">
+            {r['courses']}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #334155;text-align:center;
+                     font-size:14px;">{icon} {r['signal'].upper()}</td>
+          <td style="padding:10px 12px;border-bottom:1px solid #334155;color:#94a3b8;font-size:12px;">
+            {r['topics']}</td>
+        </tr>"""
 
-    high   = sum(1 for r in rows if r["Signal"] == "HIGH")
-    medium = sum(1 for r in rows if r["Signal"] == "MEDIUM")
-    low    = sum(1 for r in rows if r["Signal"] == "LOW")
-    summary = f"**{len(rows)} units analysed** — 🟢 High: {high}  🟡 Medium: {medium}  🔴 Low: {low}"
+    body = f"""
+    <div style="display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap;">
+      <div style="background:#0f172a;border-radius:8px;padding:10px 18px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:#22c55e;">{high}</div>
+        <div style="font-size:11px;color:#64748b;">High signal</div>
+      </div>
+      <div style="background:#0f172a;border-radius:8px;padding:10px 18px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:#f59e0b;">{medium}</div>
+        <div style="font-size:11px;color:#64748b;">Medium signal</div>
+      </div>
+      <div style="background:#0f172a;border-radius:8px;padding:10px 18px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:#ef4444;">{low}</div>
+        <div style="font-size:11px;color:#64748b;">Low signal</div>
+      </div>
+      <div style="background:#0f172a;border-radius:8px;padding:10px 18px;text-align:center;">
+        <div style="font-size:22px;font-weight:800;color:#38bdf8;">{len(rows)}</div>
+        <div style="font-size:11px;color:#64748b;">Units analysed</div>
+      </div>
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="background:#0f172a;">
+            <th style="padding:10px 12px;text-align:left;color:#64748b;font-size:11px;
+                       text-transform:uppercase;letter-spacing:1px;">Knowledge Unit</th>
+            <th style="padding:10px 12px;text-align:left;color:#64748b;font-size:11px;
+                       text-transform:uppercase;letter-spacing:1px;">Courses</th>
+            <th style="padding:10px 12px;text-align:center;color:#64748b;font-size:11px;
+                       text-transform:uppercase;letter-spacing:1px;">Industry Signal</th>
+            <th style="padding:10px 12px;text-align:left;color:#64748b;font-size:11px;
+                       text-transform:uppercase;letter-spacing:1px;">Add to Curriculum</th>
+          </tr>
+        </thead>
+        <tbody>{table_rows}</tbody>
+      </table>
+    </div>"""
 
-    return summary, table_md, json.dumps(rows, indent=2)
+    return _card("D", f"Curriculum Mapping — TAMU {field}", "done", body)
 
 
 # ---------------------------------------------------------------------------
-# Gradio Blocks UI
+# Main streaming generator
+# ---------------------------------------------------------------------------
+
+EMPTY_A = _pending_card("A", "Signal Fusion")
+EMPTY_B = _pending_card("B", "Skill Demand Forecasting")
+EMPTY_C = _pending_card("C", "Semantic Drift Detection")
+EMPTY_D = _pending_card("D", "Curriculum Mapping")
+
+
+def run_full_analysis(field: str, progress=gr.Progress()):
+    if not field:
+        yield EMPTY_A, EMPTY_B, EMPTY_C, EMPTY_D
+        return
+
+    # Step 0 — show all pending
+    yield EMPTY_A, EMPTY_B, EMPTY_C, EMPTY_D
+
+    # Step 1 — Agent A
+    progress(0.05, desc="Agent A: computing industry skill signals …")
+    a_html = _run_agent_a(field)
+    yield a_html, _card("B", "Skill Demand Forecasting", "running",
+                         '<div style="color:#94a3b8;">Checking forecasting status…</div>'), EMPTY_C, EMPTY_D
+
+    # Step 2 — Agent B
+    progress(0.35, desc="Agent B: checking forecasting readiness …")
+    b_html = _run_agent_b(field)
+    yield a_html, b_html, _card("C", "Semantic Drift Detection", "running",
+                                  '<div style="color:#94a3b8;">Checking drift data…</div>'), EMPTY_D
+
+    # Step 3 — Agent C
+    progress(0.50, desc="Agent C: checking drift detection readiness …")
+    c_html = _run_agent_c(field)
+    yield a_html, b_html, c_html, _card("D", "Curriculum Mapping", "running",
+                                          '<div style="color:#94a3b8;">Running RAG pipeline on all units…</div>')
+
+    # Step 4 — Agent D (slowest — multiple GPT calls)
+    progress(0.65, desc="Agent D: mapping curriculum to industry signals …")
+    d_html = _run_agent_d(field, progress_cb=progress)
+    yield a_html, b_html, c_html, d_html
+
+
+# ---------------------------------------------------------------------------
+# Gradio UI
 # ---------------------------------------------------------------------------
 
 CSS = """
-body, .gradio-container { background: #0f172a !important; color: #f1f5f9 !important; }
-.gr-box, .gr-form { background: #1e293b !important; border-color: #334155 !important; }
-h1, h2, h3 { color: #38bdf8 !important; }
-.gr-button-primary { background: #3b82f6 !important; border-color: #3b82f6 !important; }
-.gr-button-secondary { background: #1e293b !important; border-color: #475569 !important; color: #94a3b8 !important; }
-footer { display: none !important; }
+body, .gradio-container { background:#0f172a !important; color:#f1f5f9 !important; }
+.gr-panel, .gr-box, .gr-form { background:#0f172a !important; border:none !important; }
+h1,h2,h3 { color:#38bdf8 !important; }
+footer { display:none !important; }
+label { color:#94a3b8 !important; }
 """
 
 HEADER_HTML = """
 <div style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);
-            padding:28px 32px; border-radius:14px; margin-bottom:4px;
-            border:1px solid #1e40af;">
-  <div style="display:flex; align-items:center; gap:16px;">
-    <div style="font-size:40px;">🎓</div>
+            padding:20px 24px;border-radius:12px;border:1px solid #1e40af;margin-bottom:16px;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="font-size:32px;">🎓</span>
     <div>
-      <div style="font-size:26px; font-weight:800; color:#38bdf8; letter-spacing:-0.5px;">
-        CURIA
-      </div>
-      <div style="font-size:13px; color:#94a3b8; margin-top:2px;">
-        Curriculum Intelligence via Industry Agents — IEEE BigData 2026
+      <div style="font-size:22px;font-weight:800;color:#38bdf8;letter-spacing:-0.5px;">CURIA</div>
+      <div style="font-size:11px;color:#64748b;margin-top:1px;">
+        Curriculum Intelligence via Industry Agents 
       </div>
     </div>
-    <div style="margin-left:auto; text-align:right;">
-      <div style="font-size:11px; color:#475569;">Model</div>
-      <div style="font-size:13px; font-weight:600; color:#34d399;">GPT-4o + all-mpnet-base-v2</div>
+    <div style="margin-left:auto;text-align:right;">
+      <div style="font-size:10px;color:#475569;">LLM · Embeddings</div>
+      <div style="font-size:12px;font-weight:600;color:#34d399;">GPT-4o · all-mpnet-base-v2</div>
     </div>
   </div>
-</div>
-"""
+</div>"""
 
 
-def update_fields(university: str) -> gr.update:
-    fields = FIELD_OPTIONS.get(university, [])
-    return gr.update(choices=fields, value=fields[0] if fields else None)
-
-
-def update_units(university: str, field: str) -> gr.update:
-    if not university or not field:
-        return gr.update(choices=[], value=None)
-    titles = get_unit_titles(university, field)
-    return gr.update(choices=titles, value=titles[0] if titles else None)
-
-
-def show_curriculum(university: str, field: str) -> str:
-    if not university or not field:
-        return ""
-    try:
-        return curriculum_summary(university, field)
-    except KeyError:
-        return "Curriculum not found."
-
-
-with gr.Blocks(title="CURIA — Curriculum Intelligence") as demo:
+with gr.Blocks(title="CURIA") as demo:
 
     gr.HTML(HEADER_HTML)
 
-    with gr.Tabs():
+    # ── Selection row ─────────────────────────────────────────────────────
+    with gr.Row():
+        field_dd = gr.Dropdown(
+            choices=ALL_FIELDS,
+            value="Computer Science",
+            label="Field of Study (Texas A&M University)",
+            interactive=True,
+            scale=4,
+        )
+        run_btn = gr.Button("▶  Run All 4 Agents", variant="primary", scale=1, size="lg")
 
-        # ── Tab 1: Single Unit Analysis ───────────────────────────────────
-        with gr.Tab("🔬 Analyse a Unit"):
-            with gr.Row():
-                # Left panel — controls
-                with gr.Column(scale=1, min_width=300):
-                    gr.Markdown("### Select Curriculum")
-                    university_dd = gr.Dropdown(
-                        choices=UNIVERSITY_OPTIONS,
-                        value=UNIVERSITY_OPTIONS[0],
-                        label="University",
-                        interactive=True,
-                    )
-                    field_dd = gr.Dropdown(
-                        choices=FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]],
-                        value=FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]][0],
-                        label="Field of Study",
-                        interactive=True,
-                    )
-                    unit_dd = gr.Dropdown(
-                        choices=get_unit_titles(UNIVERSITY_OPTIONS[0], FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]][0]),
-                        value=get_unit_titles(UNIVERSITY_OPTIONS[0], FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]][0])[0],
-                        label="Knowledge Unit",
-                        interactive=True,
-                    )
-                    run_btn = gr.Button("▶  Run Analysis", variant="primary", size="lg")
+    # ── 4 agent outputs ───────────────────────────────────────────────────
+    agent_a = gr.HTML(value=EMPTY_A)
+    agent_b = gr.HTML(value=EMPTY_B)
+    agent_c = gr.HTML(value=EMPTY_C)
+    agent_d = gr.HTML(value=EMPTY_D)
 
-                    gr.Markdown("---")
-                    gr.Markdown("### Agent Pipeline")
-                    agent_status = gr.HTML(
-                        _agent_html("A", "pending") +
-                        _agent_html("B", "unavailable") +
-                        _agent_html("C", "unavailable") +
-                        _agent_html("D", "pending")
-                    )
-
-                # Right panel — results
-                with gr.Column(scale=2):
-                    gr.Markdown("### Recommendation")
-                    rec_md = gr.Markdown(
-                        value="*Select a unit and click Run Analysis.*",
-                        label="",
-                    )
-
-                    gr.Markdown("### Emerging Topics")
-                    topics_out = gr.Textbox(
-                        label="",
-                        interactive=False,
-                        lines=2,
-                    )
-
-                    gr.Markdown("### Metrics")
-                    metrics_md = gr.Markdown()
-
-            gr.Markdown("### Retrieved Evidence")
-            evidence_html = gr.HTML()
-
-            with gr.Accordion("📋 Raw JSON output", open=False):
-                raw_json = gr.Code(language="json", label="Full pipeline output")
-
-        # ── Tab 2: Full Curriculum Scan ───────────────────────────────────
-        with gr.Tab("📊 Scan Full Curriculum"):
-            with gr.Row():
-                uni2 = gr.Dropdown(
-                    choices=UNIVERSITY_OPTIONS,
-                    value=UNIVERSITY_OPTIONS[0],
-                    label="University",
-                    interactive=True,
-                    scale=2,
-                )
-                field2 = gr.Dropdown(
-                    choices=FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]],
-                    value=FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]][0],
-                    label="Field of Study",
-                    interactive=True,
-                    scale=2,
-                )
-                scan_btn = gr.Button("▶  Scan All Units", variant="primary", scale=1)
-
-            scan_summary = gr.Markdown()
-            scan_table   = gr.Markdown()
-            with gr.Accordion("📋 Raw JSON", open=False):
-                scan_json = gr.Code(language="json")
-
-        # ── Tab 3: Curriculum Overview ────────────────────────────────────
-        with gr.Tab("🏛️ Curriculum Overview"):
-            with gr.Row():
-                uni3   = gr.Dropdown(choices=UNIVERSITY_OPTIONS, value=UNIVERSITY_OPTIONS[0],
-                                     label="University", interactive=True, scale=2)
-                field3 = gr.Dropdown(choices=FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]],
-                                     value=FIELD_OPTIONS[UNIVERSITY_OPTIONS[0]][0],
-                                     label="Field", interactive=True, scale=2)
-                view_btn = gr.Button("View", scale=1)
-            curr_md = gr.Markdown()
-
-    # ── Wire events ──────────────────────────────────────────────────────
-
-    # Cascading dropdowns — Tab 1
-    university_dd.change(update_fields, university_dd, field_dd)
-    university_dd.change(update_units,  [university_dd, field_dd], unit_dd)
-    field_dd.change(update_units, [university_dd, field_dd], unit_dd)
-
-    # Run single unit
+    # ── Wire ──────────────────────────────────────────────────────────────
     run_btn.click(
-        run_analysis,
-        inputs=[university_dd, field_dd, unit_dd],
-        outputs=[rec_md, topics_out, evidence_html, metrics_md, agent_status, raw_json],
+        run_full_analysis,
+        inputs=[field_dd],
+        outputs=[agent_a, agent_b, agent_c, agent_d],
     )
-
-    # Tab 2 cascading
-    uni2.change(update_fields, uni2, field2)
-    scan_btn.click(
-        run_all_units,
-        inputs=[uni2, field2],
-        outputs=[scan_summary, scan_table, scan_json],
-    )
-
-    # Tab 3
-    uni3.change(update_fields, uni3, field3)
-    view_btn.click(show_curriculum, [uni3, field3], curr_md)
-    # Auto-load on startup
-    demo.load(show_curriculum, [uni3, field3], curr_md)
 
 
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
-        server_port=7880,
+        server_port=7888,
         share=False,
         theme=gr.themes.Base(
             primary_hue="blue",

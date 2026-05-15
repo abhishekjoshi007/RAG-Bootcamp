@@ -1,0 +1,48 @@
+{
+  "university": "Texas A&M University",
+  "short_name": "TAMU",
+  "college": "College of Geosciences and College of Agriculture & Life Sciences",
+  "website": "https://geosciences.tamu.edu",
+  "curriculum_year": 2024,
+  "programs": [
+    {
+      "field": "Atmospheric Science",
+      "degree": "B.S. Atmospheric Science",
+      "department": "ATMO",
+      "units": [
+        {"id":"tamu_atmo_ml","title":"AI for Weather and Climate","description":"Deep learning for numerical weather prediction, climate downscaling, and severe weather detection.","courses":["ATMO 489","ATMO 689"],"current_topics":["NWP ML","climate downscaling","storm prediction","FourCastNet","GraphCast"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_atmo_data","title":"Atmospheric Data Science","description":"Large-scale climate datasets, reanalysis products, Python for geosciences, and cloud computing.","courses":["ATMO 420","ATMO 489"],"current_topics":["ERA5","xarray","NetCDF","cloud climate data","Pangeo"],"cs2023_area":"Data Management"},
+        {"id":"tamu_atmo_remote","title":"Remote Sensing and Satellite Meteorology","description":"GOES/NEXRAD data, satellite retrieval algorithms, and ML-enhanced remote sensing products.","courses":["ATMO 365","ATMO 489"],"current_topics":["GOES imagery","NEXRAD","retrieval algorithms","AI satellite products","hyperspectral analysis"],"cs2023_area":"Computational Science"}
+      ]
+    },
+    {
+      "field": "Geography & Geospatial Sciences",
+      "degree": "B.S. Geography",
+      "department": "GEOG",
+      "units": [
+        {"id":"tamu_geog_gis","title":"Advanced GIS and Spatial Analytics","description":"ArcGIS Pro, QGIS, spatial machine learning, geodatabases, and spatial data engineering.","courses":["GEOG 420","GEOG 489"],"current_topics":["ArcGIS Pro","spatial ML","PostGIS","geospatial Python","cloud GIS"],"cs2023_area":"Data Management"},
+        {"id":"tamu_geog_remote","title":"Remote Sensing and Earth Observation","description":"Satellite imagery analysis, LiDAR processing, change detection, and deep learning for land cover.","courses":["GEOG 365","GEOG 489"],"current_topics":["Sentinel/Landsat","LiDAR","change detection","land cover CNN","Google Earth Engine"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_geog_smart","title":"Smart Cities and Urban Analytics","description":"Urban data, mobility analytics, smart infrastructure, and AI-driven city planning.","courses":["GEOG 489","GEOG 613"],"current_topics":["urban data analytics","mobility patterns","smart city IoT","city digital twin","participatory GIS"],"cs2023_area":"Intelligent Systems"}
+      ]
+    },
+    {
+      "field": "Agricultural Data Science",
+      "degree": "B.S. Agricultural Science (Data Science track)",
+      "department": "AGSC",
+      "units": [
+        {"id":"tamu_agsc_prec","title":"Precision Agriculture and Drone Technology","description":"UAV-based crop monitoring, variable rate technology, yield mapping, and AI for agronomy.","courses":["AGSC 489","AGSC 640"],"current_topics":["UAV crop scouting","variable rate application","yield maps","NDVI analysis","AI crop disease detection"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_agsc_ml","title":"Machine Learning for Agriculture","description":"Crop yield prediction, pest detection, soil analysis, and climate impact modeling.","courses":["AGSC 489","AGSC 640"],"current_topics":["yield prediction","pest detection ML","soil sensor ML","climate impact models","food security AI"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_agsc_iot","title":"Agricultural IoT and Smart Farming","description":"Sensor networks, edge computing in agriculture, water management automation, and smart greenhouse.","courses":["AGSC 489","AGSC 430"],"current_topics":["soil sensors","weather IoT","smart irrigation","edge computing","greenhouse automation"],"cs2023_area":"Platform-based Development"}
+      ]
+    },
+    {
+      "field": "Biological & Agricultural Engineering",
+      "degree": "B.S. Biological & Agricultural Engineering",
+      "department": "BAEN",
+      "units": [
+        {"id":"tamu_baen_bio","title":"Bioprocess Engineering and Biomanufacturing","description":"Fermentation, bioreactor design, downstream processing, and AI-driven bioprocess optimization.","courses":["BAEN 405","BAEN 489"],"current_topics":["bioreactor design","fermentation optimization","downstream processing","bioprocess AI","synthetic biology"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_baen_env","title":"Environmental Systems Modeling","description":"Watershed modeling, groundwater simulation, environmental data science, and sustainability analytics.","courses":["BAEN 405","BAEN 489"],"current_topics":["SWAT model","groundwater modeling","water quality ML","GIS hydrology","sustainability metrics"],"cs2023_area":"Computational Science"}
+      ]
+    }
+  ]
+}

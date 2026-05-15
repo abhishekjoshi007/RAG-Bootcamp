@@ -1,8 +1,8 @@
 """
 University curriculum loader for CURIA.
 
-Loads structured curriculum JSON files from data/universities/ and
-converts them into the unit dicts the RAG pipeline expects.
+Loads all TAMU college JSON files and exposes a College → Field → Units
+hierarchy for the frontend.
 """
 
 from __future__ import annotations
@@ -14,92 +14,125 @@ from .config import ROOT
 
 UNIVERSITIES_DIR = ROOT / "data" / "universities"
 
-# Registry: (university_short_name, field) -> filename
-_REGISTRY: dict[tuple[str, str], str] = {
-    ("TAMU", "Computer Science"):       "tamu_cs.json",
-    ("TAMU", "Electrical Engineering"): "tamu_ee.json",
-}
+# ---------------------------------------------------------------------------
+# Raw college files to load
+# ---------------------------------------------------------------------------
+_COLLEGE_FILES = [
+    "tamu_engineering.json",
+    "tamu_science.json",
+    "tamu_business.json",
+    "tamu_geosciences_agriculture.json",
+]
+
+# ---------------------------------------------------------------------------
+# Build the registry from loaded JSON
+# ---------------------------------------------------------------------------
+
+# college_name -> list of program dicts
+_COLLEGE_PROGRAMS: dict[str, list[dict]] = {}
+
+# (field) -> list of unit dicts (pipeline-compatible)
+_FIELD_UNITS: dict[str, list[dict]] = {}
+
+# field -> degree title
+_FIELD_DEGREES: dict[str, str] = {}
+
+
+def _load_all() -> None:
+    for fname in _COLLEGE_FILES:
+        path = UNIVERSITIES_DIR / fname
+        if not path.exists():
+            continue
+        data = json.loads(path.read_text())
+        college = data.get("college", "Unknown College")
+        programs = data.get("programs", [])
+        _COLLEGE_PROGRAMS.setdefault(college, []).extend(programs)
+        for prog in programs:
+            field = prog["field"]
+            _FIELD_DEGREES[field] = prog.get("degree", field)
+            units = [
+                {
+                    "id": u["id"],
+                    "title": u["title"],
+                    "description": u["description"],
+                    "current_topics": u["current_topics"],
+                    "courses": u.get("courses", []),
+                    "cs2023_area": u.get("cs2023_area", ""),
+                    "field": field,
+                }
+                for u in prog.get("units", [])
+            ]
+            _FIELD_UNITS[field] = units
+
+
+_load_all()
+
+# ---------------------------------------------------------------------------
+# Public interface
+# ---------------------------------------------------------------------------
 
 UNIVERSITY_OPTIONS = ["Texas A&M University (TAMU)"]
-FIELD_OPTIONS: dict[str, list[str]] = {
-    "Texas A&M University (TAMU)": ["Computer Science", "Electrical Engineering"],
+
+COLLEGE_OPTIONS: dict[str, list[str]] = {
+    "Texas A&M University (TAMU)": sorted(_COLLEGE_PROGRAMS.keys())
 }
 
+FIELD_OPTIONS_BY_COLLEGE: dict[str, list[str]] = {
+    college: sorted(p["field"] for p in programs)
+    for college, programs in _COLLEGE_PROGRAMS.items()
+}
 
-def _short_name(university_label: str) -> str:
-    """Extract short name from label like 'Texas A&M University (TAMU)' → 'TAMU'."""
-    if "(" in university_label:
-        return university_label.split("(")[1].rstrip(")")
-    return university_label
-
-
-def load_curriculum(university_label: str, field: str) -> dict:
-    """
-    Load the full curriculum dict for a given university + field combination.
-    Returns the raw JSON dict with all units and metadata.
-    """
-    short = _short_name(university_label)
-    key = (short, field)
-    if key not in _REGISTRY:
-        raise KeyError(
-            f"No curriculum found for ({university_label}, {field}). "
-            f"Available: {list(_REGISTRY.keys())}"
-        )
-    path = UNIVERSITIES_DIR / _REGISTRY[key]
-    return json.loads(path.read_text())
+# Flat field list for the university (all colleges combined)
+ALL_FIELDS: list[str] = sorted(_FIELD_UNITS.keys())
 
 
-def get_unit_titles(university_label: str, field: str) -> list[str]:
-    """Return list of unit titles for the dropdown."""
-    curriculum = load_curriculum(university_label, field)
-    return [u["title"] for u in curriculum["units"]]
+def get_college_for_field(field: str) -> str:
+    for college, programs in _COLLEGE_PROGRAMS.items():
+        for p in programs:
+            if p["field"] == field:
+                return college
+    return "Unknown"
 
 
-def get_unit_by_title(university_label: str, field: str, title: str) -> dict:
-    """Return the pipeline-compatible unit dict for a given title."""
-    curriculum = load_curriculum(university_label, field)
-    for unit in curriculum["units"]:
+def get_unit_titles(field: str) -> list[str]:
+    return [u["title"] for u in _FIELD_UNITS.get(field, [])]
+
+
+def get_unit_by_title(field: str, title: str) -> dict:
+    for unit in _FIELD_UNITS.get(field, []):
         if unit["title"] == title:
-            return {
-                "id": unit["id"],
-                "title": unit["title"],
-                "description": unit["description"],
-                "current_topics": unit["current_topics"],
-                "courses": unit.get("courses", []),
-                "cs2023_area": unit.get("cs2023_area", ""),
-            }
-    raise KeyError(f"Unit '{title}' not found in {university_label} {field} curriculum")
+            return unit
+    raise KeyError(f"Unit '{title}' not found in field '{field}'")
 
 
-def get_all_units(university_label: str, field: str) -> list[dict]:
-    """Return all pipeline-compatible unit dicts for a curriculum."""
-    curriculum = load_curriculum(university_label, field)
-    return [
-        {
-            "id": u["id"],
-            "title": u["title"],
-            "description": u["description"],
-            "current_topics": u["current_topics"],
-            "courses": u.get("courses", []),
-            "cs2023_area": u.get("cs2023_area", ""),
-        }
-        for u in curriculum["units"]
-    ]
+def get_all_units(field: str) -> list[dict]:
+    return list(_FIELD_UNITS.get(field, []))
 
 
-def curriculum_summary(university_label: str, field: str) -> str:
-    """Return a markdown summary of the curriculum for display."""
-    curriculum = load_curriculum(university_label, field)
+def curriculum_summary(field: str) -> str:
+    units = _FIELD_UNITS.get(field, [])
+    degree = _FIELD_DEGREES.get(field, field)
+    college = get_college_for_field(field)
     lines = [
-        f"**{curriculum['university']}** — {curriculum['degree']}",
-        f"Department: {curriculum['department']}",
-        f"Curriculum year: {curriculum['curriculum_year']}",
-        f"Total units: {len(curriculum['units'])}",
+        f"**Texas A&M University** — {degree}",
+        f"College: {college}",
+        f"Total units: {len(units)}",
         "",
-        "| Unit | CS2023 Area | Courses |",
-        "|---|---|---|",
+        "| # | Unit | CS2023 Area | Courses |",
+        "|---|---|---|---|",
     ]
-    for u in curriculum["units"]:
+    for i, u in enumerate(units, 1):
         courses = ", ".join(u.get("courses", []))
-        lines.append(f"| {u['title']} | {u.get('cs2023_area', '—')} | {courses} |")
+        lines.append(f"| {i} | {u['title']} | {u.get('cs2023_area','—')} | {courses} |")
+    return "\n".join(lines)
+
+
+def all_programs_summary() -> str:
+    lines = ["# Texas A&M University — All Programs\n"]
+    for college, programs in sorted(_COLLEGE_PROGRAMS.items()):
+        lines.append(f"## {college}\n")
+        for p in sorted(programs, key=lambda x: x["field"]):
+            n = len(p.get("units", []))
+            lines.append(f"- **{p['field']}** ({p['degree']}) — {n} knowledge units")
+        lines.append("")
     return "\n".join(lines)

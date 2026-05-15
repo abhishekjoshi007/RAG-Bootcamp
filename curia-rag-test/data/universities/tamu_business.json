@@ -1,0 +1,41 @@
+{
+  "university": "Texas A&M University",
+  "short_name": "TAMU",
+  "college": "Mays Business School",
+  "website": "https://mays.tamu.edu",
+  "curriculum_year": 2024,
+  "programs": [
+    {
+      "field": "Management Information Systems",
+      "degree": "B.S. Management Information Systems",
+      "department": "MISY",
+      "units": [
+        {"id":"tamu_misy_erp","title":"Enterprise Systems and ERP","description":"SAP, Oracle, and cloud ERP platforms; business process integration; implementation methodology.","courses":["MISY 340","MISY 440"],"current_topics":["SAP S/4HANA","Oracle Cloud","ERP implementation","business process modeling","API integration"],"cs2023_area":"Platform-based Development"},
+        {"id":"tamu_misy_cyber","title":"Cybersecurity for Business","description":"Information security management, risk frameworks, cloud security, and compliance (SOC2, GDPR).","courses":["MISY 420","MISY 440"],"current_topics":["information security","risk management","SOC2","GDPR","zero-trust architecture"],"cs2023_area":"Information Assurance and Security"},
+        {"id":"tamu_misy_cloud","title":"Cloud Computing for Business","description":"AWS, Azure, GCP for business; serverless architecture; cloud migration; FinOps.","courses":["MISY 440","MISY 489"],"current_topics":["AWS/Azure","serverless","cloud migration","FinOps","SaaS platforms"],"cs2023_area":"Parallel and Distributed Computing"},
+        {"id":"tamu_misy_ai","title":"AI for Business Decision Making","description":"Applied ML for business, NLP for business text, recommendation systems, and AI strategy.","courses":["MISY 440","MISY 489"],"current_topics":["applied ML","NLP for business","recommendation systems","AI strategy","RPA"],"cs2023_area":"Intelligent Systems"}
+      ]
+    },
+    {
+      "field": "Business Analytics",
+      "degree": "B.S. Business Analytics",
+      "department": "BANA",
+      "units": [
+        {"id":"tamu_bana_viz","title":"Data Visualization and Business Intelligence","description":"Tableau, Power BI, storytelling with data, and building executive-facing dashboards.","courses":["BANA 340","BANA 440"],"current_topics":["Tableau","Power BI","data storytelling","executive dashboards","embedded analytics"],"cs2023_area":"Human-Computer Interaction"},
+        {"id":"tamu_bana_ml","title":"Predictive Analytics and Machine Learning","description":"Regression, classification, clustering, and forecasting for business outcomes.","courses":["BANA 440","BANA 630"],"current_topics":["regression","classification","forecasting","customer churn","pricing optimization"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_bana_sql","title":"Database and SQL for Analytics","description":"SQL, data warehousing, ETL pipelines, and modern data stack (dbt, Snowflake, BigQuery).","courses":["BANA 340","BANA 489"],"current_topics":["SQL","Snowflake","dbt","BigQuery","ETL pipelines"],"cs2023_area":"Data Management"},
+        {"id":"tamu_bana_gen","title":"Generative AI for Business","description":"Prompt engineering, LLM integration, AI-assisted analytics, and responsible AI in business.","courses":["BANA 489","BANA 689"],"current_topics":["prompt engineering","LLM APIs","AI-assisted analytics","responsible AI","copilot tools"],"cs2023_area":"Intelligent Systems"}
+      ]
+    },
+    {
+      "field": "Finance",
+      "degree": "B.S. Finance",
+      "department": "FINC",
+      "units": [
+        {"id":"tamu_finc_quant","title":"Quantitative Finance and Algorithmic Trading","description":"Stochastic calculus, derivatives pricing, backtesting, and ML-driven trading strategies.","courses":["FINC 445","FINC 640"],"current_topics":["Black-Scholes","backtesting","algo trading","risk models","ML alpha generation"],"cs2023_area":"Computational Science"},
+        {"id":"tamu_finc_ml","title":"Machine Learning in Finance","description":"Credit scoring, fraud detection, NLP for finance, and AI-driven risk management.","courses":["FINC 489","FINC 640"],"current_topics":["credit scoring ML","fraud detection","sentiment analysis","FinBERT","AI risk management"],"cs2023_area":"Intelligent Systems"},
+        {"id":"tamu_finc_fintech","title":"FinTech and Blockchain","description":"DeFi, smart contracts, digital payments, RegTech, and blockchain for financial services.","courses":["FINC 489","FINC 640"],"current_topics":["blockchain","smart contracts","DeFi","digital payments","RegTech","tokenization"],"cs2023_area":"Platform-based Development"}
+      ]
+    }
+  ]
+}
