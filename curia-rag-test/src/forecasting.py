@@ -96,6 +96,63 @@ _TREND_DEFS: dict[str, tuple[float, float, float, dict[int, float]]] = {
 }
 
 # ---------------------------------------------------------------------------
+# Skill aliasing — maps Agent A's raw terms onto canonical _TREND_DEFS keys
+# ---------------------------------------------------------------------------
+
+_SKILL_ALIASES: dict[str, str] = {
+    # AI / ML
+    "llm":                       "large language models",
+    "large language model":      "large language models",
+    "ml":                        "machine learning",
+    "ml engineer":               "machine learning",
+    "machine learning engineer": "machine learning",
+    "rag":                       "retrieval augmented generation",
+    "retrieval augmented":       "retrieval augmented generation",
+    # Cloud / DevOps
+    "cloud engineer":            "cloud native",
+    "cloud":                     "cloud native",
+    "devsecops":                 "supply chain security",
+    "security engineer":         "cybersecurity",
+    # Data
+    "data analysis":             "data analyst",
+    "analytics engineer":        "data analyst",
+    "bi developer":              "data analyst",
+    "product analyst":           "data analyst",
+    # Misc normalizations
+    "rf engineer":               "embedded systems",
+    "gnc engineer":              "guidance navigation control",
+    "remote sensing":            "gis analyst",
+    "remote sensing analyst":    "gis analyst",
+    "geospatial engineer":       "gis analyst",
+    "spatial data scientist":    "gis analyst",
+    "agtech engineer":           "precision agriculture",
+    "precision agriculture engineer": "precision agriculture",
+    "agricultural data scientist":    "precision agriculture",
+    "biomedical engineer":       "medical device engineer",
+    "bioinformatics engineer":   "bioinformatics",
+    "clinical data scientist":   "bioinformatics",
+    "computational chemist":     "computational chemistry",
+    "drug discovery":            "computational chemistry",
+    "quantitative researcher":   "quantitative analyst",
+    "financial analyst":         "quantitative analyst",
+    "risk analyst":              "quantitative analyst",
+    "investment analyst":        "quantitative analyst",
+    "fintech":                   "fintech engineer",
+    "climate scientist":         "atmospheric scientist",
+    "weather analyst":           "atmospheric scientist",
+    "operations research analyst": "data analyst",
+    "supply chain analyst":      "supply chain security",
+    "supply chain":              "supply chain security",
+}
+
+
+def _canonical_skill(raw: str) -> str:
+    """Lowercase + dehyphenate, then map through alias table."""
+    s = raw.lower().replace("-", " ").strip()
+    return _SKILL_ALIASES.get(s, s)
+
+
+# ---------------------------------------------------------------------------
 # Field → skill mapping for filtering
 # ---------------------------------------------------------------------------
 
@@ -336,6 +393,75 @@ class SkillForecaster:
                 results.append(r)
         results.sort(key=lambda r: r.forecast[-1].frequency, reverse=True)
         return results[:top_n]
+
+    def forecast_skills(
+        self,
+        skills: list[str],
+        top_n: int = 10,
+    ) -> list[ForecastResult]:
+        """
+        Forecast the exact skills passed in (e.g. produced by Agent A).
+        Unknown skills get a deterministic synthetic forecast so Agent B
+        never appears blank for a skill the user just saw in Agent A.
+
+        Display name is preserved as the user's original spelling.
+        """
+        results: list[ForecastResult] = []
+        seen_canonical: set[str] = set()
+
+        for raw in skills:
+            canonical = _canonical_skill(raw)
+            if canonical in seen_canonical:
+                continue
+            seen_canonical.add(canonical)
+
+            r = self.forecast_skill(canonical) or self._synthesize_forecast(canonical)
+
+            # Preserve user-facing skill name (Agent A's original label)
+            r = ForecastResult(
+                skill=raw,
+                historical=r.historical,
+                forecast=r.forecast,
+                trend=r.trend,
+                slope_per_month=r.slope_per_month,
+                r_squared=r.r_squared,
+                method=r.method,
+                confidence=r.confidence,
+            )
+            results.append(r)
+            if len(results) >= top_n:
+                break
+        return results
+
+    def _synthesize_forecast(self, skill: str) -> ForecastResult:
+        """Deterministic synthetic forecast for skills not in _TREND_DEFS."""
+        h     = hash(skill) & 0xFFFF_FFFF
+        base  = 0.08 + (h % 30) / 100.0                # 0.08 – 0.38
+        slope = ((h >> 4) % 16 - 4) / 1000.0           # -0.004 – +0.011
+        noise = 0.007 + ((h >> 12) % 5) / 1000.0       # 0.007 – 0.011
+
+        months_list = _month_sequence(self.history_start, self.history_months)
+        rng = _lcg(h)
+        values: list[DataPoint] = []
+        v = base
+        for month in months_list:
+            v = v + slope + noise * next(rng)
+            v = max(0.02, min(0.98, v))
+            values.append(DataPoint(month=month, frequency=round(v, 4)))
+        history = tuple(values)
+
+        fc, slope_fit, r2 = _linear_forecast(history, self.forecast_months)
+        trend = "rising" if slope_fit > 0.003 else "declining" if slope_fit < -0.002 else "stable"
+        return ForecastResult(
+            skill=skill,
+            historical=history,
+            forecast=fc,
+            trend=trend,
+            slope_per_month=slope_fit,
+            r_squared=r2,
+            method="linear (synthetic)",
+            confidence=round(max(0.10, min(0.85, r2 * 0.7 + 0.10)), 3),
+        )
 
     def top_rising(self, field: str, n: int = 5) -> list[ForecastResult]:
         """Skills with the highest positive slope for this field."""

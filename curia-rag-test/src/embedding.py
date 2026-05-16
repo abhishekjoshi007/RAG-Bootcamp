@@ -57,12 +57,6 @@ def cosine_sparse(left: dict[str, float], right: dict[str, float]) -> float:
 
 
 class DenseEmbedder:
-    """Dense embedder backed by a sentence-transformers model (all-mpnet-base-v2 default).
-
-    The model is lazy-loaded on first call so importing this module doesn't
-    trigger a large download.  Vectors are L2-normalised so dot-product equals
-    cosine similarity — compatible with FAISS IndexFlatIP.
-    """
 
     def __init__(self, model_name: str = "all-mpnet-base-v2") -> None:
         self.model_name = model_name
@@ -72,8 +66,6 @@ class DenseEmbedder:
     def _loaded(self) -> SentenceTransformer:
         if self._model is None:
             import torch
-            # Force single-threaded CPU: MPS and multi-threaded BLAS both
-            # cause segfaults on macOS when encoding large batches.
             torch.set_num_threads(1)
             self._model = SentenceTransformer(self.model_name, device="cpu")
         return self._model

@@ -1,20 +1,7 @@
-"""
-Field-specific ingestion query configurations for CURIA Agent A.
-
-When a user selects a field of study, Agent A fetches documents using
-queries tailored to that discipline's industry signals.
-"""
-
 from __future__ import annotations
-
-# ---------------------------------------------------------------------------
-# Per-field ingestion parameters
-# Keys must match the "field" values in university JSON files.
-# ---------------------------------------------------------------------------
 
 FIELD_INGESTION: dict[str, dict] = {
 
-    # ── Engineering ──────────────────────────────────────────────────────
     "Computer Science": {
         "job_titles":      ["software engineer", "machine learning engineer", "devops", "cloud engineer", "security engineer"],
         "arxiv_cats":      ["cs.AI", "cs.LG", "cs.SE", "cs.CR", "cs.DC"],
@@ -105,7 +92,6 @@ FIELD_INGESTION: dict[str, dict] = {
         "arbeitnow_queries":["petroleum engineer", "energy engineer", "oil gas engineer"],
     },
 
-    # ── Science ───────────────────────────────────────────────────────────
     "Mathematics": {
         "job_titles":      ["mathematician", "data scientist", "quantitative analyst", "research scientist", "actuary"],
         "arxiv_cats":      ["math.NA", "math.ST", "math.OC", "cs.LG", "math.PR"],
@@ -151,7 +137,6 @@ FIELD_INGESTION: dict[str, dict] = {
         "arbeitnow_queries":["biologist", "bioinformatics", "research scientist"],
     },
 
-    # ── Business ──────────────────────────────────────────────────────────
     "Management Information Systems": {
         "job_titles":      ["IT manager", "systems analyst", "ERP consultant", "business analyst", "IT project manager"],
         "arxiv_cats":      ["cs.SE", "cs.DC", "cs.AI"],
@@ -179,7 +164,6 @@ FIELD_INGESTION: dict[str, dict] = {
         "arbeitnow_queries":["financial analyst", "quantitative analyst", "fintech"],
     },
 
-    # ── Geosciences ───────────────────────────────────────────────────────
     "Atmospheric Science": {
         "job_titles":      ["atmospheric scientist", "climate scientist", "weather analyst", "data scientist", "remote sensing analyst"],
         "arxiv_cats":      ["physics.ao-ph", "physics.geo-ph", "cs.LG"],
@@ -198,7 +182,6 @@ FIELD_INGESTION: dict[str, dict] = {
         "arbeitnow_queries":["GIS analyst", "geospatial analyst", "remote sensing"],
     },
 
-    # ── Agriculture ───────────────────────────────────────────────────────
     "Agricultural Data Science": {
         "job_titles":      ["agricultural data scientist", "precision agriculture engineer", "agtech engineer", "farm data analyst"],
         "arxiv_cats":      ["cs.LG", "eess.IV", "cs.CV", "physics.geo-ph"],
