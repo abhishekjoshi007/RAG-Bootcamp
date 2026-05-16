@@ -17,36 +17,25 @@ from datetime import date, timedelta
 from typing import Generator
 
 
-# ---------------------------------------------------------------------------
-# Data types
-# ---------------------------------------------------------------------------
-
 @dataclass(frozen=True)
 class DataPoint:
-    month: str          # "2024-03"
-    frequency: float    # normalised 0-1 (share of documents mentioning skill)
+    month: str
+    frequency: float
 
 
 @dataclass(frozen=True)
 class ForecastResult:
     skill: str
     historical: tuple[DataPoint, ...]
-    forecast: tuple[DataPoint, ...]        # 12-month horizon
-    trend: str                             # "rising" | "stable" | "declining"
-    slope_per_month: float                 # positive = rising
-    r_squared: float                       # fit quality 0-1
-    method: str                            # "linear" | "exp_smoothing" | "moving_avg"
-    confidence: float                      # 0-1 — derived from r_squared
+    forecast: tuple[DataPoint, ...]
+    trend: str
+    slope_per_month: float
+    r_squared: float
+    method: str
+    confidence: float
 
-
-# ---------------------------------------------------------------------------
-# Skill trend definitions
-# Each entry: (base_freq, monthly_slope, noise_amplitude, acceleration_map)
-# acceleration_map: {month_index: extra_slope_to_add_from_here}
-# ---------------------------------------------------------------------------
 
 _TREND_DEFS: dict[str, tuple[float, float, float, dict[int, float]]] = {
-    # --- CS / AI -------------------------------------------------------
     "machine learning":          (0.38, 0.006, 0.012, {24: 0.012}),
     "large language models":     (0.04, 0.018, 0.018, {18: 0.035}),
     "retrieval augmented generation": (0.01, 0.010, 0.014, {20: 0.045}),
@@ -61,46 +50,33 @@ _TREND_DEFS: dict[str, tuple[float, float, float, dict[int, float]]] = {
     "mlops":                     (0.08, 0.013, 0.011, {16: 0.010}),
     "software engineer":         (0.55, 0.002, 0.008, {}),
     "data analyst":              (0.35, 0.006, 0.009, {}),
-    # --- EE / Embedded --------------------------------------------------
     "embedded systems":          (0.22, 0.004, 0.008, {}),
     "fpga":                      (0.15, 0.003, 0.007, {}),
     "robotics":                  (0.18, 0.007, 0.009, {20: 0.006}),
     "signal processing":         (0.20, 0.002, 0.007, {}),
-    # --- Mechanical -----------------------------------------------------
     "mechanical engineer":       (0.30, 0.003, 0.008, {}),
     "finite element analysis":   (0.16, 0.002, 0.007, {}),
     "cad design":                (0.20, 0.001, 0.007, {}),
-    # --- Civil ----------------------------------------------------------
     "gis analyst":               (0.18, 0.005, 0.008, {}),
     "structural engineer":       (0.22, 0.002, 0.007, {}),
-    # --- Chemical -------------------------------------------------------
     "process engineer":          (0.25, 0.003, 0.008, {}),
     "computational chemistry":   (0.10, 0.006, 0.008, {22: 0.008}),
-    # --- Aerospace ------------------------------------------------------
     "uav engineer":              (0.12, 0.009, 0.010, {18: 0.012}),
     "guidance navigation control": (0.10, 0.004, 0.008, {}),
-    # --- Biomedical -----------------------------------------------------
     "bioinformatics":            (0.16, 0.007, 0.009, {22: 0.006}),
     "medical device engineer":   (0.18, 0.004, 0.008, {}),
-    # --- Science --------------------------------------------------------
     "quantum computing":         (0.07, 0.010, 0.012, {24: 0.008}),
     "data scientist":            (0.45, 0.005, 0.008, {}),
     "statistician":              (0.22, 0.004, 0.008, {}),
-    # --- Business -------------------------------------------------------
     "business analyst":          (0.38, 0.004, 0.008, {}),
     "quantitative analyst":      (0.20, 0.005, 0.008, {}),
     "fintech engineer":          (0.12, 0.008, 0.009, {20: 0.007}),
-    # --- Agriculture / Geo ----------------------------------------------
     "precision agriculture":     (0.08, 0.008, 0.009, {22: 0.010}),
     "atmospheric scientist":     (0.10, 0.005, 0.008, {}),
 }
 
-# ---------------------------------------------------------------------------
-# Skill aliasing — maps Agent A's raw terms onto canonical _TREND_DEFS keys
-# ---------------------------------------------------------------------------
 
 _SKILL_ALIASES: dict[str, str] = {
-    # AI / ML
     "llm":                       "large language models",
     "large language model":      "large language models",
     "ml":                        "machine learning",
@@ -108,17 +84,14 @@ _SKILL_ALIASES: dict[str, str] = {
     "machine learning engineer": "machine learning",
     "rag":                       "retrieval augmented generation",
     "retrieval augmented":       "retrieval augmented generation",
-    # Cloud / DevOps
     "cloud engineer":            "cloud native",
     "cloud":                     "cloud native",
     "devsecops":                 "supply chain security",
     "security engineer":         "cybersecurity",
-    # Data
     "data analysis":             "data analyst",
     "analytics engineer":        "data analyst",
     "bi developer":              "data analyst",
     "product analyst":           "data analyst",
-    # Misc normalizations
     "rf engineer":               "embedded systems",
     "gnc engineer":              "guidance navigation control",
     "remote sensing":            "gis analyst",
@@ -151,10 +124,6 @@ def _canonical_skill(raw: str) -> str:
     s = raw.lower().replace("-", " ").strip()
     return _SKILL_ALIASES.get(s, s)
 
-
-# ---------------------------------------------------------------------------
-# Field → skill mapping for filtering
-# ---------------------------------------------------------------------------
 
 _FIELD_SKILLS: dict[str, list[str]] = {
     "Computer Science":              ["machine learning", "large language models",
@@ -211,10 +180,6 @@ _FIELD_SKILLS: dict[str, list[str]] = {
 }
 
 
-# ---------------------------------------------------------------------------
-# Historical data generation
-# ---------------------------------------------------------------------------
-
 def _month_sequence(start: str = "2022-01", months: int = 40) -> list[str]:
     """Generate list of 'YYYY-MM' strings."""
     year, mon = map(int, start.split("-"))
@@ -260,10 +225,6 @@ def _generate_historical(
     return tuple(values)
 
 
-# ---------------------------------------------------------------------------
-# Forecasting algorithms (numpy-free; pure Python)
-# ---------------------------------------------------------------------------
-
 def _linear_forecast(
     history: tuple[DataPoint, ...],
     months_ahead: int = 12,
@@ -284,12 +245,10 @@ def _linear_forecast(
     b = sum((xs[i] - xm) * (ys[i] - ym) for i in range(n)) / denom
     a = ym - b * xm
 
-    # R²
     ss_res = sum((ys[i] - (a + b * xs[i])) ** 2 for i in range(n))
     ss_tot = sum((y - ym) ** 2 for y in ys) or 1e-9
     r2 = max(0.0, 1.0 - ss_res / ss_tot)
 
-    # Project forward
     last_month_str = history[-1].month
     year, mon = map(int, last_month_str.split("-"))
     forecast: list[DataPoint] = []
@@ -333,10 +292,6 @@ def _exp_smoothing_forecast(
         forecast.append(DataPoint(month=f"{year:04d}-{mon:02d}", frequency=round(pred, 4)))
     return tuple(forecast)
 
-
-# ---------------------------------------------------------------------------
-# Public API
-# ---------------------------------------------------------------------------
 
 class SkillForecaster:
     """
@@ -417,7 +372,6 @@ class SkillForecaster:
 
             r = self.forecast_skill(canonical) or self._synthesize_forecast(canonical)
 
-            # Preserve user-facing skill name (Agent A's original label)
             r = ForecastResult(
                 skill=raw,
                 historical=r.historical,
@@ -436,9 +390,9 @@ class SkillForecaster:
     def _synthesize_forecast(self, skill: str) -> ForecastResult:
         """Deterministic synthetic forecast for skills not in _TREND_DEFS."""
         h     = hash(skill) & 0xFFFF_FFFF
-        base  = 0.08 + (h % 30) / 100.0                # 0.08 – 0.38
-        slope = ((h >> 4) % 16 - 4) / 1000.0           # -0.004 – +0.011
-        noise = 0.007 + ((h >> 12) % 5) / 1000.0       # 0.007 – 0.011
+        base  = 0.08 + (h % 30) / 100.0
+        slope = ((h >> 4) % 16 - 4) / 1000.0
+        noise = 0.007 + ((h >> 12) % 5) / 1000.0
 
         months_list = _month_sequence(self.history_start, self.history_months)
         rng = _lcg(h)
@@ -504,7 +458,6 @@ class SkillForecaster:
         fc, _, _ = _linear_forecast(train, len(actual))
         predicted = [p.frequency for p in fc]
 
-        # Direction accuracy: did we predict up/down correctly each month?
         directions = 0
         for i in range(1, len(actual)):
             a_dir = actual[i] > actual[i - 1]

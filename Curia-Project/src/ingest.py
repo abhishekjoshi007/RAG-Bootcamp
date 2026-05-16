@@ -72,7 +72,6 @@ from .models import Document
 
 logger = logging.getLogger(__name__)
 
-# Aliases to keep function signatures clean
 _JOB_TAGS_REMOTEOK    = JOB_TAGS_REMOTEOK
 _JOB_QUERIES_REMOTIVE = JOB_QUERIES_REMOTIVE
 _JOB_QUERIES_ARBEITNOW = JOB_QUERIES_ARBEITNOW
@@ -84,9 +83,6 @@ _GITHUB_TOPICS        = GITHUB_TOPICS
 _GREENHOUSE_COMPANIES = GREENHOUSE_COMPANIES
 _LEVER_COMPANIES      = LEVER_COMPANIES
 
-# ---------------------------------------------------------------------------
-# HTTP helpers
-# ---------------------------------------------------------------------------
 
 def _get_json(url: str, headers: dict[str, str] | None = None) -> dict | list:
     req_headers: dict[str, str] = {"Accept": "application/json", "Accept-Encoding": "gzip"}
@@ -122,10 +118,6 @@ def _parse_date(raw: str | None) -> date:
     except (ValueError, TypeError):
         return date.today()
 
-
-# ---------------------------------------------------------------------------
-# Job posting sources
-# ---------------------------------------------------------------------------
 
 def fetch_remoteok(max_per_tag: int = INGEST_MAX_PER_TAG) -> list[Document]:
     """RemoteOK free JSON API — no auth required."""
@@ -377,10 +369,6 @@ def fetch_usajobs(max_per_keyword: int = INGEST_MAX_PER_TAG) -> list[Document]:
     return docs
 
 
-# ---------------------------------------------------------------------------
-# ATS public board APIs (Greenhouse + Lever) and RSS boards
-# ---------------------------------------------------------------------------
-
 def fetch_greenhouse(max_per_company: int = INGEST_MAX_PER_COMPANY) -> list[Document]:
     """
     Greenhouse public Job Board API — no auth required.
@@ -510,7 +498,6 @@ def fetch_weworkremotely(max_results: int = INGEST_MAX_WWR) -> list[Document]:
             if doc_id in seen:
                 continue
             seen.add(doc_id)
-            # pub_date is RFC-2822: "Mon, 01 Jan 2024 00:00:00 +0000"
             try:
                 from email.utils import parsedate
                 import datetime as _dt
@@ -530,10 +517,6 @@ def fetch_weworkremotely(max_results: int = INGEST_MAX_WWR) -> list[Document]:
         logger.warning("WeWorkRemotely RSS: %s", exc)
     return docs
 
-
-# ---------------------------------------------------------------------------
-# Academic / technical sources
-# ---------------------------------------------------------------------------
 
 _ARXIV_NS = "http://www.w3.org/2005/Atom"
 
@@ -690,10 +673,6 @@ def fetch_github_repos(max_per_topic: int = INGEST_MAX_PER_COMPANY) -> list[Docu
     return docs
 
 
-# ---------------------------------------------------------------------------
-# Orchestration
-# ---------------------------------------------------------------------------
-
 def ingest_all(corpus_dir: Path, skip_existing: bool = True) -> int:
     """
     Run all fetchers and write new Document JSON files to corpus_dir.
@@ -711,20 +690,15 @@ def ingest_all(corpus_dir: Path, skip_existing: bool = True) -> int:
                 pass
 
     fetchers = [
-        # ATS public boards — highest-quality tech company postings
         ("greenhouse", fetch_greenhouse),
         ("lever", fetch_lever),
-        # Remote-first boards
         ("weworkremotely", fetch_weworkremotely),
         ("remoteok", fetch_remoteok),
         ("remotive", fetch_remotive),
-        # General job boards
         ("arbeitnow", fetch_arbeitnow),
         ("themuse", fetch_themuse),
-        # Community / government
         ("hn_hiring", fetch_hn_hiring),
         ("usajobs", fetch_usajobs),
-        # Academic / technical
         ("arxiv", fetch_arxiv),
         ("stackoverflow", fetch_stackoverflow),
         ("github", fetch_github_repos),

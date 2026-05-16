@@ -80,7 +80,6 @@ def test_save_and_load_round_trip(index):
         assert loaded._index.ntotal == index._index.ntotal
         assert len(loaded.chunks) == len(index.chunks)
 
-        # Same query should return same top result
         original_top = index.search("machine learning", k=1)[0].chunk.parent_id
         loaded_top = loaded.search("machine learning", k=1)[0].chunk.parent_id
         assert original_top == loaded_top

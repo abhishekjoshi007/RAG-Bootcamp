@@ -18,7 +18,7 @@ def test_embed_returns_float32_array(embedder):
 def test_embed_correct_shape(embedder):
     vec = embedder.embed("test sentence")
     assert vec.ndim == 1
-    assert vec.shape[0] == 768  # all-mpnet-base-v2 dimension
+    assert vec.shape[0] == 768
 
 
 def test_embed_is_l2_normalised(embedder):

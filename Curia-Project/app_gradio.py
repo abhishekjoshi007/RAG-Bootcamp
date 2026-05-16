@@ -36,7 +36,6 @@ from src.university import ALL_FIELDS, get_all_units
 
 _forecaster = SkillForecaster(history_months=40, forecast_months=12)
 
-# Drift detector is initialised lazily on first request (needs the FAISS index).
 _drift_detector: SemanticDriftDetector | None = None
 
 
@@ -53,9 +52,6 @@ def _get_drift_detector() -> SemanticDriftDetector:
         )
     return _drift_detector
 
-# ---------------------------------------------------------------------------
-# Pipeline singleton
-# ---------------------------------------------------------------------------
 
 _pipeline: CuriaRagPipeline | None = None
 
@@ -73,10 +69,6 @@ def _get_pipeline() -> CuriaRagPipeline:
         )
     return _pipeline
 
-
-# ---------------------------------------------------------------------------
-# HTML card builder
-# ---------------------------------------------------------------------------
 
 def _card(letter: str, title: str, status: str, body: str) -> str:
     colors = {
@@ -129,10 +121,6 @@ def _leaderboard_row(skill: str, score: float, rank: int) -> str:
     </div>"""
 
 
-# ---------------------------------------------------------------------------
-# Agent A  — extract top skills from corpus (returns html + skill list)
-# ---------------------------------------------------------------------------
-
 MAX_AGENT_A_SKILLS = 20
 
 
@@ -142,7 +130,6 @@ def _run_agent_a(field: str) -> tuple[str, list[tuple[str, float]]]:
     pipe = _get_pipeline()
     corpus_size = len(pipe.retriever.index.chunks)
 
-    # Expand candidate pool — pull from ALL relevant config sections
     raw_candidates = (
         cfg.get("job_titles", [])
         + cfg.get("so_tags", [])
@@ -151,7 +138,6 @@ def _run_agent_a(field: str) -> tuple[str, list[tuple[str, float]]]:
         + cfg.get("arbeitnow_queries", [])
     )
 
-    # Normalize (lowercase, hyphens → spaces) + dedupe
     seen: set[str] = set()
     candidates: list[str] = []
     for term in raw_candidates:
@@ -160,7 +146,6 @@ def _run_agent_a(field: str) -> tuple[str, list[tuple[str, float]]]:
             seen.add(norm)
             candidates.append(norm)
 
-    # Score each candidate against the corpus
     signals: list[tuple[str, float]] = []
     for term in candidates:
         results = pipe.retriever.retrieve(term, k=8)
@@ -193,10 +178,6 @@ def _run_agent_a(field: str) -> tuple[str, list[tuple[str, float]]]:
     return _card("A", "Signal Fusion", "done", body), top
 
 
-# ---------------------------------------------------------------------------
-# Agent B  — real forecasting with sparklines
-# ---------------------------------------------------------------------------
-
 def _sparkline_svg(values: list[float], forecast_values: list[float],
                    w: int = 160, h: int = 36) -> str:
     """Render historical (blue) + forecast (dashed orange) as an inline SVG."""
@@ -220,7 +201,6 @@ def _sparkline_svg(values: list[float], forecast_values: list[float],
     fc_pts    = " ".join(f"{sx(n_hist + i, total):.1f},{sy(v):.1f}"
                          for i, v in enumerate(forecast_values))
 
-    # Vertical divider at history/forecast boundary
     div_x = sx(n_hist, total)
 
     return (
@@ -258,7 +238,6 @@ def _run_agent_b(
             [],
         )
 
-    # Backtest metrics on top skill (canonicalize so backtest finds a trend def)
     bt_skill = _canonical_skill(results[0].skill)
     bt = _forecaster.backtest(bt_skill, cutoff_months_ago=6)
     mape_str    = f"{bt['mape']*100:.1f}%" if bt["mape"] == bt["mape"] else "N/A"
@@ -266,8 +245,8 @@ def _run_agent_b(
 
     rows = ""
     for r in results:
-        hist_vals = [dp.frequency for dp in r.historical[-20:]]  # last 20 months
-        fc_vals   = [dp.frequency for dp in r.forecast[:6]]       # next 6 months
+        hist_vals = [dp.frequency for dp in r.historical[-20:]]
+        fc_vals   = [dp.frequency for dp in r.forecast[:6]]
         svg       = _sparkline_svg(hist_vals, fc_vals)
         arrow     = _trend_arrow(r.trend)
         col       = _trend_color(r.trend)
@@ -324,14 +303,10 @@ def _run_agent_b(
     return _card("B", f"Skill Demand Forecasting — {field}", "done", body), results
 
 
-# ---------------------------------------------------------------------------
-# Agent C  — real semantic drift across knowledge communities
-# ---------------------------------------------------------------------------
-
 _DRIFT_BAND_COLOURS = [
-    (0.30, "#ef4444", "HIGH"),     # major drift
-    (0.15, "#f59e0b", "MEDIUM"),   # moderate
-    (0.00, "#22c55e", "LOW"),      # consistent
+    (0.30, "#ef4444", "HIGH"),
+    (0.15, "#f59e0b", "MEDIUM"),
+    (0.00, "#22c55e", "LOW"),
 ]
 
 
@@ -413,7 +388,6 @@ def _run_agent_c(
         )
         return _card("C", "Semantic Drift Detection", "done", body), []
 
-    # Order: drifted first (by max_drift desc), then stable (by max_drift desc)
     sorted_results = sorted(
         results,
         key=lambda r: (not r.drifted, -r.max_drift),
@@ -424,7 +398,6 @@ def _run_agent_c(
 
     rows = "".join(_drift_row(r) for r in sorted_results)
 
-    # Top divergent pair across all skills
     top_pair_html = "—"
     if top_drifter and top_drifter.pairs:
         p = top_drifter.pairs[0]
@@ -485,10 +458,6 @@ def _run_agent_c(
     return _card("C", f"Semantic Drift — {field}", "done", body), results
 
 
-# ---------------------------------------------------------------------------
-# Agent D  — full curriculum mapping (highlights matches with A + B)
-# ---------------------------------------------------------------------------
-
 SIGNAL_ICON = {"high": "🟢", "medium": "🟡", "low": "🔴"}
 _TREND_PALETTE = {
     "rising":    ("#22c55e", "↑"),
@@ -517,9 +486,8 @@ def _skill_search_terms(skill: str) -> list[str]:
     terms: list[str] = []
     if canonical and canonical != raw:
         terms.append(canonical)
-    if len(raw) >= 5 or " " in raw:        # avoid 2-letter false positives like "ml"
+    if len(raw) >= 5 or " " in raw:
         terms.append(raw)
-    # Job-title stem fallback: "process engineer" → also search "process"
     for suf in _JOB_TITLE_SUFFIXES:
         if raw.endswith(suf):
             stem = raw[: -len(suf)].strip()
@@ -601,17 +569,14 @@ def _run_agent_d(
             "audit":   result["audit_id"],
         })
 
-    # Summary counts
     high   = sum(1 for r in rows if r["signal"] == "high")
     medium = sum(1 for r in rows if r["signal"] == "medium")
     low    = sum(1 for r in rows if r["signal"] == "low")
 
-    # Coverage summary
     n_a = len(a_skills)
     n_covered = len(covered_skills)
     coverage_pct = (n_covered / n_a * 100) if n_a else 0
 
-    # Gap skills: A-skills NOT covered by any unit, sorted with rising first
     trend_rank = {"rising": 0, "unknown": 1, "stable": 2, "declining": 3}
     gap_skills = sorted(
         [
@@ -621,7 +586,6 @@ def _run_agent_d(
         key=lambda x: (trend_rank.get(x[2], 4), -x[1]),
     )
 
-    # Table rows
     table_rows = ""
     for r in rows:
         icon  = SIGNAL_ICON.get(r["signal"], "⚪")
@@ -659,7 +623,6 @@ def _run_agent_d(
                      vertical-align:top;">{match_count}</td>
         </tr>"""
 
-    # Gap-skills panel
     if gap_skills:
         gap_chips = "".join(
             _skill_chip(s, t, drifted=(s in drifted_skills))
@@ -732,10 +695,6 @@ def _run_agent_d(
     return _card("D", f"Curriculum Mapping — TAMU {field}", "done", body)
 
 
-# ---------------------------------------------------------------------------
-# Main streaming generator
-# ---------------------------------------------------------------------------
-
 EMPTY_A = _pending_card("A", "Signal Fusion")
 EMPTY_B = _pending_card("B", "Skill Demand Forecasting")
 EMPTY_C = _pending_card("C", "Semantic Drift Detection")
@@ -747,28 +706,23 @@ def run_full_analysis(field: str, progress=gr.Progress()):
         yield EMPTY_A, EMPTY_B, EMPTY_C, EMPTY_D
         return
 
-    # Step 0 — show all pending
     yield EMPTY_A, EMPTY_B, EMPTY_C, EMPTY_D
 
-    # Step 1 — Agent A
     progress(0.05, desc="Agent A: computing industry skill signals …")
     a_html, a_skills = _run_agent_a(field)
     yield a_html, _card("B", "Skill Demand Forecasting", "running",
                          f'<div style="color:#94a3b8;">Forecasting {len(a_skills)} skills from Agent A…</div>'), EMPTY_C, EMPTY_D
 
-    # Step 2 — Agent B (now forecasts the SAME skills Agent A surfaced)
     progress(0.35, desc=f"Agent B: forecasting {len(a_skills)} skills from Agent A …")
     b_html, b_results = _run_agent_b(field, agent_a_skills=a_skills)
     yield a_html, b_html, _card("C", "Semantic Drift Detection", "running",
                                   '<div style="color:#94a3b8;">Checking drift data…</div>'), EMPTY_D
 
-    # Step 3 — Agent C (real semantic drift across communities)
     progress(0.50, desc=f"Agent C: measuring cross-community drift for {len(a_skills)} skills …")
     c_html, c_results = _run_agent_c(field, agent_a_skills=a_skills)
     yield a_html, b_html, c_html, _card("D", "Curriculum Mapping", "running",
                                           f'<div style="color:#94a3b8;">Mapping {len(a_skills)} Agent-A skills onto TAMU curriculum…</div>')
 
-    # Step 4 — Agent D — highlights A∩B matches + flags C-drifted skills
     progress(0.65, desc="Agent D: matching A skills + B trends + C drift to TAMU units …")
     d_html = _run_agent_d(
         field,
@@ -779,10 +733,6 @@ def run_full_analysis(field: str, progress=gr.Progress()):
     )
     yield a_html, b_html, c_html, d_html
 
-
-# ---------------------------------------------------------------------------
-# Gradio UI
-# ---------------------------------------------------------------------------
 
 CSS = """
 body, .gradio-container { background:#0f172a !important; color:#f1f5f9 !important; }
@@ -815,7 +765,6 @@ with gr.Blocks(title="CURIA") as demo:
 
     gr.HTML(HEADER_HTML)
 
-    # ── Selection row ─────────────────────────────────────────────────────
     with gr.Row():
         field_dd = gr.Dropdown(
             choices=ALL_FIELDS,
@@ -826,23 +775,17 @@ with gr.Blocks(title="CURIA") as demo:
         )
         run_btn = gr.Button("▶  Run All 4 Agents", variant="primary", scale=1, size="lg")
 
-    # ── 4 agent outputs ───────────────────────────────────────────────────
     agent_a = gr.HTML(value=EMPTY_A)
     agent_b = gr.HTML(value=EMPTY_B)
     agent_c = gr.HTML(value=EMPTY_C)
     agent_d = gr.HTML(value=EMPTY_D)
 
-    # ── Wire ──────────────────────────────────────────────────────────────
     run_btn.click(
         run_full_analysis,
         inputs=[field_dd],
         outputs=[agent_a, agent_b, agent_c, agent_d],
     )
 
-
-# ---------------------------------------------------------------------------
-# Port cleanup — free the port automatically when the app exits
-# ---------------------------------------------------------------------------
 
 PORT = 7888
 
@@ -867,13 +810,11 @@ def _shutdown(*_: object) -> None:
     sys.exit(0)
 
 
-# Register cleanup on normal exit and on SIGINT / SIGTERM
 atexit.register(_free_port, PORT)
 signal.signal(signal.SIGINT,  _shutdown)
 signal.signal(signal.SIGTERM, _shutdown)
 
 
-# ---------------------------------------------------------------------------
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",

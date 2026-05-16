@@ -80,6 +80,6 @@ def test_parse_json_response_plain_json():
 def test_missing_api_key_raises_environment_error(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     gen = OpenAIGenerator()
-    gen._client = None  # force re-init
+    gen._client = None
     with pytest.raises(EnvironmentError, match="OPENAI_API_KEY"):
         _ = gen._openai

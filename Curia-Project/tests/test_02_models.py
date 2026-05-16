@@ -20,13 +20,13 @@ def _sample_chunk():
 def test_document_is_frozen():
     doc = _sample_doc()
     with pytest.raises(FrozenInstanceError):
-        doc.title = "mutated"  # type: ignore
+        doc.title = "mutated"
 
 
 def test_chunk_is_frozen():
     chunk = _sample_chunk()
     with pytest.raises(FrozenInstanceError):
-        chunk.text = "mutated"  # type: ignore
+        chunk.text = "mutated"
 
 
 def test_search_result_is_frozen():
@@ -34,7 +34,7 @@ def test_search_result_is_frozen():
     chunk = _sample_chunk()
     result = SearchResult(chunk=chunk, similarity=0.9, score=0.85)
     with pytest.raises(FrozenInstanceError):
-        result.similarity = 0.1  # type: ignore
+        result.similarity = 0.1
 
 
 def test_recommendation_is_frozen():
@@ -42,7 +42,7 @@ def test_recommendation_is_frozen():
     rec = Recommendation(signal_strength="high", summary="Good.",
                          emerging_topics=["llm"], evidence_ids=["doc_1"])
     with pytest.raises(FrozenInstanceError):
-        rec.signal_strength = "low"  # type: ignore
+        rec.signal_strength = "low"
 
 
 def test_document_equality():

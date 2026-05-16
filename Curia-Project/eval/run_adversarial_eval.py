@@ -41,12 +41,8 @@ from src.storage import build_index_from_corpus, get_unit, load_units
 INDEX_PATH = ROOT / "audit" / "faiss_index.pkl"
 LABELS_PATH = ROOT / "data" / "eval" / "retrieval_labels.jsonl"
 
-# ---------------------------------------------------------------------------
-# Perturbation definitions
-# ---------------------------------------------------------------------------
 
 PERTURBATIONS: list[dict] = [
-    # 1. Synonym substitution — same intent, different vocabulary
     {
         "name": "synonym_substitution",
         "description": "Title and description paraphrased with synonyms",
@@ -69,7 +65,6 @@ PERTURBATIONS: list[dict] = [
             "current_topics": ["open-source risk", "automated scanning", "delivery pipeline security"],
         },
     },
-    # 2. Topics removed — query relies only on title + description
     {
         "name": "topics_removed",
         "description": "current_topics field stripped",
@@ -92,7 +87,6 @@ PERTURBATIONS: list[dict] = [
             "current_topics": [],
         },
     },
-    # 3. Misleading topics — topics from a different unit injected
     {
         "name": "misleading_topics",
         "description": "Topics replaced with unrelated terms from a different unit",
@@ -118,10 +112,6 @@ PERTURBATIONS: list[dict] = [
 ]
 
 
-# ---------------------------------------------------------------------------
-# Helpers (shared with run_retrieval_eval.py)
-# ---------------------------------------------------------------------------
-
 def recall_at_k(retrieved: list[str], relevant: set[str], k: int) -> float:
     return len(set(retrieved[:k]) & relevant) / len(relevant) if relevant else 0.0
 
@@ -145,10 +135,6 @@ def unique_parent_ids(results) -> list[str]:
     return seen
 
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
 def main() -> None:
     if INDEX_PATH.exists():
         index = FaissIndex.load(INDEX_PATH)
@@ -169,7 +155,6 @@ def main() -> None:
         )
     }
 
-    # Compute baseline recall on unperturbed queries
     baseline_recall: dict[str, float] = {}
     for unit_id, relevant in baseline_labels.items():
         unit = get_unit(units, unit_id)
@@ -179,7 +164,6 @@ def main() -> None:
 
     print(json.dumps({"baseline_recall@8": {k: round(v, 4) for k, v in baseline_recall.items()}}))
 
-    # Evaluate each perturbation
     results_rows: list[dict] = []
     for pert in PERTURBATIONS:
         base_id = pert["base_unit_id"]
@@ -206,7 +190,6 @@ def main() -> None:
         results_rows.append(row)
         print(json.dumps(row))
 
-    # Aggregate degradation
     if results_rows:
         avg_drop = sum(r["recall_drop"] for r in results_rows) / len(results_rows)
         max_drop = max(r["recall_drop"] for r in results_rows)

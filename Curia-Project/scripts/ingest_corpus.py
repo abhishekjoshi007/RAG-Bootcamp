@@ -56,20 +56,15 @@ CORPUS_DIR = ROOT / "data" / "corpus"
 INDEX_PATH = ROOT / "audit" / "faiss_index.pkl"
 
 ALL_SOURCE_NAMES = [
-    # ATS boards — best quality tech company postings
-    "greenhouse",      # Stripe, Databricks, Snowflake, Figma, Anthropic, ~4 000 companies
-    "lever",           # Netflix, Twitch, Cloudflare, Datadog, ~3 000 companies
-    # Remote-first boards
-    "weworkremotely",  # RSS, remote programming roles
+    "greenhouse",
+    "lever",
+    "weworkremotely",
     "remoteok",
     "remotive",
-    # General job boards
     "arbeitnow",
     "themuse",
-    # Community / government
     "hn_hiring",
-    "usajobs",         # needs USAJOBS_API_KEY + USAJOBS_USER_AGENT in .env
-    # Academic / technical
+    "usajobs",
     "arxiv",
     "stackoverflow",
     "github",

@@ -14,9 +14,6 @@ from .config import ROOT
 
 UNIVERSITIES_DIR = ROOT / "data" / "universities"
 
-# ---------------------------------------------------------------------------
-# Raw college files to load
-# ---------------------------------------------------------------------------
 _COLLEGE_FILES = [
     "tamu_engineering.json",
     "tamu_science.json",
@@ -24,17 +21,11 @@ _COLLEGE_FILES = [
     "tamu_geosciences_agriculture.json",
 ]
 
-# ---------------------------------------------------------------------------
-# Build the registry from loaded JSON
-# ---------------------------------------------------------------------------
 
-# college_name -> list of program dicts
 _COLLEGE_PROGRAMS: dict[str, list[dict]] = {}
 
-# (field) -> list of unit dicts (pipeline-compatible)
 _FIELD_UNITS: dict[str, list[dict]] = {}
 
-# field -> degree title
 _FIELD_DEGREES: dict[str, str] = {}
 
 
@@ -67,9 +58,6 @@ def _load_all() -> None:
 
 _load_all()
 
-# ---------------------------------------------------------------------------
-# Public interface
-# ---------------------------------------------------------------------------
 
 UNIVERSITY_OPTIONS = ["Texas A&M University (TAMU)"]
 
@@ -82,7 +70,6 @@ FIELD_OPTIONS_BY_COLLEGE: dict[str, list[str]] = {
     for college, programs in _COLLEGE_PROGRAMS.items()
 }
 
-# Flat field list for the university (all colleges combined)
 ALL_FIELDS: list[str] = sorted(_FIELD_UNITS.keys())
 
 

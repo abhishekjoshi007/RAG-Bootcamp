@@ -64,7 +64,7 @@ def test_citation_check_is_frozen():
     rec = Recommendation(signal_strength="low", summary=".", emerging_topics=[], evidence_ids=[])
     check = check_citations(rec, EVIDENCE)
     try:
-        check.passed = False  # type: ignore
+        check.passed = False
         assert False, "Should have raised FrozenInstanceError"
     except (FrozenInstanceError, AttributeError):
         pass

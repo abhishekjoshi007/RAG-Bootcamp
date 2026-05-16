@@ -70,7 +70,6 @@ def test_env_override(monkeypatch):
     import src.config as cfg
     importlib.reload(cfg)
     assert cfg.RETRIEVAL_K == 42
-    # Cleanup — reload with original env
     monkeypatch.delenv("CURIA_RETRIEVAL_K", raising=False)
     importlib.reload(cfg)
 

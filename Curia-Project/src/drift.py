@@ -21,10 +21,6 @@ def _source_label(source: str) -> str:
     return _SOURCE_LABELS.get(source, source)
 
 
-# ---------------------------------------------------------------------------
-# Data types
-# ---------------------------------------------------------------------------
-
 @dataclass(frozen=True)
 class DriftBucket:
     label: str
@@ -43,7 +39,7 @@ class DriftPair:
 @dataclass(frozen=True)
 class DriftResult:
     skill: str
-    mode: str                              # "cross_source" or "temporal"
+    mode: str
     buckets: tuple[DriftBucket, ...]
     pairs: tuple[DriftPair, ...]
     max_drift: float
@@ -84,7 +80,7 @@ class SemanticDriftDetector:
         chunks_per_skill: int = 40,
         min_chunks_per_bucket: int = 2,
         drift_threshold: float = 0.15,
-        mode: str = "cross_source",   # or "temporal"
+        mode: str = "cross_source",
     ) -> None:
         if mode not in ("cross_source", "temporal"):
             raise ValueError(f"Unknown mode: {mode!r}")
@@ -102,7 +98,7 @@ class SemanticDriftDetector:
         if isinstance(self.index, FaissIndex):
             chunk_id_to_idx = {c.chunk_id: i for i, c in enumerate(self.index.chunks)}
             embeddings: list[np.ndarray] = []
-            need_embed: list[tuple[int, str]] = []   # (output_idx, text)
+            need_embed: list[tuple[int, str]] = []
             for out_idx, c in enumerate(chunks):
                 idx = chunk_id_to_idx.get(c.chunk_id)
                 if idx is not None:

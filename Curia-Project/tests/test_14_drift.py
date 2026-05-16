@@ -20,10 +20,6 @@ from src.indexing import FaissIndex
 from src.models import Chunk
 
 
-# ---------------------------------------------------------------------------
-# Pure math helpers
-# ---------------------------------------------------------------------------
-
 def test_l2_normalize_unit_vector():
     v = np.array([3.0, 4.0])
     out = _l2_normalize(v)
@@ -51,7 +47,6 @@ def test_centroid_two_orthogonal_vectors():
     v1 = np.array([1.0, 0.0])
     v2 = np.array([0.0, 1.0])
     out = _centroid([v1, v2])
-    # Mean is (0.5, 0.5), normalised → (1/√2, 1/√2)
     assert pytest.approx(float(out[0]), rel=1e-5) == pytest.approx(float(out[1]), rel=1e-5)
     assert pytest.approx(float(np.linalg.norm(out))) == 1.0
 
@@ -100,22 +95,18 @@ def test_source_label_unknown_passes_through():
     assert _source_label("brand_new_source") == "brand_new_source"
 
 
-# ---------------------------------------------------------------------------
-# Dataclass frozen-ness
-# ---------------------------------------------------------------------------
-
 def test_drift_bucket_is_frozen():
     from dataclasses import FrozenInstanceError
     b = DriftBucket(label="X", source="x", centroid=(1.0, 0.0), chunk_count=3)
     with pytest.raises((FrozenInstanceError, AttributeError)):
-        b.chunk_count = 99  # type: ignore
+        b.chunk_count = 99
 
 
 def test_drift_pair_is_frozen():
     from dataclasses import FrozenInstanceError
     p = DriftPair(from_label="A", to_label="B", cosine_distance=0.3)
     with pytest.raises((FrozenInstanceError, AttributeError)):
-        p.cosine_distance = 0.9  # type: ignore
+        p.cosine_distance = 0.9
 
 
 def test_drift_result_is_frozen():
@@ -124,12 +115,8 @@ def test_drift_result_is_frozen():
                     max_drift=0.0, mean_drift=0.0, drifted=False,
                     drift_threshold=0.15, chunk_count_total=0)
     with pytest.raises((FrozenInstanceError, AttributeError)):
-        r.skill = "y"  # type: ignore
+        r.skill = "y"
 
-
-# ---------------------------------------------------------------------------
-# Test fixture — small FaissIndex with 4 source classes
-# ---------------------------------------------------------------------------
 
 def _chunk(text: str, source: str, idx: int) -> Chunk:
     return Chunk(
@@ -143,11 +130,6 @@ def _chunk(text: str, source: str, idx: int) -> Chunk:
     )
 
 
-# Drift-prone topic: "cloud computing"
-# Industry chunks emphasise serverless + DevOps tooling (modern)
-# arXiv chunks emphasise scheduling theory + virtualisation (foundational)
-# Stack Overflow chunks emphasise practical commands + error fixes
-# GitHub READMEs emphasise OSS controller patterns
 DRIFTY_CHUNKS = [
     _chunk("cloud computing serverless lambda devops ci cd kubernetes deployment", "job_posting", 0),
     _chunk("cloud computing aws lambda ecs fargate event driven enterprise scale", "job_posting", 1),
@@ -163,7 +145,6 @@ DRIFTY_CHUNKS = [
     _chunk("cloud computing open source toolkit api spec yaml manifest example", "github_readme", 11),
 ]
 
-# Consistent topic: all four sources describe "python" in the same way
 CONSISTENT_CHUNKS = [
     _chunk("python programming language general purpose syntax interpreted", "job_posting",  20),
     _chunk("python programming language general purpose syntax interpreted",   "job_posting",  21),
@@ -195,10 +176,6 @@ def detector(drift_index):
     )
 
 
-# ---------------------------------------------------------------------------
-# SemanticDriftDetector behaviour
-# ---------------------------------------------------------------------------
-
 def test_invalid_mode_raises(drift_index):
     with pytest.raises(ValueError):
         SemanticDriftDetector(drift_index, mode="banana")
@@ -223,7 +200,6 @@ def test_drifty_topic_covers_all_4_communities(detector):
     r = detector.analyze_skill("cloud computing")
     assert r is not None
     sources = {b.source for b in r.buckets}
-    # Should have at least 3 of the 4 source classes
     assert len(sources & {"job_posting", "arxiv", "stackoverflow", "github_readme"}) >= 3
 
 
@@ -236,7 +212,6 @@ def test_max_drift_within_valid_range(detector):
 
 def test_analyze_skill_returns_none_when_no_data(detector):
     r = detector.analyze_skill("xyzqwerty_unicorn_skill_that_does_not_exist")
-    # Could return None or a DriftResult with low chunk count; both acceptable
     assert r is None or r.chunk_count_total >= 4
 
 
@@ -276,10 +251,6 @@ def test_centroid_dim_matches_embedder(detector, drift_index):
         assert len(b.centroid) == expected_dim
 
 
-# ---------------------------------------------------------------------------
-# analyze_skills + top_drifters
-# ---------------------------------------------------------------------------
-
 def test_analyze_skills_returns_list(detector):
     results = detector.analyze_skills(["cloud computing", "python programming language"])
     assert isinstance(results, list)
@@ -290,7 +261,7 @@ def test_analyze_skills_drops_none_results(drift_index):
     """Detector that requires more chunks than available returns no results."""
     starved = SemanticDriftDetector(
         drift_index,
-        chunks_per_skill=2,                   # too few to satisfy min_chunks_per_bucket
+        chunks_per_skill=2,
         min_chunks_per_bucket=5,
     )
     results = starved.analyze_skills(["cloud computing"])
@@ -326,10 +297,6 @@ def test_top_drifters_respects_n(detector):
     assert len(top) <= 1
 
 
-# ---------------------------------------------------------------------------
-# Temporal mode
-# ---------------------------------------------------------------------------
-
 def test_temporal_mode_buckets_by_quarter(drift_index):
     det = SemanticDriftDetector(
         drift_index,
@@ -339,7 +306,6 @@ def test_temporal_mode_buckets_by_quarter(drift_index):
         mode="temporal",
     )
     r = det.analyze_skill("cloud computing")
-    # Test chunks span months 1-12 of 2025 → some quarters will have enough chunks
     if r is not None:
         assert r.mode == "temporal"
         for b in r.buckets:

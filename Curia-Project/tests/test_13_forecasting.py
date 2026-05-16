@@ -13,10 +13,6 @@ from src.forecasting import (
 )
 
 
-# ---------------------------------------------------------------------------
-# Month sequence
-# ---------------------------------------------------------------------------
-
 def test_month_sequence_length():
     seq = _month_sequence("2022-01", 12)
     assert len(seq) == 12
@@ -31,10 +27,6 @@ def test_month_sequence_year_rollover():
     seq = _month_sequence("2022-11", 4)
     assert seq == ["2022-11", "2022-12", "2023-01", "2023-02"]
 
-
-# ---------------------------------------------------------------------------
-# Historical data generation
-# ---------------------------------------------------------------------------
 
 def test_generate_historical_known_skill():
     history = _generate_historical("machine learning", months=24)
@@ -56,7 +48,7 @@ def test_historical_datapoints_are_frozen():
     from dataclasses import FrozenInstanceError
     dp = DataPoint(month="2024-01", frequency=0.5)
     with pytest.raises((FrozenInstanceError, AttributeError)):
-        dp.frequency = 0.9  # type: ignore
+        dp.frequency = 0.9
 
 
 def test_historical_deterministic():
@@ -87,10 +79,6 @@ def test_rising_skill_ends_higher():
     assert last > first, f"Expected rising trend: first={first:.3f} last={last:.3f}"
 
 
-# ---------------------------------------------------------------------------
-# Linear forecasting
-# ---------------------------------------------------------------------------
-
 def test_linear_forecast_length():
     history = _generate_historical("machine learning", months=24)
     fc, slope, r2 = _linear_forecast(history, months_ahead=12)
@@ -100,7 +88,6 @@ def test_linear_forecast_length():
 def test_linear_forecast_months_sequence():
     history = _generate_historical("python", months=12)
     fc, _, _ = _linear_forecast(history, months_ahead=3)
-    # Should continue from where history ends
     assert fc[0].month > history[-1].month
 
 
@@ -143,10 +130,6 @@ def test_exp_smoothing_values_in_range():
         assert 0.0 <= dp.frequency <= 1.0
 
 
-# ---------------------------------------------------------------------------
-# SkillForecaster
-# ---------------------------------------------------------------------------
-
 @pytest.fixture(scope="module")
 def forecaster():
     return SkillForecaster(history_months=40, forecast_months=12)
@@ -167,7 +150,7 @@ def test_forecast_result_is_frozen(forecaster):
     from dataclasses import FrozenInstanceError
     r = forecaster.forecast_skill("python")
     with pytest.raises((FrozenInstanceError, AttributeError)):
-        r.skill = "modified"  # type: ignore
+        r.skill = "modified"
 
 
 def test_forecast_result_fields(forecaster):
