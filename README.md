@@ -158,8 +158,3 @@ cp .env.example .env          # add OPENAI_API_KEY
 - `*.txt` / `*.svg` / `data/` files next to notebooks are sample inputs and diagrams used by those lessons.
 - Notebook outputs are committed so you can read results without re-running (re-running requires valid API keys and live network access).
 
----
-
-## License
-
-No license file is currently included. Treat the contents as educational/reference material unless a license is added by the repository owner.

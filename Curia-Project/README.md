@@ -266,10 +266,3 @@ duckdb>=1.0.0   pydantic>=2.7.0   anthropic>=0.34.0   ragas>=0.1.15   pytest>=8.
 4. Pluggable generators (Anthropic / Gemini) behind the existing generator interface.
 5. Incremental index updates instead of full rebuilds on ingest.
 
----
-
-## Notes
-
-- Code follows a **minimal-comment** convention: behaviour is documented in docstrings and this README, not inline comments.
-- `.env` is gitignored — never commit real keys.
-- Notebook/corpus outputs and `results/` are committed so runs are reproducible to read without live network access.
