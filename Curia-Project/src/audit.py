@@ -9,12 +9,18 @@ from pathlib import Path
 from .grounding import CitationCheck
 from .models import Recommendation, SearchResult
 
+_CACHE_DDL = (Path(__file__).parent / "_cache_ddl.sql").read_text(encoding="utf-8")
+
 
 class AuditLog:
     def __init__(self, path: Path) -> None:
         self.path = path
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._init_db()
+
+    @property
+    def db_path(self) -> Path:
+        return self.path
 
     def _init_db(self) -> None:
         with sqlite3.connect(self.path) as conn:
@@ -31,6 +37,7 @@ class AuditLog:
                 )
                 """
             )
+            conn.executescript(_CACHE_DDL)
 
     def write(
         self,

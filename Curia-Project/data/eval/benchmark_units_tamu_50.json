@@ -1,0 +1,1390 @@
+[
+  {
+    "id": "tamu_misy_erp",
+    "title": "Enterprise Systems and ERP",
+    "description": "SAP, Oracle, and cloud ERP platforms; business process integration; implementation methodology.",
+    "current_topics": [
+      "SAP S/4HANA",
+      "Oracle Cloud",
+      "ERP implementation",
+      "business process modeling",
+      "API integration"
+    ],
+    "courses": [
+      "MISY 340",
+      "MISY 440"
+    ],
+    "cs2023_area": "Platform-based Development",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Management Information Systems",
+      "degree": "B.S. Management Information Systems",
+      "department": "MISY",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_misy_cyber",
+    "title": "Cybersecurity for Business",
+    "description": "Information security management, risk frameworks, cloud security, and compliance (SOC2, GDPR).",
+    "current_topics": [
+      "information security",
+      "risk management",
+      "SOC2",
+      "GDPR",
+      "zero-trust architecture"
+    ],
+    "courses": [
+      "MISY 420",
+      "MISY 440"
+    ],
+    "cs2023_area": "Information Assurance and Security",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Management Information Systems",
+      "degree": "B.S. Management Information Systems",
+      "department": "MISY",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_misy_cloud",
+    "title": "Cloud Computing for Business",
+    "description": "AWS, Azure, GCP for business; serverless architecture; cloud migration; FinOps.",
+    "current_topics": [
+      "AWS/Azure",
+      "serverless",
+      "cloud migration",
+      "FinOps",
+      "SaaS platforms"
+    ],
+    "courses": [
+      "MISY 440",
+      "MISY 489"
+    ],
+    "cs2023_area": "Parallel and Distributed Computing",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Management Information Systems",
+      "degree": "B.S. Management Information Systems",
+      "department": "MISY",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_misy_ai",
+    "title": "AI for Business Decision Making",
+    "description": "Applied ML for business, NLP for business text, recommendation systems, and AI strategy.",
+    "current_topics": [
+      "applied ML",
+      "NLP for business",
+      "recommendation systems",
+      "AI strategy",
+      "RPA"
+    ],
+    "courses": [
+      "MISY 440",
+      "MISY 489"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Management Information Systems",
+      "degree": "B.S. Management Information Systems",
+      "department": "MISY",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_bana_viz",
+    "title": "Data Visualization and Business Intelligence",
+    "description": "Tableau, Power BI, storytelling with data, and building executive-facing dashboards.",
+    "current_topics": [
+      "Tableau",
+      "Power BI",
+      "data storytelling",
+      "executive dashboards",
+      "embedded analytics"
+    ],
+    "courses": [
+      "BANA 340",
+      "BANA 440"
+    ],
+    "cs2023_area": "Human-Computer Interaction",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Business Analytics",
+      "degree": "B.S. Business Analytics",
+      "department": "BANA",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_bana_ml",
+    "title": "Predictive Analytics and Machine Learning",
+    "description": "Regression, classification, clustering, and forecasting for business outcomes.",
+    "current_topics": [
+      "regression",
+      "classification",
+      "forecasting",
+      "customer churn",
+      "pricing optimization"
+    ],
+    "courses": [
+      "BANA 440",
+      "BANA 630"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Business Analytics",
+      "degree": "B.S. Business Analytics",
+      "department": "BANA",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_bana_sql",
+    "title": "Database and SQL for Analytics",
+    "description": "SQL, data warehousing, ETL pipelines, and modern data stack (dbt, Snowflake, BigQuery).",
+    "current_topics": [
+      "SQL",
+      "Snowflake",
+      "dbt",
+      "BigQuery",
+      "ETL pipelines"
+    ],
+    "courses": [
+      "BANA 340",
+      "BANA 489"
+    ],
+    "cs2023_area": "Data Management",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Business Analytics",
+      "degree": "B.S. Business Analytics",
+      "department": "BANA",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_bana_gen",
+    "title": "Generative AI for Business",
+    "description": "Prompt engineering, LLM integration, AI-assisted analytics, and responsible AI in business.",
+    "current_topics": [
+      "prompt engineering",
+      "LLM APIs",
+      "AI-assisted analytics",
+      "responsible AI",
+      "copilot tools"
+    ],
+    "courses": [
+      "BANA 489",
+      "BANA 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Business Analytics",
+      "degree": "B.S. Business Analytics",
+      "department": "BANA",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_finc_quant",
+    "title": "Quantitative Finance and Algorithmic Trading",
+    "description": "Stochastic calculus, derivatives pricing, backtesting, and ML-driven trading strategies.",
+    "current_topics": [
+      "Black-Scholes",
+      "backtesting",
+      "algo trading",
+      "risk models",
+      "ML alpha generation"
+    ],
+    "courses": [
+      "FINC 445",
+      "FINC 640"
+    ],
+    "cs2023_area": "Computational Science",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Finance",
+      "degree": "B.S. Finance",
+      "department": "FINC",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_finc_ml",
+    "title": "Machine Learning in Finance",
+    "description": "Credit scoring, fraud detection, NLP for finance, and AI-driven risk management.",
+    "current_topics": [
+      "credit scoring ML",
+      "fraud detection",
+      "sentiment analysis",
+      "FinBERT",
+      "AI risk management"
+    ],
+    "courses": [
+      "FINC 489",
+      "FINC 640"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Finance",
+      "degree": "B.S. Finance",
+      "department": "FINC",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_finc_fintech",
+    "title": "FinTech and Blockchain",
+    "description": "DeFi, smart contracts, digital payments, RegTech, and blockchain for financial services.",
+    "current_topics": [
+      "blockchain",
+      "smart contracts",
+      "DeFi",
+      "digital payments",
+      "RegTech",
+      "tokenization"
+    ],
+    "courses": [
+      "FINC 489",
+      "FINC 640"
+    ],
+    "cs2023_area": "Platform-based Development",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "Mays Business School",
+      "website": "https://mays.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Finance",
+      "degree": "B.S. Finance",
+      "department": "FINC",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_business.json"
+    }
+  },
+  {
+    "id": "tamu_cs_ds",
+    "title": "Data Structures and Algorithm Design",
+    "description": "Fundamental data structures including lists, stacks, queues, trees, graphs, and hash tables. Algorithm analysis and design paradigms including divide-and-conquer, dynamic programming, and greedy algorithms.",
+    "current_topics": [
+      "linked lists",
+      "binary search trees",
+      "graph algorithms",
+      "complexity analysis",
+      "sorting algorithms"
+    ],
+    "courses": [
+      "CSCE 221",
+      "CSCE 411"
+    ],
+    "cs2023_area": "Algorithms and Complexity",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_arch",
+    "title": "Computer Architecture and Organization",
+    "description": "Digital logic, processor design, memory hierarchy, instruction set architecture, pipelining, and performance evaluation of computer systems.",
+    "current_topics": [
+      "RISC-V",
+      "cache memory",
+      "pipeline hazards",
+      "virtual memory",
+      "I/O systems"
+    ],
+    "courses": [
+      "CSCE 312",
+      "CSCE 313"
+    ],
+    "cs2023_area": "Architecture and Organization",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_os",
+    "title": "Operating Systems",
+    "description": "Process management, memory management, file systems, synchronization primitives, scheduling algorithms, and system calls.",
+    "current_topics": [
+      "process scheduling",
+      "virtual memory",
+      "file systems",
+      "concurrency",
+      "semaphores"
+    ],
+    "courses": [
+      "CSCE 410",
+      "CSCE 313"
+    ],
+    "cs2023_area": "Operating Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_sw",
+    "title": "Software Engineering and Development",
+    "description": "Software development lifecycle, requirements engineering, design patterns, testing methodologies, version control, and agile development practices.",
+    "current_topics": [
+      "agile",
+      "UML",
+      "unit testing",
+      "CI/CD",
+      "design patterns",
+      "requirements specification"
+    ],
+    "courses": [
+      "CSCE 431",
+      "CSCE 440",
+      "CSCE 482"
+    ],
+    "cs2023_area": "Software Engineering",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_ai",
+    "title": "Artificial Intelligence and Machine Learning",
+    "description": "Search algorithms, knowledge representation, machine learning fundamentals, neural networks, natural language processing, and generative AI systems.",
+    "current_topics": [
+      "search",
+      "neural networks",
+      "supervised learning",
+      "deep learning",
+      "NLP"
+    ],
+    "courses": [
+      "CSCE 421",
+      "CSCE 636",
+      "CSCE 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_llm",
+    "title": "Generative AI and Large Language Models",
+    "description": "Transformer architectures, pre-training and fine-tuning, prompt engineering, retrieval-augmented generation, AI alignment, and responsible deployment of large language models.",
+    "current_topics": [
+      "transformers",
+      "prompt engineering",
+      "RLHF",
+      "RAG",
+      "model evaluation"
+    ],
+    "courses": [
+      "CSCE 636",
+      "CSCE 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_sec",
+    "title": "Software Supply Chain Security",
+    "description": "Dependency management, vulnerability scanning, software bill of materials (SBOM), provenance verification, CI/CD pipeline security, and policy-as-code enforcement.",
+    "current_topics": [
+      "SBOM",
+      "vulnerability scanning",
+      "dependency management",
+      "DevSecOps",
+      "static analysis"
+    ],
+    "courses": [
+      "CSCE 465",
+      "CSCE 481"
+    ],
+    "cs2023_area": "Information Assurance and Security",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_crypto",
+    "title": "Cryptography and Network Security",
+    "description": "Symmetric and asymmetric cryptography, PKI, TLS/SSL, network protocols, intrusion detection, and security policy frameworks.",
+    "current_topics": [
+      "AES",
+      "RSA",
+      "TLS",
+      "firewalls",
+      "intrusion detection"
+    ],
+    "courses": [
+      "CSCE 465",
+      "CSCE 463"
+    ],
+    "cs2023_area": "Information Assurance and Security",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_cloud",
+    "title": "Cloud Native Systems and Infrastructure",
+    "description": "Container orchestration with Kubernetes, microservices architecture, serverless computing, distributed tracing, service-level objectives, and cloud observability.",
+    "current_topics": [
+      "Kubernetes",
+      "Docker",
+      "microservices",
+      "serverless",
+      "observability",
+      "SLOs"
+    ],
+    "courses": [
+      "CSCE 412",
+      "CSCE 435"
+    ],
+    "cs2023_area": "Parallel and Distributed Computing",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_net",
+    "title": "Computer Networks",
+    "description": "Network protocols, TCP/IP stack, routing algorithms, congestion control, wireless networks, software-defined networking, and network programming.",
+    "current_topics": [
+      "TCP/IP",
+      "routing",
+      "DNS",
+      "HTTP/2",
+      "SDN",
+      "network security"
+    ],
+    "courses": [
+      "CSCE 463",
+      "CSCE 464"
+    ],
+    "cs2023_area": "Networking and Communications",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_db",
+    "title": "Database Systems and Data Engineering",
+    "description": "Relational and non-relational databases, SQL, query optimization, transaction management, distributed databases, and modern data pipeline architectures.",
+    "current_topics": [
+      "SQL",
+      "indexing",
+      "NoSQL",
+      "ACID",
+      "data pipelines",
+      "vector databases"
+    ],
+    "courses": [
+      "CSCE 315",
+      "CSCE 450"
+    ],
+    "cs2023_area": "Data Management",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_cs_pl",
+    "title": "Programming Languages and Compilers",
+    "description": "Language paradigms, type systems, lexical analysis, parsing, code generation, and runtime systems.",
+    "current_topics": [
+      "type inference",
+      "parsing",
+      "functional programming",
+      "garbage collection",
+      "LLVM"
+    ],
+    "courses": [
+      "CSCE 434",
+      "CSCE 314"
+    ],
+    "cs2023_area": "Programming Languages",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/csce",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "Department of Computer Science and Engineering (CSCE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_cs.json"
+    }
+  },
+  {
+    "id": "tamu_ee_signals",
+    "title": "Signals, Systems and Digital Signal Processing",
+    "description": "Continuous and discrete-time signals, Fourier transforms, Laplace transforms, filter design, sampling theory, and digital signal processing algorithms.",
+    "current_topics": [
+      "Fourier analysis",
+      "Z-transforms",
+      "FIR/IIR filters",
+      "FFT",
+      "sampling theorem"
+    ],
+    "courses": [
+      "ECEN 314",
+      "ECEN 315",
+      "ECEN 414"
+    ],
+    "cs2023_area": "Computational Science",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_embedded",
+    "title": "Embedded Systems and IoT",
+    "description": "Microcontroller programming, real-time operating systems, hardware-software co-design, sensor interfacing, and IoT architectures and protocols.",
+    "current_topics": [
+      "ARM Cortex",
+      "RTOS",
+      "UART/SPI/I2C",
+      "MQTT",
+      "edge computing"
+    ],
+    "courses": [
+      "ECEN 449",
+      "ECEN 350"
+    ],
+    "cs2023_area": "Architecture and Organization",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_ml",
+    "title": "Machine Learning for Electrical Engineers",
+    "description": "Statistical learning theory, regression, classification, neural networks, and deep learning applications in signal processing, control systems, and power systems.",
+    "current_topics": [
+      "linear regression",
+      "CNNs",
+      "reinforcement learning",
+      "edge AI",
+      "model compression"
+    ],
+    "courses": [
+      "ECEN 489",
+      "ECEN 649"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_power_ml",
+    "title": "AI and Generative Models in Power Systems",
+    "description": "Application of large language models, transformer architectures, and generative AI to power system monitoring, fault detection, grid optimization, and automated reporting.",
+    "current_topics": [
+      "transformers",
+      "time-series forecasting",
+      "LLM fine-tuning",
+      "anomaly detection",
+      "grid AI"
+    ],
+    "courses": [
+      "ECEN 489",
+      "ECEN 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_sec",
+    "title": "Cyber-Physical Systems Security",
+    "description": "Security of industrial control systems, SCADA security, firmware vulnerability analysis, hardware security, and supply chain risks in embedded systems.",
+    "current_topics": [
+      "SCADA security",
+      "firmware analysis",
+      "hardware trojans",
+      "ICS security",
+      "supply chain attacks"
+    ],
+    "courses": [
+      "ECEN 489",
+      "ECEN 676"
+    ],
+    "cs2023_area": "Information Assurance and Security",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_cloud",
+    "title": "Cloud Computing for Engineering Applications",
+    "description": "Cloud platforms for engineering workloads, distributed computing, serverless data pipelines, and infrastructure for large-scale simulation and data analysis.",
+    "current_topics": [
+      "AWS/GCP",
+      "HPC on cloud",
+      "containerized simulations",
+      "data lake",
+      "serverless"
+    ],
+    "courses": [
+      "ECEN 489",
+      "ECEN 615"
+    ],
+    "cs2023_area": "Parallel and Distributed Computing",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_comm",
+    "title": "Wireless Communications and 5G/6G",
+    "description": "Modulation techniques, channel coding, OFDM, MIMO, 5G NR architecture, network slicing, and emerging 6G technologies.",
+    "current_topics": [
+      "OFDM",
+      "MIMO",
+      "5G NR",
+      "beamforming",
+      "network slicing"
+    ],
+    "courses": [
+      "ECEN 455",
+      "ECEN 664"
+    ],
+    "cs2023_area": "Networking and Communications",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_ee_vlsi",
+    "title": "VLSI Design and Hardware Acceleration",
+    "description": "CMOS circuit design, digital VLSI, hardware description languages, FPGA design, custom AI accelerators, and hardware-software co-design.",
+    "current_topics": [
+      "Verilog/VHDL",
+      "synthesis",
+      "FPGAs",
+      "GPU architecture",
+      "AI chips"
+    ],
+    "courses": [
+      "ECEN 454",
+      "ECEN 651"
+    ],
+    "cs2023_area": "Architecture and Organization",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "website": "https://engineering.tamu.edu/electrical",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "Department of Electrical and Computer Engineering (ECE)",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_ee.json"
+    }
+  },
+  {
+    "id": "tamu_cs_ml",
+    "title": "Machine Learning and Deep Learning",
+    "description": "Supervised/unsupervised learning, neural networks, CNNs, RNNs, model training and evaluation pipelines.",
+    "current_topics": [
+      "neural networks",
+      "supervised learning",
+      "deep learning",
+      "model evaluation",
+      "PyTorch"
+    ],
+    "courses": [
+      "CSCE 421",
+      "CSCE 636"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Computer Science",
+      "degree": "B.S. Computer Science",
+      "department": "CSCE",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_ee_llm",
+    "title": "AI and Generative Models in EE",
+    "description": "Transformer architectures, LLM fine-tuning, and generative AI for engineering applications.",
+    "current_topics": [
+      "transformers",
+      "LLM fine-tuning",
+      "AI for EE",
+      "anomaly detection",
+      "time-series forecasting"
+    ],
+    "courses": [
+      "ECEN 489",
+      "ECEN 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Electrical Engineering",
+      "degree": "B.S. Electrical Engineering",
+      "department": "ECEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_meen_robot",
+    "title": "Robotics and Autonomous Systems",
+    "description": "Robot kinematics/dynamics, motion planning, ROS2, autonomous navigation, and human-robot interaction.",
+    "current_topics": [
+      "ROS2",
+      "motion planning",
+      "SLAM",
+      "deep learning for perception",
+      "human-robot interaction"
+    ],
+    "courses": [
+      "MEEN 461",
+      "MEEN 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Mechanical Engineering",
+      "degree": "B.S. Mechanical Engineering",
+      "department": "MEEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_meen_ai",
+    "title": "AI and ML in Mechanical Systems",
+    "description": "Machine learning for predictive maintenance, digital twins, generative design, and process optimization.",
+    "current_topics": [
+      "predictive maintenance",
+      "digital twin",
+      "generative design",
+      "anomaly detection",
+      "physics-informed ML"
+    ],
+    "courses": [
+      "MEEN 489",
+      "MEEN 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Mechanical Engineering",
+      "degree": "B.S. Mechanical Engineering",
+      "department": "MEEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_meen_manuf",
+    "title": "Digital Manufacturing and Industry 4.0",
+    "description": "CNC programming, additive manufacturing, smart factory, IIoT, and cobots.",
+    "current_topics": [
+      "additive manufacturing",
+      "IIoT",
+      "smart factory",
+      "cobots",
+      "CNC automation"
+    ],
+    "courses": [
+      "MEEN 368",
+      "MEEN 460"
+    ],
+    "cs2023_area": "Platform-based Development",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Mechanical Engineering",
+      "degree": "B.S. Mechanical Engineering",
+      "department": "MEEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_meen_sim",
+    "title": "Computational Mechanics and Simulation",
+    "description": "FEA, CFD, multibody dynamics simulation, and high-performance computing for engineering.",
+    "current_topics": [
+      "FEA",
+      "CFD",
+      "ANSYS",
+      "OpenFOAM",
+      "HPC simulation"
+    ],
+    "courses": [
+      "MEEN 412",
+      "MEEN 444"
+    ],
+    "cs2023_area": "Computational Science",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Mechanical Engineering",
+      "degree": "B.S. Mechanical Engineering",
+      "department": "MEEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_meen_ctrl",
+    "title": "Control Systems and Mechatronics",
+    "description": "Classical and modern control, state-space methods, PID tuning, and mechatronic system design.",
+    "current_topics": [
+      "PID control",
+      "state-space",
+      "Kalman filter",
+      "mechatronics",
+      "model predictive control"
+    ],
+    "courses": [
+      "MEEN 364",
+      "MEEN 461"
+    ],
+    "cs2023_area": "Architecture and Organization",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Mechanical Engineering",
+      "degree": "B.S. Mechanical Engineering",
+      "department": "MEEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_cven_gis",
+    "title": "Geospatial Data and GIS",
+    "description": "GIS, remote sensing, spatial data analysis, and AI-driven infrastructure monitoring.",
+    "current_topics": [
+      "GIS",
+      "remote sensing",
+      "LiDAR",
+      "satellite imagery",
+      "spatial ML"
+    ],
+    "courses": [
+      "CVEN 489",
+      "CVEN 612"
+    ],
+    "cs2023_area": "Data Management",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Civil Engineering",
+      "degree": "B.S. Civil Engineering",
+      "department": "CVEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_cven_smart",
+    "title": "Smart Infrastructure and IoT Sensors",
+    "description": "Structural health monitoring, IoT sensor networks, and real-time data pipelines for civil infrastructure.",
+    "current_topics": [
+      "structural health monitoring",
+      "IoT sensors",
+      "real-time data",
+      "digital twins",
+      "edge computing"
+    ],
+    "courses": [
+      "CVEN 489",
+      "CVEN 613"
+    ],
+    "cs2023_area": "Platform-based Development",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Civil Engineering",
+      "degree": "B.S. Civil Engineering",
+      "department": "CVEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_cven_transport",
+    "title": "Transportation Systems and Autonomous Vehicles",
+    "description": "Traffic modeling, connected and autonomous vehicles, smart traffic control, and mobility data analytics.",
+    "current_topics": [
+      "autonomous vehicles",
+      "traffic simulation",
+      "smart signals",
+      "V2X communication",
+      "mobility analytics"
+    ],
+    "courses": [
+      "CVEN 456",
+      "CVEN 613"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Civil Engineering",
+      "degree": "B.S. Civil Engineering",
+      "department": "CVEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_cven_sustain",
+    "title": "Sustainable Construction Technologies",
+    "description": "Green building materials, energy-efficient design, lifecycle assessment, and sustainable construction methods.",
+    "current_topics": [
+      "green building",
+      "BIM",
+      "lifecycle analysis",
+      "net-zero construction",
+      "circular economy"
+    ],
+    "courses": [
+      "CVEN 320",
+      "CVEN 489"
+    ],
+    "cs2023_area": "Social Issues and Professional Practice",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Civil Engineering",
+      "degree": "B.S. Civil Engineering",
+      "department": "CVEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_chen_ml",
+    "title": "ML for Process Optimization",
+    "description": "Machine learning, deep learning, and data-driven process control for chemical manufacturing.",
+    "current_topics": [
+      "process optimization",
+      "neural networks",
+      "digital twin",
+      "real-time control",
+      "soft sensors"
+    ],
+    "courses": [
+      "CHEN 489",
+      "CHEN 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Chemical Engineering",
+      "degree": "B.S. Chemical Engineering",
+      "department": "CHEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_chen_ctrl",
+    "title": "Process Control and Automation",
+    "description": "PID control, model predictive control, distributed control systems, and plant automation.",
+    "current_topics": [
+      "MPC",
+      "DCS",
+      "PLC",
+      "SCADA",
+      "industrial automation"
+    ],
+    "courses": [
+      "CHEN 461",
+      "CHEN 462"
+    ],
+    "cs2023_area": "Architecture and Organization",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Chemical Engineering",
+      "degree": "B.S. Chemical Engineering",
+      "department": "CHEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_chen_sustain",
+    "title": "Sustainable Energy and Green Chemistry",
+    "description": "Renewable energy processes, carbon capture, green hydrogen, and circular economy principles.",
+    "current_topics": [
+      "green hydrogen",
+      "carbon capture",
+      "biomass conversion",
+      "circular economy",
+      "life cycle analysis"
+    ],
+    "courses": [
+      "CHEN 470",
+      "CHEN 489"
+    ],
+    "cs2023_area": "Social Issues and Professional Practice",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Chemical Engineering",
+      "degree": "B.S. Chemical Engineering",
+      "department": "CHEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_chen_comp",
+    "title": "Computational Chemistry and Molecular Simulation",
+    "description": "Molecular dynamics, DFT, high-throughput screening, and AI for materials discovery.",
+    "current_topics": [
+      "molecular dynamics",
+      "DFT",
+      "materials informatics",
+      "high-throughput screening",
+      "AI drug discovery"
+    ],
+    "courses": [
+      "CHEN 489",
+      "CHEN 689"
+    ],
+    "cs2023_area": "Computational Science",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Chemical Engineering",
+      "degree": "B.S. Chemical Engineering",
+      "department": "CHEN",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_aero_auto",
+    "title": "Autonomous Flight and UAV Systems",
+    "description": "UAV design, path planning, computer vision for navigation, and swarm systems.",
+    "current_topics": [
+      "UAV design",
+      "autonomous navigation",
+      "computer vision",
+      "swarm robotics",
+      "obstacle avoidance"
+    ],
+    "courses": [
+      "AERO 489",
+      "AERO 689"
+    ],
+    "cs2023_area": "Intelligent Systems",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Aerospace Engineering",
+      "degree": "B.S. Aerospace Engineering",
+      "department": "AERO",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_aero_gnc",
+    "title": "Guidance, Navigation and Control",
+    "description": "State estimation, Kalman filtering, trajectory optimization, and GNC system integration.",
+    "current_topics": [
+      "Kalman filter",
+      "trajectory optimization",
+      "INS/GPS fusion",
+      "model predictive control",
+      "reentry guidance"
+    ],
+    "courses": [
+      "AERO 421",
+      "AERO 622"
+    ],
+    "cs2023_area": "Architecture and Organization",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Aerospace Engineering",
+      "degree": "B.S. Aerospace Engineering",
+      "department": "AERO",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_aero_cfd",
+    "title": "Computational Aerodynamics",
+    "description": "Computational fluid dynamics, mesh generation, turbulence modeling, and high-fidelity simulation.",
+    "current_topics": [
+      "CFD",
+      "OpenFOAM",
+      "turbulence modeling",
+      "hypersonic flow",
+      "GPU-accelerated simulation"
+    ],
+    "courses": [
+      "AERO 412",
+      "AERO 511"
+    ],
+    "cs2023_area": "Computational Science",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Aerospace Engineering",
+      "degree": "B.S. Aerospace Engineering",
+      "department": "AERO",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  },
+  {
+    "id": "tamu_aero_space",
+    "title": "Satellite Systems and Space Technology",
+    "description": "CubeSat design, orbital mechanics, ground station software, and space data systems.",
+    "current_topics": [
+      "CubeSat",
+      "orbital mechanics",
+      "space communications",
+      "ADCS",
+      "ground station software"
+    ],
+    "courses": [
+      "AERO 489",
+      "AERO 451"
+    ],
+    "cs2023_area": "Platform-based Development",
+    "metadata": {
+      "university": "Texas A&M University",
+      "short_name": "TAMU",
+      "college": "College of Engineering",
+      "website": "https://engineering.tamu.edu",
+      "curriculum_year": 2024,
+      "field": "Aerospace Engineering",
+      "degree": "B.S. Aerospace Engineering",
+      "department": "AERO",
+      "source_file": "/Users/abhishekjoshi/Documents/GitHub/RAG-Bootcamp/Curia-Project/data/universities/tamu_engineering.json"
+    }
+  }
+]

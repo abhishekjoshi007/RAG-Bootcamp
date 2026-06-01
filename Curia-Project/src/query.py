@@ -9,6 +9,17 @@ def build_query(unit: dict, include_topics: bool = True) -> str:
     return ". ".join(piece.strip() for piece in pieces if piece.strip())
 
 
+def build_query_from_learner(learner_query) -> str:
+    pieces = [
+        learner_query.query_text,
+        learner_query.goal,
+        " ".join(learner_query.completed_skills),
+        " ".join(learner_query.curriculum_unit_ids),
+    ]
+    text = ". ".join(piece.strip() for piece in pieces if piece and piece.strip())
+    return text or learner_query.program
+
+
 def build_hyde_prompt(unit: dict) -> str:
     return (
         "Write a brief hypothetical source paragraph about this CS curriculum topic. "

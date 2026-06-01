@@ -25,6 +25,10 @@ os.environ.setdefault("OMP_NUM_THREADS", "1")
 
 import gradio as gr
 
+from src.agent_e_resources import ResourceMatcher
+from src.audit import AuditLog
+from src.batch import BatchRunner
+from src.cache import CacheLayer
 from src.config import AUDIT_DB_PATH, CORPUS_DIR, INDEX_PATH, SOURCE_QUOTAS
 from src.drift import DriftResult, SemanticDriftDetector
 from src.field_config import get_ingestion_config
@@ -734,6 +738,122 @@ def run_full_analysis(field: str, progress=gr.Progress()):
     yield a_html, b_html, c_html, d_html
 
 
+_cache: CacheLayer | None = None
+
+
+def _get_cache() -> CacheLayer:
+    global _cache
+    if _cache is None:
+        _cache = CacheLayer(AUDIT_DB_PATH)
+    return _cache
+
+
+def _velocity_html(cache: CacheLayer) -> str:
+    s = cache.stats()
+    c = s["counts"]
+    hits = s["recommendation_total_hits"]
+    entries = s["recommendation_entries"]
+    served = hits + entries
+    hit_rate = f"{(hits / served * 100):.0f}%" if served else "—"
+
+    def chip(label: str, val: object) -> str:
+        return (f'<span style="background:#0f172a;border:1px solid #1e40af;border-radius:8px;'
+                f'padding:6px 12px;margin:4px 6px 4px 0;display:inline-block;font-size:12px;'
+                f'color:#94a3b8;">{label}: <b style="color:#38bdf8">{val}</b></span>')
+
+    return f"""
+<div style="background:#1e293b;border-radius:12px;border-left:5px solid #a855f7;
+            padding:20px 22px;margin-bottom:14px;">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+    <div style="background:#a855f722;border-radius:8px;padding:6px 12px;font-size:18px;
+                font-weight:800;color:#a855f7;">⚡ Velocity</div>
+    <div style="font-weight:700;color:#f1f5f9;font-size:15px;">Cache &amp; Batch Precomputation</div>
+  </div>
+  <div style="font-size:12px;color:#94a3b8;margin-bottom:10px;">
+    Heavy agent computation is materialized weekly and served from SQLite at query time —
+    no per-query model inference for Agents A/B/C/E.
+  </div>
+  {chip("Agent A rows", c.get("agent_a", 0))}{chip("Agent B rows", c.get("agent_b", 0))}
+  {chip("Agent C rows", c.get("agent_c", 0))}{chip("Resource rows", c.get("resources", 0))}
+  {chip("Cached recommendations", entries)}{chip("Total cache hits", hits)}
+  {chip("Recommendation hit-rate", hit_rate)}
+</div>"""
+
+
+def _resource_row(r: dict) -> str:
+    meta = r.get("meta", {})
+    depth = {0: "beginner", 1: "intermediate", 2: "advanced"}.get(r.get("prerequisite_depth", 0), "")
+    pct = min(int(r.get("match_score", 0) * 100), 100)
+    return f"""
+    <div style="display:flex;align-items:center;gap:10px;padding:6px 0;
+                border-bottom:1px solid #0f172a;">
+      <div style="flex:1;color:#e2e8f0;font-size:13px;">{meta.get('title', r.get('resource_id'))}
+        <span style="color:#64748b;font-size:11px;">· {meta.get('source','')} · {depth}
+        · {r.get('estimated_hours','?')}h</span></div>
+      <div style="width:120px;background:#0f172a;border-radius:6px;height:8px;overflow:hidden;">
+        <div style="width:{pct}%;height:100%;background:#a855f7;"></div></div>
+      <div style="width:48px;text-align:right;color:#a855f7;font-size:12px;font-weight:600;">
+        {r.get('match_score', 0)}</div>
+    </div>"""
+
+
+def _run_agent_e(field: str) -> str:
+    if not field:
+        return _pending_card("E", "Resource Matcher")
+    cache = _get_cache()
+    _, a_skills = _run_agent_a(field)
+    skills = []
+    for skill, _score in a_skills[:8]:
+        canon = _canonical_skill(skill)
+        if canon not in skills:
+            skills.append(canon)
+    rows = ResourceMatcher(cache=cache, skills=skills).match_all_skills()
+    by_skill: dict[str, list[dict]] = {}
+    for row in rows:
+        by_skill.setdefault(row["skill_id"], []).append(row)
+
+    blocks = []
+    for skill in skills:
+        items = sorted(by_skill.get(skill, []), key=lambda r: r["match_score"], reverse=True)[:3]
+        if not items:
+            continue
+        rows_html = "".join(_resource_row(r) for r in items)
+        blocks.append(
+            f'<div style="margin-bottom:14px;"><div style="font-size:13px;font-weight:600;'
+            f'color:#fbbf24;margin-bottom:4px;">{skill.title()}</div>{rows_html}</div>'
+        )
+    body = (
+        '<div style="font-size:12px;color:#94a3b8;margin-bottom:12px;">'
+        'Resources ranked by <b>skill match × demand × (1 − drift risk)</b>; demand and drift '
+        'read from the precomputed cache.</div>' + "".join(blocks)
+        if blocks else '<div style="color:#64748b;font-size:13px;">No resources matched.</div>'
+    )
+    return _card("E", "Resource Matcher", "done", body)
+
+
+def _run_batch_and_stats() -> str:
+    cache = _get_cache()
+    audit = AuditLog(AUDIT_DB_PATH)
+    runner = BatchRunner(cache, audit, run_drift=True, run_forecast=True, skip_ingest=True)
+    result = runner.run_full_refresh()
+    status = "done" if result.status == "success" else "unavailable"
+    summary = _card(
+        "⚙", "Weekly Batch Precompute", status,
+        f'<div style="font-size:13px;color:#94a3b8;">Status: '
+        f'<b style="color:#38bdf8">{result.status}</b> · Agent A: {result.n_agent_a} · '
+        f'Agent B: {result.n_agent_b} · Agent C: {result.n_agent_c} · '
+        f'Resources: {result.n_resources}</div>',
+    )
+    return summary + _velocity_html(cache)
+
+
+def _initial_velocity() -> str:
+    try:
+        return _velocity_html(_get_cache())
+    except Exception:
+        return ""
+
+
 CSS = """
 body, .gradio-container { background:#0f172a !important; color:#f1f5f9 !important; }
 .gr-panel, .gr-box, .gr-form { background:#0f172a !important; border:none !important; }
@@ -785,6 +905,18 @@ with gr.Blocks(title="CURIA") as demo:
         inputs=[field_dd],
         outputs=[agent_a, agent_b, agent_c, agent_d],
     )
+
+    gr.HTML('<div style="height:1px;background:#1e293b;margin:20px 0;"></div>')
+
+    with gr.Row():
+        agent_e_btn = gr.Button("▶  Agent E — Match Resources", scale=1, size="lg")
+        batch_btn = gr.Button("⚙  Run Weekly Batch (precompute cache)", scale=1, size="lg")
+
+    agent_e = gr.HTML(value=_pending_card("E", "Resource Matcher"))
+    velocity = gr.HTML(value=_initial_velocity())
+
+    agent_e_btn.click(_run_agent_e, inputs=[field_dd], outputs=[agent_e])
+    batch_btn.click(_run_batch_and_stats, inputs=[], outputs=[velocity])
 
 
 PORT = 7888

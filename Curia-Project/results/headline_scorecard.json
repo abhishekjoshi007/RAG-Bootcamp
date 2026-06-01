@@ -1,0 +1,260 @@
+{
+  "generated_at": "2026-05-26T15:27:09",
+  "overall": {
+    "retrieval_recall@8": 0.8667,
+    "retrieval_passed": true,
+    "faithfulness_passed": false,
+    "relevance_mean": 3.0,
+    "relevance_passed": false,
+    "adversarial_max_drop": 0.4,
+    "adversarial_passed": false,
+    "velocity_hit_latency_p95_ms": 0.464,
+    "velocity_meets_200ms": true,
+    "forecast_data_sufficient": false,
+    "agent_a_vs_bls_spearman": 0.082,
+    "layers_ok": [
+      "retrieval",
+      "faithfulness",
+      "relevance",
+      "adversarial",
+      "forecast_backtest",
+      "ground_truth",
+      "multi_llm",
+      "velocity"
+    ],
+    "layers_failed": []
+  },
+  "layers": {
+    "retrieval": {
+      "status": "ok",
+      "result": {
+        "aggregate": {
+          "recall@4": 0.65,
+          "recall@8": 0.8667,
+          "mrr": 1.0,
+          "ndcg@8": 0.8706
+        }
+      }
+    },
+    "faithfulness": {
+      "status": "ok",
+      "result": {
+        "aggregate": {
+          "citation_precision": 0.9333,
+          "claim_grounding": 0.6
+        },
+        "n": 5,
+        "target_citation_precision": 0.95,
+        "target_claim_grounding": 0.85,
+        "passed_target": false
+      }
+    },
+    "relevance": {
+      "status": "ok",
+      "result": {
+        "summary": {
+          "mean_rating": 3.0,
+          "distribution": {
+            "1": 2,
+            "4": 2,
+            "5": 1
+          },
+          "per_unit_means": {
+            "cs_ai_01": 2.5,
+            "cs_sec_01": 3.0,
+            "cs_cloud_01": 4.0
+          },
+          "n": 5,
+          "target_mean": 3.5,
+          "passed_target": false
+        }
+      }
+    },
+    "adversarial": {
+      "status": "ok",
+      "result": {
+        "adversarial_summary": {
+          "num_perturbations": 6,
+          "avg_recall_drop": 0.175,
+          "max_recall_drop": 0.4,
+          "worst_case": "misleading_topics on cs_ai_01",
+          "target_max_drop": 0.3,
+          "passed_target": false
+        }
+      }
+    },
+    "forecast_backtest": {
+      "status": "ok",
+      "result": {
+        "horizon_months": 6,
+        "data_sufficiency": {
+          "skills_evaluated": 13,
+          "skills_skipped_sparse": 33,
+          "total_months_in_span": 214,
+          "months_with_documents": 39,
+          "statistically_meaningful": false,
+          "note": "SMOKE TEST \u2014 corpus too sparse for meaningful backtest; scale the dated ingest then re-run"
+        },
+        "per_model": {
+          "naive": {
+            "mape": 1.0,
+            "smape": 1.8462,
+            "mase": 2.647,
+            "directional_accuracy": 0.8205,
+            "n_skills_scored": 13
+          },
+          "moving_avg": {
+            "mape": 1.0,
+            "smape": 1.8462,
+            "mase": 2.647,
+            "directional_accuracy": 0.8205,
+            "n_skills_scored": 13
+          },
+          "linear": {
+            "mape": 0.6083,
+            "smape": 1.7976,
+            "mase": 6.233,
+            "directional_accuracy": 0.3718,
+            "n_skills_scored": 13
+          }
+        },
+        "best_by_smape": "linear"
+      }
+    },
+    "ground_truth": {
+      "status": "ok",
+      "result": {
+        "agent_a_vs_bls": {
+          "spearman_rho": 0.082,
+          "n_skills_overlap": 11,
+          "n_bls_skills": 14,
+          "bls_source_is_sample": true,
+          "note": "OK"
+        },
+        "cs2023_coverage": {
+          "mean_framework_coverage": 1.0,
+          "mean_demand_surfaced": 0.6389,
+          "per_unit": [
+            {
+              "unit_id": "cs_ai_01",
+              "n_topics": 4,
+              "framework_coverage": 1.0,
+              "demand_surfaced": 0.25
+            },
+            {
+              "unit_id": "cs_sec_01",
+              "n_topics": 3,
+              "framework_coverage": 1.0,
+              "demand_surfaced": 0.6667
+            },
+            {
+              "unit_id": "cs_cloud_01",
+              "n_topics": 4,
+              "framework_coverage": 1.0,
+              "demand_surfaced": 1.0
+            }
+          ]
+        }
+      }
+    },
+    "multi_llm": {
+      "status": "ok",
+      "result": {
+        "rows": [
+          {
+            "model": "local",
+            "unit_id": "cs_ai_01",
+            "citation_precision": 1.0,
+            "hallucination_rate": 0.0,
+            "evidence_coverage": 0.5,
+            "n_cited": 3,
+            "n_missing": 0,
+            "signal_strength": "high",
+            "latency_s": 0.0003
+          },
+          {
+            "model": "local",
+            "unit_id": "cs_sec_01",
+            "citation_precision": 1.0,
+            "hallucination_rate": 0.0,
+            "evidence_coverage": 0.5,
+            "n_cited": 4,
+            "n_missing": 0,
+            "signal_strength": "high",
+            "latency_s": 0.0002
+          },
+          {
+            "model": "local",
+            "unit_id": "cs_cloud_01",
+            "citation_precision": 1.0,
+            "hallucination_rate": 0.0,
+            "evidence_coverage": 0.5714,
+            "n_cited": 4,
+            "n_missing": 0,
+            "signal_strength": "high",
+            "latency_s": 0.0001
+          }
+        ],
+        "comparison": {
+          "models": [
+            "local"
+          ],
+          "n_queries": 3,
+          "target_citation_precision": 0.95,
+          "per_model": {
+            "local": {
+              "citation_precision": 1.0,
+              "hallucination_rate": 0.0,
+              "evidence_coverage": 0.5238,
+              "latency_s": 0.0002,
+              "n": 3,
+              "passes_citation_target": true
+            }
+          },
+          "ranking_by_faithfulness_then_latency": [
+            "local"
+          ]
+        }
+      }
+    },
+    "velocity": {
+      "status": "ok",
+      "result": {
+        "generated_at": "2026-05-26T15:27:08",
+        "deps_free": {
+          "mode": "deps_free",
+          "batch_materialization_light_agents": {
+            "agent_a": {
+              "rows": 60,
+              "seconds": 0.0136
+            },
+            "agent_b": {
+              "rows": 184,
+              "seconds": 0.0081
+            },
+            "agent_e": {
+              "rows": 138,
+              "seconds": 0.0114
+            }
+          },
+          "recommendation_read_latency_ms": {
+            "hit_mean": 0.389,
+            "hit_p50": 0.374,
+            "hit_p95": 0.464,
+            "miss_mean": 0.117,
+            "meets_200ms_target": true
+          },
+          "workload_hit_rate": {
+            "workload": "100 unique x 10 repeats = 1000 queries (shuffled)",
+            "hit_rate": 0.9,
+            "llm_calls_without_cache": 1000,
+            "llm_calls_with_cache": 100,
+            "llm_calls_avoided": 900,
+            "llm_cost_reduction_pct": 90.0
+          },
+          "db_size_bytes": 417792
+        }
+      }
+    }
+  }
+}

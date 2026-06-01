@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# CURIA Module Verification — runs all 12 test steps in order.
+# CURIA Module Verification — runs test steps in order.
 # Stops immediately on first failure.
 #
 # Usage:
@@ -31,6 +31,14 @@ STEPS=(
   "test_10_audit.py    | Audit — SQLite write, read-back, ID increment"
   "test_11_llm.py      | LLM — OpenAI call, JSON parse, env guard"
   "test_12_pipeline.py | Pipeline — full end-to-end, all 3 CS2023 units"
+  "test_13_forecasting.py     | Forecasting — trend and backtest helpers"
+  "test_14_drift.py           | Drift — semantic and temporal drift helpers"
+  "test_15_cache.py           | Cache — recommendation persistence and TTL"
+  "test_16_query_hash.py      | Query hash — stable learner query fingerprints"
+  "test_17_batch.py           | Batch — cache refresh orchestration"
+  "test_18_model_registry.py  | Model registry — provider selection and key guards"
+  "test_19_benchmark_budget.py| Benchmark budget — token and cost preflight"
+  "test_20_llm_providers.py   | LLM providers — OpenAI-compatible request construction"
 )
 
 echo -e "\n${BOLD}${CYAN}CURIA Module Verification${NC}"

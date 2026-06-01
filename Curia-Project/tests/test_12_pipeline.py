@@ -83,3 +83,64 @@ def test_pipeline_all_three_units(pipeline):
         result = pipeline.run(unit)
         assert result["recommendation"]["signal_strength"] in ("high", "medium", "low"), \
             f"Bad signal for {uid}"
+
+
+# ---------- Cache hit/miss/disabled flows (no real corpus needed) ----------
+from datetime import date
+from src.models import Chunk, Recommendation, SearchResult
+from src.query_hash import LearnerQuery
+
+
+class _FakeIndex:
+    def search(self, query, k=8):
+        chunk = Chunk(chunk_id="jp_001_c0", parent_id="jp_001", title="ML role",
+                      source="job_posting", date=date(2025, 6, 1),
+                      text="machine learning evidence", chunk_index=0)
+        return [SearchResult(chunk=chunk, similarity=0.9, score=0.9)]
+
+
+class _CountingGenerator:
+    def __init__(self):
+        self.calls = 0
+
+    def generate(self, unit, evidence):
+        self.calls += 1
+        return Recommendation(signal_strength="high", summary="Learn (jp_001).",
+                              emerging_topics=["ml"], evidence_ids=["jp_001"])
+
+
+def _learner_pipeline(tmp_path):
+    gen = _CountingGenerator()
+    pipe = CuriaRagPipeline(_FakeIndex(), audit_path=tmp_path / "audit.db", generator=gen)
+    return pipe, gen
+
+
+QUERY = LearnerQuery(program="tamu_cs", goal="learn machine learning", query_text="ml roadmap")
+
+
+def test_cache_miss_then_hit_skips_llm(tmp_path):
+    pipe, gen = _learner_pipeline(tmp_path)
+    first = pipe.run(QUERY)
+    assert first["cache_status"] == "miss"
+    assert gen.calls == 1
+    second = pipe.run(QUERY)
+    assert second["cache_status"] == "hit"
+    assert gen.calls == 1
+    assert second["recommendation"] == first["recommendation"]
+    assert second["evidence_ids"] == first["evidence_ids"]
+
+
+def test_cache_miss_writes_to_cache(tmp_path):
+    pipe, _ = _learner_pipeline(tmp_path)
+    pipe.run(QUERY)
+    assert pipe.cache.get_recommendation(QUERY.hash()) is not None
+
+
+def test_use_cache_false_bypasses_cache(tmp_path, monkeypatch):
+    import src.pipeline as pipeline_mod
+    monkeypatch.setattr(pipeline_mod, "USE_CACHE", False)
+    pipe, gen = _learner_pipeline(tmp_path)
+    pipe.run(QUERY)
+    pipe.run(QUERY)
+    assert gen.calls == 2
+    assert pipe.cache.get_recommendation(QUERY.hash()) is None

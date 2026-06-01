@@ -62,6 +62,12 @@ def test_build_prompt_has_no_hallucination_instruction():
     assert "not" in prompt.lower() and "evidence" in prompt.lower()
 
 
+def test_build_prompt_forbids_placeholder_citations():
+    prompt = build_recommendation_prompt(UNIT, RESULTS)
+    assert "Do not cite the literal strings SOURCE_ID" in prompt
+    assert "one actual available source ID" in prompt
+
+
 def test_empty_evidence_returns_prompt():
     prompt = build_recommendation_prompt(UNIT, [])
     assert isinstance(prompt, str) and len(prompt) > 50

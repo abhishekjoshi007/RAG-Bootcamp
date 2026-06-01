@@ -1,0 +1,36 @@
+{
+  "corpus_dir": "data/corpus_large",
+  "horizon_months": 6,
+  "data_sufficiency": {
+    "skills_evaluated": 30,
+    "skills_skipped_sparse": 16,
+    "total_months_in_span": 185,
+    "months_with_documents": 142,
+    "statistically_meaningful": true,
+    "note": "OK"
+  },
+  "per_model": {
+    "naive": {
+      "mape": 0.8229,
+      "smape": 1.3094,
+      "mase": 5.8318,
+      "directional_accuracy": 0.3,
+      "n_skills_scored": 30
+    },
+    "moving_avg": {
+      "mape": 1.0432,
+      "smape": 1.3107,
+      "mase": 4.0078,
+      "directional_accuracy": 0.3778,
+      "n_skills_scored": 30
+    },
+    "linear": {
+      "mape": 1.0911,
+      "smape": 1.3479,
+      "mase": 4.9705,
+      "directional_accuracy": 0.5222,
+      "n_skills_scored": 30
+    }
+  },
+  "best_by_smape": "naive"
+}

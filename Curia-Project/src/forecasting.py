@@ -11,10 +11,11 @@ that reads from the audit database / ingestion runs.
 
 from __future__ import annotations
 
+import json
 import math
 from dataclasses import dataclass, field
 from datetime import date, timedelta
-from typing import Generator
+from typing import Generator, Optional, Sequence
 
 
 @dataclass(frozen=True)
@@ -123,6 +124,20 @@ def _canonical_skill(raw: str) -> str:
     """Lowercase + dehyphenate, then map through alias table."""
     s = raw.lower().replace("-", " ").strip()
     return _SKILL_ALIASES.get(s, s)
+
+
+def tracked_skills() -> list[str]:
+    """Finite skill set for batch forecasting/drift: curated demand skills plus
+    any CS2023 unit topics (canonicalized)."""
+    skills = set(_TREND_DEFS.keys())
+    try:
+        from .config import UNITS_FILE
+        for unit in json.loads(UNITS_FILE.read_text()):
+            for topic in unit.get("current_topics", []):
+                skills.add(_canonical_skill(topic))
+    except Exception:
+        pass
+    return sorted(skills)
 
 
 _FIELD_SKILLS: dict[str, list[str]] = {
@@ -309,11 +324,55 @@ class SkillForecaster:
         history_start: str = "2022-01",
         history_months: int = 40,
         forecast_months: int = 12,
+        cache: Optional[object] = None,
     ) -> None:
         self.history_start  = history_start
         self.history_months = history_months
         self.forecast_months = forecast_months
+        self.cache = cache
         self._cache: dict[str, ForecastResult] = {}
+
+    def forecast_all_skills(
+        self,
+        horizons: Sequence[int] = (3, 6, 12, 24),
+        skills: Optional[Sequence[str]] = None,
+    ) -> list[dict]:
+        """Batch method for BatchRunner. Returns rows for cache.set_agent_b."""
+        names = list(skills) if skills else tracked_skills()
+        rows: list[dict] = []
+        seen: set[str] = set()
+        for raw in names:
+            canonical = _canonical_skill(raw)
+            if canonical in seen:
+                continue
+            seen.add(canonical)
+            fc = self.forecast_skill(canonical) or self._synthesize_forecast(canonical)
+            base = fc.historical[-1].frequency if fc.historical else 0.1
+            slope = fc.slope_per_month
+            mape = None
+            if canonical in _TREND_DEFS:
+                bt = self.backtest(canonical).get("mape")
+                mape = None if bt is None or math.isnan(bt) else bt
+            margin = max(0.02, (1.0 - fc.confidence) * 0.2)
+            for h in horizons:
+                value = max(0.0, min(1.0, base + slope * h))
+                rows.append({
+                    "skill_id": canonical,
+                    "horizon_months": int(h),
+                    "forecast_value": round(value, 4),
+                    "ci_lower": round(max(0.0, value - margin), 4),
+                    "ci_upper": round(min(1.0, value + margin), 4),
+                    "slope": round(slope, 6),
+                    "model_name": fc.method.split()[0],
+                    "backtest_mape": mape,
+                })
+        return rows
+
+    def get_forecast(self, skill_id: str, horizon_months: int) -> Optional[dict]:
+        """Used by the online pipeline. Returns cached forecast or None."""
+        if self.cache is None:
+            return None
+        return self.cache.get_agent_b(skill_id, horizon_months)
 
     def forecast_skill(self, skill: str) -> ForecastResult | None:
         if skill in self._cache:

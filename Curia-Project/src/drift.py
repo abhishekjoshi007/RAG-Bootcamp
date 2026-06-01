@@ -76,11 +76,12 @@ class SemanticDriftDetector:
 
     def __init__(
         self,
-        index: FaissIndex | InMemoryIndex,
+        index: FaissIndex | InMemoryIndex | None = None,
         chunks_per_skill: int = 40,
         min_chunks_per_bucket: int = 2,
         drift_threshold: float = 0.15,
         mode: str = "cross_source",
+        cache: object | None = None,
     ) -> None:
         if mode not in ("cross_source", "temporal"):
             raise ValueError(f"Unknown mode: {mode!r}")
@@ -89,6 +90,7 @@ class SemanticDriftDetector:
         self.min_chunks_per_bucket = min_chunks_per_bucket
         self.drift_threshold = drift_threshold
         self.mode = mode
+        self.cache = cache
 
     def _retrieve_chunks(self, skill: str) -> list[Chunk]:
         results = self.index.search(skill, k=self.chunks_per_skill)
@@ -186,6 +188,55 @@ class SemanticDriftDetector:
             if r is not None:
                 out.append(r)
         return out
+
+    def detect_all_skills(self, skills: list[str] | None = None) -> list[dict]:
+        """Batch method for BatchRunner. Returns rows for cache.set_agent_c.
+
+        With an index, derives drift from cross-source centroid divergence. With
+        no index (batch demo mode), emits a deterministic placeholder per skill.
+        """
+        from .forecasting import _canonical_skill, tracked_skills
+
+        names = skills if skills else tracked_skills()
+        window_end = date.today().isoformat()
+        rows: list[dict] = []
+        if self.index is None:
+            for raw in names:
+                skill = _canonical_skill(raw)
+                score = self._demo_drift_score(skill)
+                rows.append({
+                    "skill_id": skill,
+                    "drift_score": score,
+                    "drift_p_value": None,
+                    "direction": "expanding" if score > 0.3 else "stable",
+                    "evidence_blob": {"note": "demo drift (no index)"},
+                    "window_start": "2025-01",
+                    "window_end": window_end,
+                })
+            return rows
+        for r in self.analyze_skills([_canonical_skill(s) for s in names]):
+            rows.append({
+                "skill_id": r.skill,
+                "drift_score": r.max_drift,
+                "drift_p_value": None,
+                "direction": "shifting" if r.drifted else "stable",
+                "evidence_blob": {
+                    "pairs": [
+                        {"from": p.from_label, "to": p.to_label, "distance": p.cosine_distance}
+                        for p in r.pairs[:5]
+                    ]
+                },
+                "window_start": "2025-01",
+                "window_end": window_end,
+            })
+        return rows
+
+    @staticmethod
+    def _demo_drift_score(skill: str) -> float:
+        import hashlib
+
+        h = int(hashlib.md5(skill.encode("utf-8")).hexdigest()[:8], 16)
+        return round((h % 100) / 100.0 * 0.6, 4)
 
     @staticmethod
     def top_drifters(results: list[DriftResult], n: int = 5) -> list[DriftResult]:

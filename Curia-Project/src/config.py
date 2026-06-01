@@ -21,6 +21,13 @@ def _list(key: str, default: list[str]) -> list[str]:
     return [v.strip() for v in raw.split(",") if v.strip()] if raw else default
 
 
+def _bool(key: str, default: bool) -> bool:
+    raw = os.environ.get(key)
+    if raw is None:
+        return default
+    return raw.strip().lower() in ("1", "true", "yes", "on")
+
+
 ROOT = Path(__file__).resolve().parents[1]
 
 CORPUS_DIR       = ROOT / "data" / "corpus"
@@ -53,6 +60,7 @@ LLM_MODEL         = _str("CURIA_LLM_MODEL", "gpt-4o-mini")
 LLM_TEMPERATURE   = _float("CURIA_LLM_TEMPERATURE", 0.0)
 LLM_MAX_TOKENS    = _int("CURIA_LLM_MAX_TOKENS", 1024)
 LLM_MAX_RETRIES   = _int("CURIA_LLM_MAX_RETRIES", 3)
+LLM_HTTP_TIMEOUT  = _float("CURIA_LLM_HTTP_TIMEOUT", 60.0)
 
 LOCAL_SIGNAL_HIGH   = _float("CURIA_LOCAL_SIGNAL_HIGH", 0.28)
 LOCAL_SIGNAL_MEDIUM = _float("CURIA_LOCAL_SIGNAL_MEDIUM", 0.14)
@@ -104,6 +112,16 @@ LEVER_COMPANIES = _list("CURIA_LEVER_COMPANIES", [
     "cloudflare", "fastly", "datadog", "newrelic", "pagerduty",
     "grammarly", "canva", "miro", "linear", "loom",
 ])
+
+CACHE_TTL_AGENT_A_DAYS        = _int("CACHE_TTL_AGENT_A_DAYS", 7)
+CACHE_TTL_AGENT_B_DAYS        = _int("CACHE_TTL_AGENT_B_DAYS", 30)
+CACHE_TTL_AGENT_C_DAYS        = _int("CACHE_TTL_AGENT_C_DAYS", 90)
+CACHE_TTL_RESOURCE_DAYS       = _int("CACHE_TTL_RESOURCE_DAYS", 30)
+CACHE_TTL_RECOMMENDATION_DAYS = _int("CACHE_TTL_RECOMMENDATION_DAYS", 14)
+
+USE_CACHE                    = _bool("USE_CACHE", True)
+DRIFT_INVALIDATION_THRESHOLD = _float("DRIFT_INVALIDATION_THRESHOLD", 0.35)
+BATCH_LOG_PATH               = _str("BATCH_LOG_PATH", "logs/batch.log")
 
 EVAL_TARGET_RECALL_8          = _float("CURIA_EVAL_RECALL_8", 0.70)
 EVAL_TARGET_CITATION_PRECISION = _float("CURIA_EVAL_CITATION_PRECISION", 0.95)

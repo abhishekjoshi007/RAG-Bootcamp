@@ -14,7 +14,10 @@ class CitationCheck:
     missing_ids: list[str]
 
 
-ID_RE = re.compile(r"\b[a-z]{2,}_[a-z0-9_]+\b", re.IGNORECASE)
+# Source IDs include repo/job IDs such as jp_001 and arXiv-derived IDs such as
+# axhist_2601.00150v3. Keep dots/hyphens inside the token so inline citation
+# parsing does not turn a valid dotted ID into a false missing prefix.
+ID_RE = re.compile(r"\b[a-z]{2,}[a-z0-9-]*(?:_[a-z0-9_.-]+)+\b", re.IGNORECASE)
 
 
 def check_citations(

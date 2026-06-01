@@ -44,6 +44,29 @@ def test_inline_citations_extracted_from_summary():
     assert "so_003" in check.cited_ids
 
 
+def test_dotted_source_id_is_not_truncated():
+    evidence = [_result("axhist_2601.00150v3")]
+    rec = Recommendation(signal_strength="medium",
+                         summary="The evidence supports this update (axhist_2601.00150v3).",
+                         emerging_topics=[],
+                         evidence_ids=["axhist_2601.00150v3"])
+    check = check_citations(rec, evidence)
+    assert check.passed is True
+    assert check.cited_ids == ["axhist_2601.00150v3"]
+    assert check.missing_ids == []
+
+
+def test_hyphenated_source_id_is_extracted():
+    evidence = [_result("gh_repo-name_001")]
+    rec = Recommendation(signal_strength="medium",
+                         summary="The repository evidence is relevant (gh_repo-name_001).",
+                         emerging_topics=[],
+                         evidence_ids=[])
+    check = check_citations(rec, evidence)
+    assert check.passed is True
+    assert check.cited_ids == ["gh_repo-name_001"]
+
+
 def test_retrieved_ids_match_evidence():
     check = check_citations(
         Recommendation(signal_strength="low", summary=".", emerging_topics=[], evidence_ids=[]),

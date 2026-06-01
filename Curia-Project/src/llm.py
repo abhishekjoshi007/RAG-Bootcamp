@@ -85,7 +85,14 @@ def parse_json_response(text: str) -> dict:
         cleaned = cleaned.removeprefix("```").strip()
     if cleaned.endswith("```"):
         cleaned = cleaned.removesuffix("```").strip()
-    return json.loads(cleaned)
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        start = cleaned.find("{")
+        end = cleaned.rfind("}")
+        if start != -1 and end > start:
+            return json.loads(cleaned[start:end + 1], strict=False)
+        return json.loads(cleaned, strict=False)
 
 
 class LocalGroundedGenerator:

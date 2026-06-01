@@ -1,0 +1,21 @@
+{
+  "source": "SAMPLE — replace with the official BLS Occupational Employment Statistics / Employment Projections export before any published claim. Values below are placeholders for wiring the evaluation, NOT real BLS figures.",
+  "schema": "occupations[].skill maps to a CURIA tracked skill (this is the crosswalk the proposal builds via ~300 manual ESCO mappings); growth_pct is projected % employment growth over the reference window.",
+  "reference_window": "2019-2024 (placeholder)",
+  "occupations": [
+    {"skill": "machine learning", "growth_pct": 35.0},
+    {"skill": "large language models", "growth_pct": 48.0},
+    {"skill": "data scientist", "growth_pct": 36.0},
+    {"skill": "cybersecurity", "growth_pct": 33.0},
+    {"skill": "cloud native", "growth_pct": 24.0},
+    {"skill": "kubernetes", "growth_pct": 22.0},
+    {"skill": "devops", "growth_pct": 21.0},
+    {"skill": "mlops", "growth_pct": 30.0},
+    {"skill": "software engineer", "growth_pct": 17.0},
+    {"skill": "data analyst", "growth_pct": 16.0},
+    {"skill": "supply chain security", "growth_pct": 19.0},
+    {"skill": "quantum computing", "growth_pct": 12.0},
+    {"skill": "robotics", "growth_pct": 14.0},
+    {"skill": "python", "growth_pct": 25.0}
+  ]
+}

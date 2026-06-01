@@ -1,268 +1,415 @@
-# CURIA RAG Test Project
+# CURIA — Curriculum Update with Retrieval & Industry Alignment
 
-A complete, evaluable **Retrieval-Augmented Generation** prototype for the CURIA system: it ingests live job-market and technical signals, indexes them with FAISS, retrieves recency- and source-balanced evidence for a curriculum unit, generates a **grounded, citation-checked recommendation**, and measures itself against explicit quality targets.
+A retrieval-augmented system that **continuously aligns university CS/EE curricula
+with live industry signal**. CURIA ingests job postings, arXiv papers, Stack
+Overflow questions and GitHub READMEs; fuses them into per-skill demand,
+forecast, and drift signals; and produces a **grounded, citation-verified
+recommendation** for every curriculum unit — with a multi-layer cache that
+serves repeat queries from precomputed agent outputs.
 
-It also ships four analytical agents — **skill demand, trend forecasting, semantic drift, and curriculum-gap mapping** — exposed through a Gradio UI.
-
-> This is the capstone of the [RAG Bootcamp](../README.md). It assembles ingestion, chunking, embedding, indexing, retrieval, prompting, grounded generation, auditing, and evaluation into one tested codebase.
+> Companion artifact to the IEEE BigData 2026 submission
+> *"CURIA: Velocity-Aware Retrieval-Augmented Curriculum Alignment with
+> Industry Signal."* All numbers in this README are reproducible from the code
+> in this repo and the result files under [`results/`](results/).
 
 ---
 
-## Highlights
+## Headline results
 
-- **12-source ingestion** — Greenhouse, Lever, We Work Remotely, RemoteOK, Remotive, Arbeitnow, The Muse, HackerNews "Who is hiring", USAJOBS, arXiv (`cs.*`), Stack Exchange, GitHub READMEs.
-- **Dense retrieval** — `sentence-transformers/all-mpnet-base-v2` embeddings in a FAISS `IndexFlatIP`, with **recency-decay scoring** and **per-source quotas** so no single source dominates.
-- **Grounded generation** — OpenAI `gpt-4o-mini` (temperature 0) or a deterministic offline `LocalGroundedGenerator`, both required to cite `SOURCE_ID`s.
-- **Citation grounding** — every recommendation is checked: cited IDs must exist in the retrieved evidence.
-- **Four evaluation harnesses** with pass/fail targets pulled directly from `src/config.py`.
-- **SQLite audit log** — every pipeline run is persisted (unit, prompt, evidence, recommendation, citation check).
-- **Two front-ends** — a zero-dependency `http.server` demo and a richer 4-agent Gradio app.
-- **14 sequential pytest modules** covering every stage from config to drift detection.
+### Faithfulness across 15 frontier LLMs (n = 50 curriculum units)
+
+50 TAMU CS/EE curriculum units × 15 LLMs (OpenAI / Anthropic / Google / xAI /
+DeepSeek + the local extractive baseline). Same retrieved evidence given to
+every model; only the generator changes. Full data:
+[`results/headline_multi_llm_50q_15models.json`](results/headline_multi_llm_50q_15models.json).
+
+| Model | Citation precision | Hallucination | Evidence coverage | Latency (s) | Cost (USD) |
+|---|---:|---:|---:|---:|---:|
+| **local** (extractive baseline) | **1.000** | **0.000** | 0.535 | **0.0002** | **0.00** |
+| deepseek-chat | 1.000 | 0.000 | 0.662 | 2.24 | 0.62 |
+| gpt-5.4-nano | 1.000 | 0.000 | 0.571 | 2.53 | 0.62 |
+| gpt-5.4-mini | 1.000 | 0.000 | 0.572 | 2.95 | 0.60 |
+| gpt-5.4 | 1.000 | 0.000 | 0.597 | 4.69 | 0.62 |
+| claude-sonnet-4-6 | 1.000 | 0.000 | 0.727 | 7.35 | 0.56 |
+| claude-opus-4-7 | 1.000 | 0.000 | **0.784** | 7.61 | 3.87 |
+| claude-opus-4-8 *(11/50, flaky run)* | 1.000 | 0.000 | 0.790 | 6.48 | 0.87 |
+| grok-4.3 | 1.000 | 0.000 | 0.591 | 12.99 | 0.61 |
+| deepseek-reasoner | 1.000 | 0.000 | 0.656 | 6.08 | 0.96 |
+| deepseek-v4-flash | 1.000 | 0.000 | 0.697 | 5.57 | 0.95 |
+| gpt-5.5 | 1.000 | 0.000 | 0.650 | 12.89 | 1.01 |
+| claude-sonnet-4-5 | 1.000 | 0.000 | 0.559 | 6.40 | 0.51 |
+| claude-opus-4-6 | 1.000 | 0.000 | 0.710 | 8.20 | 2.83 |
+| claude-haiku-4-5 | 0.995 | 0.005 | 0.657 | 3.24 | 0.17 |
+| **Total** | — | — | — | — | **$14.81** |
+
+The interesting axis is *evidence coverage* (how much of the retrieved evidence
+each model actually uses), not citation precision — once evidence is well
+retrieved, modern LLMs cite it faithfully. The deterministic local baseline is
+the **faithfulness ceiling** at 0 cost and sub-millisecond latency; frontier
+LLMs trade money and seconds for higher coverage.
+
+### Velocity (recommendation cache, RQ4)
+
+From [`results/headline_scorecard.json`](results/headline_scorecard.json), `velocity` layer:
+
+| Metric | Value |
+|---|---|
+| Cache hit latency p95 | **0.46 ms** (target ≤ 200 ms) |
+| Workload hit rate (1,000 queries, 100 unique × 10) | **90 %** |
+| LLM calls avoided | **900 / 1,000** |
+| Cache DB size at steady state | 408 KB |
+
+### Retrieval (RQ retrieval quality)
+
+| Metric | Value | Target | Status |
+|---|---:|---:|:---:|
+| Recall@4 | 0.650 | — | — |
+| Recall@8 | **0.867** | 0.70 | ✅ |
+| MRR | 1.000 | — | — |
+| nDCG@8 | 0.871 | — | — |
+
+### Forecasting backtest on the large dated corpus (RQ2)
+
+[`results/headline_forecast_backtest_corpus_large.json`](results/headline_forecast_backtest_corpus_large.json)
+— 30 skills evaluated, 142 / 185 months with documents, `statistically_meaningful: true`:
+
+| Baseline | sMAPE | Directional accuracy |
+|---|---:|---:|
+| naive | **1.31** | 0.30 |
+| moving_avg | 1.31 | 0.38 |
+| linear | 1.35 | **0.52** |
+
+**Honest finding:** on raw monthly skill-frequency series, a `naive`
+(last-value) baseline is competitive with linear regression by sMAPE; linear
+wins on directional accuracy. The system supports forecasting; choosing a
+forecaster that meaningfully beats naive on this corpus is open work — see
+[Limitations](#limitations).
+
+### Ground truth vs BLS (RQ1, sample data)
+
+[`results/headline_ground_truth_bls.json`](results/headline_ground_truth_bls.json):
+Agent A vs BLS Spearman ρ = **0.082** on n = 11 overlapping skills, using a
+**sample** BLS file. This is reported transparently as below-threshold; the
+final paper uses the official BLS OES export (set `BLS_EXPORT_PATH`).
+
+---
+
+## What CURIA does, in plain language
+
+1. **It ingests evidence.** Twelve live sources — Greenhouse / Lever / WWR /
+   RemoteOK / Remotive / Arbeitnow / The Muse / HN "Who is hiring" / USAJOBS
+   (job-market signal), plus arXiv `cs.*` and Stack Overflow (technical
+   signal), plus GitHub READMEs (open-source signal) — are pulled by
+   [`src/ingest.py`](src/ingest.py) and stored as one JSON document per item.
+2. **It chunks, embeds, and indexes** the corpus into a FAISS `IndexFlatIP`
+   using `sentence-transformers/all-mpnet-base-v2`.
+3. **For each curriculum unit, it retrieves** evidence with recency decay and
+   per-source quotas so no one source dominates.
+4. **It generates a grounded recommendation** (`signal_strength`, `summary`
+   with inline `SOURCE_ID` citations, `emerging_topics`, `evidence_ids`) using
+   either an OpenAI model or a deterministic local extractive baseline.
+5. **It verifies every citation** — cited IDs must be a subset of retrieved IDs
+   — and persists the full run (unit, prompt, evidence, recommendation,
+   citation check) to a SQLite audit log.
+6. **It precomputes per-skill agent outputs** (demand, forecast, drift,
+   resources) in a weekly batch, so interactive queries hit a multi-layer
+   cache instead of paying LLM and embedding cost on every request.
+
+---
+
+## The five agents
+
+| Agent | Module | Role | Output |
+|---|---|---|---|
+| **A — Skill Demand Fusion** | [`src/agent_a_fusion.py`](src/agent_a_fusion.py) | Counts skill mentions per (skill, source, ISO week), weights by source quality, normalizes to 0..1 intensity per skill. | Per-skill weekly intensity rows |
+| **B — Skill Demand Forecasting** | [`src/forecasting.py`](src/forecasting.py) + [`src/skill_series.py`](src/skill_series.py) | Linear + exponential-smoothing forecasts of monthly skill frequency, plus a baseline backtest harness. | Per-skill {slope, projection, R²} for horizons {3, 6, 12, 24} |
+| **C — Semantic Drift** | [`src/drift.py`](src/drift.py) | Cross-source / temporal centroid divergence per skill; flags skills whose meaning has shifted enough that historical recommendations should be invalidated. | Per-skill drift score + direction |
+| **D — Curriculum Roadmap** | [`src/agent_d_roadmap.py`](src/agent_d_roadmap.py) | Overlays A / B / C / E outputs onto a learner's goal to produce an ordered roadmap of skills with trend and drift annotations. | `{ goal, program, completed_skills, steps[] }` |
+| **E — Resource Matching** | [`src/agent_e_resources.py`](src/agent_e_resources.py) | Maps each tracked skill to open-courseware resources; scores them `skill_match × demand × (1 − drift_risk)` using A and C outputs from the cache. | Per-skill ranked resource list |
+
+Agent outputs are materialized weekly by `BatchRunner` and read directly from
+the cache by the live pipeline.
+
+---
+
+## Architecture
+
+```
+                                            ┌─────────────────────────┐
+ingest (12 sources) ─► corpus/ ──► chunk ──►│  FAISS IndexFlatIP      │
+                                            │  (mpnet-base-v2, IP)    │
+                                            └──────────┬──────────────┘
+                                                       │
+LearnerQuery ──► query_hash.QueryFingerprint ──┐       │
+                                               ▼       ▼
+                                       ┌──────────────────────────┐
+                                       │  CacheLayer (SQLite)     │
+                                       │  ├─ recommendation_cache │◄─── miss ──┐
+                                       │  ├─ agent_a_cache        │            │
+                                       │  ├─ agent_b_cache        │            │
+                                       │  ├─ agent_c_cache        │            │
+                                       │  └─ resource_cache       │            │
+                                       └────────────┬─────────────┘            │
+                                       cache hit ──►│ return cached            │
+                                                    │                          ▼
+                                       ┌────────────┴────────────┐   ┌──────────────────────┐
+                                       │  Retriever              │──►│  build_prompt        │
+                                       │  recency + source quota │   │  evidence + JSON spec │
+                                       └─────────────────────────┘   └──────────┬───────────┘
+                                                                                ▼
+                                                              ┌──────────────────────────────┐
+                                                              │  Generator                   │
+                                                              │  OpenAI | Anthropic | Local  │
+                                                              └──────────────┬───────────────┘
+                                                                             ▼
+                                                              ┌──────────────────────────────┐
+                                                              │  grounding.check_citations   │
+                                                              │  cited ⊆ retrieved ?         │
+                                                              └──────────────┬───────────────┘
+                                                                             ▼
+                                                              ┌──────────────────────────────┐
+                                                              │  AuditLog (SQLite) + cache   │
+                                                              │  persist + index by skills   │
+                                                              └──────────────────────────────┘
+```
+
+Weekly batch ([`src/batch.py`](src/batch.py)): `ingest_all → build_index →
+FusionAgent → SkillForecaster → SemanticDriftDetector → ResourceMatcher`.
+Drift > `DRIFT_INVALIDATION_THRESHOLD` cascades into a targeted invalidation
+of recommendations touching the drifted skill.
 
 ---
 
 ## Quick start
 
 ```bash
-cd curia-rag-test
-
 # 1. Configure
-cp .env.example .env          # then add your OPENAI_API_KEY
+cp .env.example .env       # add OPENAI_API_KEY at minimum; everything else optional
 
-# 2. Install (Python 3.11 recommended)
+# 2. Install (Python 3.10–3.11 recommended)
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# 3. One command: ingest → index → pipeline → evaluate → summary
-./run_pipeline.sh
+# 3. Build the corpus and index
+python3 scripts/ingest_corpus.py                       # live ingest (or skip and use sample)
+python3 scripts/build_index.py                         # FAISS IndexFlatIP
+
+# 4. Run a single recommendation
+python3 scripts/run_pipeline.py --unit-id cs_ai_01 --k 8 --local
+
+# 5. Launch the 5-agent web app
+python3 app_gradio.py                                  # http://127.0.0.1:8888
 ```
 
-`run_pipeline.sh` writes everything (logs, per-unit pipeline output, all four eval JSONs, and a pass/fail `summary.json`) to a timestamped `results/<YYYYMMDD_HHMMSS>/` directory. Useful flags:
+### Reproducing the paper's headline numbers
 
 ```bash
-./run_pipeline.sh --skip-ingest                # reuse existing data/corpus/
-./run_pipeline.sh --skip-ingest --skip-index   # just pipeline + eval
+# 1. Build the dated corpus (≈ 3,400 docs across arXiv + Stack Overflow)
+python3 scripts/ingest_historical_arxiv.py
+python3 scripts/ingest_historical_stackoverflow.py
+python3 scripts/build_index.py
+
+# 2. Run the full scorecard (retrieval, faithfulness, relevance, adversarial,
+#    forecast backtest, ground truth, multi-LLM, velocity)
+python3 eval/run_scorecard.py --out results/
+
+# 3. The 50-query × 15-model headline (requires provider API keys; budget-capped)
+python3 eval/run_multi_llm_eval.py \
+    --units-file data/eval/benchmark_units_tamu_50.json \
+    --budget-usd 20 \
+    --out results/
+
+# 4. Forecast backtest on the large dated corpus
+python3 eval/run_forecast_backtest.py \
+    --corpus-dir data/corpus_large \
+    --horizon 6 --min-train 6 \
+    --out results/
 ```
 
-### Run pieces individually
+Cache and batch operations:
 
 ```bash
-python3 scripts/ingest_corpus.py               # fetch corpus (+ rebuild index)
-python3 scripts/build_index.py                 # (re)build FAISS index only
-python3 scripts/run_pipeline.py --unit-id cs_ai_01 --k 8
-python3 eval/run_retrieval_eval.py             # Recall@k / MRR / nDCG
-python3 app.py                                 # stdlib demo  → http://127.0.0.1:8000
-python3 app_gradio.py                          # 4-agent app  → http://127.0.0.1:8888
+python3 scripts/cache_ops.py stats                # cache hit/miss counts, by layer
+python3 scripts/cache_ops.py purge-stale          # drop entries past TTL
+python3 scripts/cache_ops.py invalidate <skill>   # drop recommendations touching <skill>
+python3 scripts/batch_refresh.py                  # one-shot weekly batch run
+python3 scripts/bench_cache.py                    # the velocity numbers above
 ```
 
 ---
 
-## Architecture
+## Evaluation framework
 
-### Pipeline flow (`src/pipeline.py` → `CuriaRagPipeline.run`)
+`eval/run_scorecard.py` runs every evaluation layer as an isolated subprocess
+so one failing layer never aborts the rest, and aggregates a one-file
+pass / fail report. The targets are pulled from
+[`src/config.py`](src/config.py); change them there to retarget the scorecard.
 
-```
-unit-id
-  │
-  ▼  build_query(unit)              title + description (+ topics)
-  ▼  retriever.retrieve(k, quotas)  FAISS search → recency rescoring → source quotas
-  ▼  build_recommendation_prompt()  evidence blocks tagged with SOURCE_IDs + JSON spec
-  ▼  generator.generate()           OpenAIGenerator | LocalGroundedGenerator
-  ▼  check_citations()              cited IDs ⊆ retrieved IDs ?
-  ▼  AuditLog.write()               persist run to SQLite
-  ▼
-returns { query, prompt, evidence, recommendation, citation_check, audit_id }
-```
+| Layer | Script | Metrics | Target |
+|---|---|---|---|
+| 1. Retrieval | `eval/run_retrieval_eval.py` | recall@4, recall@8, MRR, nDCG@8 | recall@8 ≥ 0.70 |
+| 2. Faithfulness | `eval/run_faithfulness_eval.py` | citation precision, claim grounding | ≥ 0.95, ≥ 0.85 |
+| 2. Relevance | `eval/run_relevance_eval.py` | mean human rating (1–5) | ≥ 3.5 |
+| 2. Adversarial | `eval/run_adversarial_eval.py` | recall drop under synonym / topic-removal / misleading perturbations | max drop ≤ 0.30 |
+| 3. Forecast backtest | `eval/run_forecast_backtest.py` | MAPE, sMAPE, MASE, directional accuracy vs naive / moving-avg / linear | statistically_meaningful = true |
+| 3. Ground truth | `eval/run_ground_truth_eval.py` | Agent A vs BLS Spearman ρ, CS2023 framework coverage | model comparison |
+| 4. Multi-LLM | `eval/run_multi_llm_eval.py` | citation precision, hallucination, evidence coverage, latency, cost (per model) | budget-capped |
+| 5. Velocity | `scripts/bench_cache.py` | cache hit latency p95, workload hit-rate, LLM-call reduction | p95 ≤ 200 ms |
 
-`Recommendation` carries `signal_strength` (`high`/`medium`/`low`), `summary` (with inline `SOURCE_ID` citations), `emerging_topics[]`, and `evidence_ids[]`.
+---
 
-### Module map (`src/`)
+## Module map (`src/`)
 
 | Module | Responsibility |
-|--------|----------------|
-| `config.py` | All tunable constants, with environment-variable overrides (`_int/_float/_str/_list` helpers). |
+|---|---|
+| `config.py` | All tunable constants, with environment-variable overrides (`_int / _float / _str / _list / _bool` helpers). |
 | `models.py` | Frozen dataclasses: `Document`, `Chunk`, `SearchResult`, `Recommendation`. |
-| `storage.py` | Load corpus/units from disk; `build_index_from_corpus()`. |
-| `chunking.py` | Sliding-window token chunking (`chunk_document`, default 160 tokens / 30 overlap). |
-| `embedding.py` | `DenseEmbedder` (sentence-transformers) and `LocalTfidfEmbedder` + sparse cosine helpers. |
-| `indexing.py` | `FaissIndex` (`IndexFlatIP`, picklable) and `InMemoryIndex` (sparse TF-IDF) — same `search()` API. |
+| `storage.py` | Load corpus / units from disk; `build_index_from_corpus`. |
+| `chunking.py` | Sliding-window token chunking (default 160 tokens / 30 overlap). |
+| `embedding.py` | `DenseEmbedder` (sentence-transformers) + `LocalTfidfEmbedder` for the offline path. |
+| `indexing.py` | `FaissIndex` (`IndexFlatIP`, picklable) and `InMemoryIndex` (sparse) — same `search` API. |
 | `retrieval.py` | `Retriever`: candidate search, recency decay, per-source quota enforcement, top-k. |
-| `query.py` | `build_query()` and `build_hyde_prompt()` from a unit. |
-| `prompts.py` | `format_evidence()` and `build_recommendation_prompt()` (enforces a JSON contract). |
+| `query.py` | `build_query` and `build_query_from_learner` (LearnerQuery → corpus query). |
+| `query_hash.py` | `LearnerQuery` dataclass + `QueryFingerprint` — stable cache key. |
+| `prompts.py` | `format_evidence` and `build_recommendation_prompt` (JSON contract). |
 | `llm.py` | `OpenAIGenerator` (retrying, JSON-parsed) and `LocalGroundedGenerator` (deterministic, offline). |
-| `grounding.py` | `check_citations()` → `CitationCheck(passed, cited_ids, retrieved_ids, missing_ids)`. |
-| `audit.py` | `AuditLog` — SQLite `rag_runs` table, one row per pipeline run. |
-| `pipeline.py` | `CuriaRagPipeline` orchestrating the flow above. |
-| `ingest.py` | 12 source fetchers + `ingest_all()`; HTML stripping, date parsing, rate limiting. |
-| `field_config.py` | `FIELD_INGESTION` — 21 academic fields → source queries/tags/topics. |
-| `university.py` | Loads TAMU curricula; `curriculum_summary()`, `get_all_units()`, etc. |
-| `drift.py` | `SemanticDriftDetector` — cross-source / temporal centroid divergence per skill. |
-| `forecasting.py` | `SkillForecaster` — linear & exponential-smoothing skill-demand forecasts + backtest. |
+| `llm_providers.py` | Provider adapters for the multi-LLM benchmark (Anthropic, Google, xAI, DeepSeek, OpenRouter, Ollama). |
+| `model_registry.py` | Pinned model IDs + per-token pricing for the benchmark budget preflight. |
+| `grounding.py` | `check_citations` → `CitationCheck(passed, cited_ids, retrieved_ids, missing_ids)`. |
+| `audit.py` | `AuditLog` — SQLite `rag_runs` table, owns the cache DDL execution too. |
+| `cache.py` | `CacheLayer` — recommendation / agent A/B/C / resource caches with TTLs; cascade invalidation. |
+| `pipeline.py` | `CuriaRagPipeline` — polymorphic over `dict` (legacy) and `LearnerQuery` (cached) inputs. |
+| `ingest.py` | 12 source fetchers + `ingest_all`; HTML stripping, date parsing, rate limiting. |
+| `field_config.py` | `FIELD_INGESTION` — 21 academic fields → source queries / tags / topics. |
+| `university.py` | Loads TAMU curricula; `curriculum_summary`, `get_all_units`. |
+| `agent_a_fusion.py` | `FusionAgent` — per-skill demand intensity. |
+| `forecasting.py` | `SkillForecaster` + `tracked_skills` + baseline harness. |
+| `skill_series.py` | `monthly_skill_frequency` over the dated corpus. |
+| `drift.py` | `SemanticDriftDetector` — centroid divergence per skill. |
+| `agent_d_roadmap.py` | `RoadmapAgent` — overlays A/B/C/E onto a learner goal. |
+| `agent_e_resources.py` | `ResourceMatcher` — demand- and drift-aware resource scoring. |
+| `batch.py` | `BatchRunner` — weekly precompute with drift-cascade. |
+| `benchmarking.py` | Shared metrics + budget preflight for the multi-LLM eval. |
 
-### Front-ends
-
-- **`app.py`** — pure Python `http.server` (`127.0.0.1:8000`). Loads the pipeline once, renders the recommendation + evidence cards as HTML. No web framework needed.
-- **`app_gradio.py`** — Gradio `Blocks` app (`127.0.0.1:8888`) with four agents:
-  - **Agent A — Skill demand:** scores candidate skills via the retriever, renders a ranked leaderboard.
-  - **Agent B — Forecasting:** `SkillForecaster` trend arrows, 12-month projection, confidence, SVG sparklines.
-  - **Agent C — Semantic drift:** `SemanticDriftDetector` bars grouped by LOW/MEDIUM/HIGH drift.
-  - **Agent D — Curriculum map:** runs the pipeline per unit and overlays demand/trend/drift onto the curriculum, highlighting gaps.
+Tests live in `tests/`, named `test_NN_<topic>.py` so they run in pipeline
+order. Real-LLM and FAISS-dependent tests are gated behind environment.
 
 ---
 
-## Configuration (`src/config.py`)
+## Configuration
 
-Every constant can be overridden via environment variables. Key defaults:
+Every constant in [`src/config.py`](src/config.py) can be overridden via
+environment variables. Defaults:
 
 | Group | Constant | Default |
-|-------|----------|---------|
-| Chunking | `CHUNK_MAX_TOKENS` / `CHUNK_OVERLAP` | `160` / `30` |
-| Embedding | `EMBED_MODEL` / `EMBED_BATCH_SIZE` | `all-mpnet-base-v2` / `8` |
-| Retrieval | `RETRIEVAL_K` / `RETRIEVAL_CANDIDATE_K` | `8` / `50` |
-| Recency | `RECENCY_HALF_LIFE_DAYS` · `BASE` · `BONUS` | `365` · `0.7` · `0.3` |
-| Source quotas | job_posting / arxiv / stackoverflow / github_readme | `3` / `2` / `2` / `1` |
-| LLM | `LLM_MODEL` / `LLM_TEMPERATURE` / `LLM_MAX_TOKENS` / `LLM_MAX_RETRIES` | `gpt-4o-mini` / `0.0` / `1024` / `3` |
-| Signal | `LOCAL_SIGNAL_HIGH` / `LOCAL_SIGNAL_MEDIUM` | `0.28` / `0.14` |
-| Eval target | `EVAL_TARGET_RECALL_8` | `0.70` |
-| Eval target | `EVAL_TARGET_CITATION_PRECISION` | `0.95` |
-| Eval target | `EVAL_TARGET_CLAIM_GROUNDING` | `0.85` |
-| Eval target | `EVAL_TARGET_RELEVANCE_MEAN` | `3.5` |
-| Eval target | `EVAL_TARGET_ADVERSARIAL_DROP` | `0.30` |
+|---|---|---|
+| Chunking | `CHUNK_MAX_TOKENS` / `CHUNK_OVERLAP` | 160 / 30 |
+| Embedding | `EMBED_MODEL` / `EMBED_BATCH_SIZE` | `all-mpnet-base-v2` / 8 |
+| Retrieval | `RETRIEVAL_K` / `RETRIEVAL_CANDIDATE_K` | 8 / 50 |
+| Recency | `RECENCY_HALF_LIFE_DAYS` · `BASE` · `BONUS` | 365 · 0.7 · 0.3 |
+| Source quotas | job_posting / arxiv / stackoverflow / github_readme | 3 / 2 / 2 / 1 |
+| LLM | `LLM_MODEL` / `LLM_TEMPERATURE` / `LLM_MAX_TOKENS` / `LLM_MAX_RETRIES` | `gpt-4o-mini` / 0.0 / 1024 / 3 |
+| Cache TTLs (days) | recommendation / A / B / C / resource | 7 / 7 / 30 / 14 / 30 |
+| Drift cascade | `DRIFT_INVALIDATION_THRESHOLD` | 0.6 |
+| Eval target | `EVAL_TARGET_RECALL_8` | 0.70 |
+| Eval target | `EVAL_TARGET_CITATION_PRECISION` | 0.95 |
+| Eval target | `EVAL_TARGET_CLAIM_GROUNDING` | 0.85 |
+| Eval target | `EVAL_TARGET_RELEVANCE_MEAN` | 3.5 |
+| Eval target | `EVAL_TARGET_ADVERSARIAL_DROP` | 0.30 |
 
 Recency-adjusted score:
 
 ```
-score = similarity * (RECENCY_BASE_WEIGHT + RECENCY_BONUS_WEIGHT * 0.5 ** (age_days / RECENCY_HALF_LIFE_DAYS))
+score = similarity * (RECENCY_BASE + RECENCY_BONUS * 0.5 ** (age_days / RECENCY_HALF_LIFE_DAYS))
 ```
 
-### Environment variables (`.env`)
-
-| Variable | Required? | Purpose |
-|----------|-----------|---------|
-| `OPENAI_API_KEY` | **Yes** (for LLM generation; `--local` avoids it) | OpenAI chat completions |
-| `USAJOBS_API_KEY` / `USAJOBS_USER_AGENT` | Optional | USAJOBS federal postings ([register free](https://developer.usajobs.gov/)) |
-| `GITHUB_TOKEN` | Optional | Raises GitHub rate limit 60 → 5000 req/hr |
-
-`run_pipeline.sh` also exports `TOKENIZERS_PARALLELISM=false` and `OMP_NUM_THREADS=1` to avoid HuggingFace fork deadlocks and BLAS segfaults on macOS.
+See [`.env.example`](.env.example) for every supported environment variable.
 
 ---
 
 ## Data layout
 
-```text
+```
 data/
-├── corpus/                 182 ingested documents (one JSON per doc)
-├── cs2023_units.json       3 CS2023 curriculum units
-├── universities/           6 TAMU college curricula
-└── eval/                   ground-truth label files (JSONL)
+├── corpus/                     small bootstrap corpus (≈ 180 docs, committed)
+├── corpus_large/               dated corpus for forecasting (≈ 3,400 docs, NOT committed — rebuild via scripts)
+├── cs2023_units.json           3 CS2023 sample curriculum units (cs_ai_01, cs_sec_01, cs_cloud_01)
+├── universities/               6 TAMU college curriculum files
+└── eval/
+    ├── retrieval_labels.jsonl              ground truth for retrieval recall / nDCG
+    ├── faithfulness_labels.jsonl           ground truth for citation precision / claim grounding
+    ├── relevance_ratings.jsonl             human relevance ratings (1–5)
+    ├── benchmark_units_tamu_50.json        50 TAMU CS/EE units for the multi-LLM benchmark
+    └── bls_oes_sample.json                 SAMPLE BLS OES file — replace via --bls or BLS_EXPORT_PATH
 ```
-
-**Corpus documents** (182 total) — `{ id, title, source, date, text, metadata }`. ID prefixes by source:
-
-| Prefix | Source | Count |
-|--------|--------|------:|
-| `gh_` | GitHub READMEs / ATS | 47 |
-| `ax_` | arXiv papers | 38 |
-| `so_` | Stack Overflow | 27 |
-| `hn_` | HackerNews hiring | 24 |
-| `wwr_` | We Work Remotely | 20 |
-| `uj_` | USAJOBS | 19 |
-| `an_` | Arbeitnow | 5 |
-| `jp_` | other job boards | 2 |
-
-**CS2023 units** (`data/cs2023_units.json`) — a list of 3 units, e.g.:
-
-```json
-{
-  "id": "cs_ai_01",
-  "title": "Generative AI and Large Language Models",
-  "description": "Students should understand transformer-based language models, prompt engineering, retrieval-augmented generation, alignment, evaluation, and deployment considerations.",
-  "current_topics": ["transformers", "prompt engineering", "model evaluation", "AI ethics"]
-}
-```
-The three units are `cs_ai_01`, `cs_sec_01` (software supply-chain security), `cs_cloud_01` (cloud-native systems).
-
-**Universities** — 6 TAMU college files (`tamu_cs`, `tamu_ee`, `tamu_engineering`, `tamu_science`, `tamu_business`, `tamu_geosciences_agriculture`) loaded by `src/university.py`.
-
-**Eval labels** (`data/eval/`):
-
-| File | Lines | Schema |
-|------|------:|--------|
-| `retrieval_labels.jsonl` | 3 | `{ query_id, relevant_doc_ids[] }` |
-| `faithfulness_labels.jsonl` | 5 | `{ recommendation_id, unit_id, summary, evidence_ids[], claims[] }` |
-| `relevance_ratings.jsonl` | 5 | `{ recommendation_id, unit_id, rating }` (1–5) |
-
----
-
-## CLI reference
-
-**`scripts/ingest_corpus.py`**
-
-| Flag | Effect |
-|------|--------|
-| `--sources S [S ...]` | Fetch only listed sources (`greenhouse`, `lever`, `weworkremotely`, `remoteok`, `remotive`, `arbeitnow`, `themuse`, `hn_hiring`, `usajobs`, `arxiv`, `stackoverflow`, `github`) |
-| `--no-rebuild-index` | Skip the automatic FAISS rebuild after ingest |
-| `--force` | Re-fetch documents that already exist on disk |
-
-**`scripts/build_index.py`** — no arguments; reads `CORPUS_DIR` / `EMBED_MODEL`, writes the FAISS index to `INDEX_PATH`.
-
-**`scripts/run_pipeline.py`**
-
-| Flag | Default | Effect |
-|------|---------|--------|
-| `--unit-id` | `cs_ai_01` | Curriculum unit to run |
-| `--k` | `6` | Number of evidence chunks to retrieve |
-| `--local` | off | Use the offline `LocalGroundedGenerator` instead of OpenAI |
-
----
-
-## Evaluation
-
-Run all four (or individually); `run_pipeline.sh` aggregates them into `summary.json` with `all_targets_met`.
-
-| Script | Metric(s) | Target (from `config.py`) |
-|--------|-----------|---------------------------|
-| `eval/run_retrieval_eval.py` | `recall@4`, `recall@8`, `mrr`, `ndcg@8` | `recall@8 ≥ 0.70` |
-| `eval/run_faithfulness_eval.py` | `citation_precision`, `claim_grounding` | `≥ 0.95`, `≥ 0.85` |
-| `eval/run_relevance_eval.py` | mean human rating (1–5) + distribution | `mean ≥ 3.5` |
-| `eval/run_adversarial_eval.py` | recall drop under synonym / topic-removal / misleading perturbations | `max drop ≤ 0.30` |
-
-Each script prints one JSON object per item plus an `aggregate`/`summary` block on the last line.
 
 ---
 
 ## Tests
 
-14 pytest modules run in pipeline order (`tests/test_01_config.py` … `tests/test_14_drift.py`): config, models, chunking, embedding, indexing, retrieval, query, prompts, grounding, audit, LLM, full pipeline, forecasting, drift.
-
 ```bash
-python3 -m pytest -q                 # all
-python3 -m pytest tests/test_06_retrieval.py -q
+python3 -m pytest -q                       # all 20 test modules
+python3 -m pytest tests/test_15_cache.py -q
 ```
 
-`test_11_llm.py` and `test_12_pipeline.py` make real OpenAI calls and need `OPENAI_API_KEY` plus the built FAISS index and corpus.
+Tests `test_11_llm.py` and `test_12_pipeline.py` make real OpenAI calls (set
+`OPENAI_API_KEY`). Tests `test_04_embedding.py`, `test_05_indexing.py`,
+`test_12_pipeline.py`, `test_14_drift.py` need `torch` + `faiss` +
+`sentence-transformers`. The other 16 modules run on stdlib + pytest alone.
 
 ---
 
-## Requirements
+## Limitations
 
-Python **3.11** recommended. Pinned in `requirements.txt`:
+The paper reports the following honestly:
 
-```
-sentence-transformers==3.1.1   transformers==4.44.2   tokenizers>=0.19,<0.20
-faiss-cpu>=1.8.0   openai>=1.40.0   python-dotenv>=1.0.0   numpy>=1.24.0
-duckdb>=1.0.0   pydantic>=2.7.0   anthropic>=0.34.0   ragas>=0.1.15   pytest>=8.0.0
-```
-
-(`sentence-transformers`/`transformers`/`tokenizers` are pinned for `torch 2.4.x` compatibility.) There is no `pyproject.toml`/`setup.py` — run scripts directly.
+1. **Forecast backtest is a negative-leaning result.** On the dated corpus,
+   `naive` is competitive with `linear` by sMAPE; only directional accuracy
+   discriminates. Reframed as: the system supports forecasting; a forecaster
+   that meaningfully beats naive on this corpus is open work (candidates:
+   seasonal naive, ETS, Prophet, light Transformer).
+2. **Agent A vs BLS ρ = 0.082 on a sample BLS file.** Reported transparently;
+   the final paper uses the official BLS OES export
+   (`BLS_EXPORT_PATH`).
+3. **CS2023 `framework_coverage = 1.0` is tautological** by construction
+   (`tracked_skills ⊇ CS2023 topics`). The non-tautological metric is
+   `demand_surfaced = 0.64` mean.
+4. **Relevance and adversarial evals are still small-n** (n = 5 and n = 6).
+   Expanding these is a near-term TODO; the multi-LLM eval has already been
+   scaled to n = 50.
+5. **`claude-opus-4-8` returned errors on 39 / 50 queries** in the headline
+   multi-LLM run (n = 11 succeeded). Reported in the artifact and flagged in
+   the table; the model is excluded from claims that require full n.
+6. **Stubs that will be replaced for the production paper:**
+   `FusionAgent` v2 (contrastive encoder), `ResourceMatcher` real catalog
+   ingest, `RoadmapAgent` LLM-narrative pass.
 
 ---
 
-## Roadmap
+## Lineage
 
-1. Hybrid dense + sparse retrieval and learned re-ranking.
-2. Human-labelled faithfulness and answer-relevance sets at larger scale.
-3. Ablations for `k`, recency weighting, source quotas, and HyDE.
-4. Pluggable generators (Anthropic / Gemini) behind the existing generator interface.
-5. Incremental index updates instead of full rebuilds on ingest.
+This is the capstone of the RAG Bootcamp series in this repository — it
+inherits the chunking, retrieval, grounding and audit infrastructure from the
+earlier *Autonomous*, *Corrective*, *Adaptive* and *Memory* RAG modules and
+adds the multi-agent curriculum alignment, cache, batch and evaluation
+framework on top.
 
+## Citing
+
+If you use CURIA in academic work, please cite the accompanying paper
+(citation will be added on acceptance) and this repository:
+
+```bibtex
+@misc{curia2026,
+  title  = {CURIA: Velocity-Aware Retrieval-Augmented Curriculum Alignment with Industry Signal},
+  author = {Joshi, Abhishek and collaborators},
+  year   = {2026},
+  url    = {https://github.com/abhishekjoshi007/RAG-Bootcamp}
+}
+```
+
+## License
+
+Code: see `LICENSE` (to be added). Corpus documents are pulled from public
+APIs; users are responsible for honoring the source terms of service for
+re-ingestion and downstream use.

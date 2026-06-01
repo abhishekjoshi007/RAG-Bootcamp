@@ -19,6 +19,7 @@ def format_evidence(results: list[SearchResult]) -> str:
 
 def build_recommendation_prompt(unit: dict, evidence: list[SearchResult]) -> str:
     source_ids = [r.chunk.parent_id for r in evidence]
+    citation_example = source_ids[0] if source_ids else "one_available_source_id"
     return f"""You are evaluating whether current computing curriculum should be updated.
 
 CS2023 unit:
@@ -33,11 +34,12 @@ Available SOURCE_IDs you may cite: {source_ids}
 
 Return ONLY a JSON object with these exact fields:
 - signal_strength: one of "high", "medium", "low"
-- summary: 2-3 sentences. After every factual claim write the SOURCE_ID in parentheses, e.g. (jp_001).
+- summary: 2-3 sentences. After every factual claim write one actual available source ID in parentheses, e.g. ({citation_example}).
 - emerging_topics: array of concise topic strings (max 8)
 - evidence_ids: array of SOURCE_ID strings you cited (must be from the available list above)
 
 Rules:
 - Only cite SOURCE_IDs from the available list above — never invent new IDs.
+- Do not cite the literal strings SOURCE_ID, source, date, score, or one_available_source_id.
 - Do not introduce facts not present in the retrieved evidence.
 """

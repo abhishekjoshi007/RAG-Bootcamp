@@ -44,8 +44,9 @@ import time
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
+from typing import Optional
 
 from .config import (
     ARXIV_CATEGORIES,
@@ -673,13 +674,19 @@ def fetch_github_repos(max_per_topic: int = INGEST_MAX_PER_COMPANY) -> list[Docu
     return docs
 
 
-def ingest_all(corpus_dir: Path, skip_existing: bool = True) -> int:
+def ingest_all(
+    corpus_dir: Path,
+    skip_existing: bool = True,
+    since: Optional[datetime] = None,
+) -> int:
     """
     Run all fetchers and write new Document JSON files to corpus_dir.
 
-    Skips documents whose IDs already exist in corpus_dir (skip_existing=True).
-    Returns the count of newly written files.
+    Skips documents whose IDs already exist in corpus_dir (skip_existing=True)
+    and, when `since` is given, documents dated before it (makes batch ingest
+    incremental). Returns the count of newly written files.
     """
+    since_date = since.date() if since is not None else None
     corpus_dir.mkdir(parents=True, exist_ok=True)
     existing_ids: set[str] = set()
     if skip_existing:
@@ -716,6 +723,8 @@ def ingest_all(corpus_dir: Path, skip_existing: bool = True) -> int:
         new_for_source = 0
         for doc in docs:
             if doc.id in existing_ids:
+                continue
+            if since_date is not None and doc.date < since_date:
                 continue
             out_path = corpus_dir / f"{doc.id}.json"
             payload = {

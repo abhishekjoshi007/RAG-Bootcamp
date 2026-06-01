@@ -1,0 +1,33 @@
+{
+  "agent_a_vs_bls": {
+    "spearman_rho": 0.082,
+    "n_skills_overlap": 11,
+    "n_bls_skills": 14,
+    "bls_source_is_sample": true,
+    "note": "OK"
+  },
+  "cs2023_coverage": {
+    "mean_framework_coverage": 1.0,
+    "mean_demand_surfaced": 0.6389,
+    "per_unit": [
+      {
+        "unit_id": "cs_ai_01",
+        "n_topics": 4,
+        "framework_coverage": 1.0,
+        "demand_surfaced": 0.25
+      },
+      {
+        "unit_id": "cs_sec_01",
+        "n_topics": 3,
+        "framework_coverage": 1.0,
+        "demand_surfaced": 0.6667
+      },
+      {
+        "unit_id": "cs_cloud_01",
+        "n_topics": 4,
+        "framework_coverage": 1.0,
+        "demand_surfaced": 1.0
+      }
+    ]
+  }
+}

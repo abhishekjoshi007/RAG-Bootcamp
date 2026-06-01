@@ -1,5 +1,95 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Secrets — NEVER commit
+# ──────────────────────────────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+**/credentials*.json
+**/service-account*.json
+curia-rag-research-*.json
+gcp-*.json
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Python
+# ──────────────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Test / lint / coverage
+# ──────────────────────────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.mypy_cache/
+.ruff_cache/
+coverage.xml
+*.cover
+
+# ──────────────────────────────────────────────────────────────────────────────
+# CURIA artifacts that are derived from the corpus and should be regenerated
+# ──────────────────────────────────────────────────────────────────────────────
 audit/*.db
 audit/*.pkl
-__pycache__/
-*.pyc
-.env
+audit/*.sqlite
+audit/*.sqlite3
+
+# Large derived corpus (rebuild with scripts/ingest_historical_*.py)
+data/corpus_large/
+
+# External / licensed datasets — pulled by the user, not redistributed
+BLS/
+ESCO Data/
+ESCO_Data/
+
+# Result artifacts — keep only the named headline files referenced by the README
+results/*.json
+!results/headline_*.json
+
+# ──────────────────────────────────────────────────────────────────────────────
+# IDE / editor / OS
+# ──────────────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Misc
+# ──────────────────────────────────────────────────────────────────────────────
+*.log
+plan.md
+notes.local.md
