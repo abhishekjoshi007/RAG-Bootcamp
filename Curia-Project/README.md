@@ -48,19 +48,20 @@ IEEE-ready LaTeX table:
 | gemini-3.5-flash *(flaky)* | 21 / 29 | 1.000 | 0.000 | 0.493 | 14.10 | 0.29 |
 | **Total** | — | — | — | — | — | **$18.87** |
 
-Across 17 evaluated models, **all successful generations met the
-citation-faithfulness target**. Fifteen models completed all 50 units with
-citation precision ≥ 0.95 and zero hallucinated citations; the two Gemini
-models are reported with provider-error counts (`gemini-3.5-flash`: n = 21,
+Across 17 evaluated models, successful generations met the
+citation-faithfulness target; **15 models completed all 50 units with
+citation precision 1.000 and hallucination rate 0.000**. Evidence coverage,
+not citation precision, discriminates model quality. The two Gemini models
+are reported with provider-error counts (`gemini-3.5-flash`: n = 21,
 errors = 29; `gemini-3.1-pro-preview`: n = 48, errors = 2) and their
-coverage / latency / cost numbers refer to their successful subsets only.
-Recommendation for the paper: keep the 15 complete-run models in the main
-table; footnote or move both Gemini rows to the appendix.
+coverage / latency / cost numbers refer to their successful subsets only —
+the recommendation for the paper is to keep the 15 complete-run models in
+the main table and footnote or appendix the two Gemini rows.
 
-The interesting axis is *evidence coverage*: the deterministic local baseline
-is the **faithfulness floor** at 0 cost and sub-millisecond latency; frontier
-LLMs trade money and seconds for higher coverage. `claude-sonnet-4-6` is the
-**cost/quality sweet spot** at coverage 0.767 for $0.57.
+The deterministic local baseline is the **faithfulness floor** at 0 cost and
+sub-millisecond latency; frontier LLMs trade money and seconds for higher
+coverage. `claude-sonnet-4-6` is the **cost/quality sweet spot** at coverage
+0.767 for $0.57.
 
 Faithfulness numbers reflect the arXiv version canonicalization in
 [`src/grounding.py`](src/grounding.py) plus a targeted re-check of the
