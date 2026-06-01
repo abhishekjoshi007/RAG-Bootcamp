@@ -20,15 +20,18 @@ serves repeat queries from precomputed agent outputs.
 
 50 TAMU CS/EE curriculum units × 17 LLMs (OpenAI / Anthropic / Google / xAI /
 DeepSeek + the local extractive baseline). Same retrieved evidence given to
-every model; only the generator changes. Sorted by evidence coverage. Full
-data:
-[`results/headline_multi_llm_50q_17models.json`](results/headline_multi_llm_50q_17models.json).
+every model; only the generator changes. Sorted by evidence coverage. Paper-canonical
+data (after arXiv-version canonicalization re-check):
+[`results/headline_multi_llm_50q_17models_rechecked.json`](results/headline_multi_llm_50q_17models_rechecked.json).
+IEEE-ready LaTeX table:
+[`results/multi_llm_50q_17models_ieee_table.tex`](results/multi_llm_50q_17models_ieee_table.tex)
+(regenerate via `python3 scripts/generate_multi_llm_paper_table.py`).
 
 | Model | n / err | Citation precision | Hallucination | Evidence coverage | Latency (s) | Cost (USD) |
 |---|:---:|---:|---:|---:|---:|---:|
 | **claude-sonnet-4-6** | 50 / 0 | 1.000 | 0.000 | **0.767** | 7.54 | 0.57 |
-| deepseek-v4-flash | 50 / 0 | 0.998 | 0.002 | 0.762 | 7.32 | 0.95 |
 | claude-opus-4-7 | 50 / 0 | 1.000 | 0.000 | 0.760 | 7.04 | 3.86 |
+| deepseek-v4-flash | 50 / 0 | 1.000 | 0.000 | 0.757 | 7.32 | 0.95 |
 | claude-opus-4-6 | 50 / 0 | 1.000 | 0.000 | 0.695 | 7.93 | 2.85 |
 | claude-opus-4-8 | 50 / 0 | 1.000 | 0.000 | 0.694 | 7.02 | 3.89 |
 | deepseek-reasoner | 50 / 0 | 1.000 | 0.000 | 0.684 | 6.99 | 0.97 |
@@ -43,19 +46,18 @@ data:
 | gpt-5.4-mini | 50 / 0 | 1.000 | 0.000 | 0.522 | 2.41 | 0.61 |
 | claude-sonnet-4-5 | 50 / 0 | 1.000 | 0.000 | 0.514 | 6.43 | 0.51 |
 | gemini-3.5-flash *(flaky)* | 21 / 29 | 1.000 | 0.000 | 0.493 | 14.10 | 0.29 |
-| **Total** | — | — | — | — | — | **$18.88** |
+| **Total** | — | — | — | — | — | **$18.87** |
 
-The interesting axis is *evidence coverage* (how much of the retrieved evidence
-each model actually uses), not citation precision — every model passes the
-0.95 citation target. The deterministic local baseline is the **faithfulness
-floor** at 0 cost and sub-millisecond latency; frontier LLMs trade money and
-seconds for higher coverage. `claude-sonnet-4-6` is the **cost/quality sweet
-spot** at coverage 0.767 for $0.57.
-
-The single sub-1.000 citation precision (`deepseek-v4-flash` at 0.998) was a
-single-row arXiv version mismatch (`v1` cited, `v4` indexed). That class of
-false positive is now fixed in [`src/grounding.py`](src/grounding.py) via
-arXiv version canonicalization — re-runs will show 1.000 across the board.
+Every model passes the 0.95 citation target at zero hallucination (after the
+arXiv version canonicalization in [`src/grounding.py`](src/grounding.py) and a
+targeted re-check of the affected row — full provenance in the rechecked
+artifact). The interesting axis is *evidence coverage*: the deterministic
+local baseline is the **faithfulness floor** at 0 cost and sub-millisecond
+latency; frontier LLMs trade money and seconds for higher coverage.
+`claude-sonnet-4-6` is the **cost/quality sweet spot** at coverage 0.767 for
+$0.57. The raw pre-recheck artifact is preserved at
+[`results/headline_multi_llm_50q_17models.json`](results/headline_multi_llm_50q_17models.json)
+for transparency.
 
 ### Velocity (recommendation cache, RQ4)
 
