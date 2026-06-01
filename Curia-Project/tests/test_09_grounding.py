@@ -67,6 +67,41 @@ def test_hyphenated_source_id_is_extracted():
     assert check.cited_ids == ["gh_repo-name_001"]
 
 
+def test_arxiv_version_mismatch_canonicalizes():
+    # Real-world case from the multi-LLM benchmark: a model cited v1 of an
+    # arXiv paper while the corpus indexed v4. Same paper, different version.
+    evidence = [_result("axhist_2501.00701v4")]
+    rec = Recommendation(signal_strength="medium",
+                         summary="The trend is supported (axhist_2501.00701v1).",
+                         emerging_topics=[],
+                         evidence_ids=["axhist_2501.00701v1"])
+    check = check_citations(rec, evidence)
+    assert check.passed is True
+    assert check.missing_ids == []
+
+
+def test_arxiv_version_mismatch_for_modern_ax_prefix_too():
+    evidence = [_result("ax_2501.00701v2")]
+    rec = Recommendation(signal_strength="medium",
+                         summary="Cited (ax_2501.00701v5).",
+                         emerging_topics=[],
+                         evidence_ids=["ax_2501.00701v5"])
+    check = check_citations(rec, evidence)
+    assert check.passed is True
+
+
+def test_non_arxiv_id_version_suffix_is_not_stripped():
+    # Only arXiv-style YYMM.NNNNN IDs get version canonicalization; an
+    # accidental "v1" on a job-posting ID is still a real mismatch.
+    evidence = [_result("jp_001v2")]
+    rec = Recommendation(signal_strength="medium",
+                         summary="Cited (jp_001v1).",
+                         emerging_topics=[],
+                         evidence_ids=["jp_001v1"])
+    check = check_citations(rec, evidence)
+    assert check.passed is False
+
+
 def test_retrieved_ids_match_evidence():
     check = check_citations(
         Recommendation(signal_strength="low", summary=".", emerging_topics=[], evidence_ids=[]),

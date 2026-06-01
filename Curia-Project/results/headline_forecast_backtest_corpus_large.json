@@ -17,6 +17,13 @@
       "directional_accuracy": 0.3,
       "n_skills_scored": 30
     },
+    "seasonal_naive": {
+      "mape": 1.6235,
+      "smape": 1.3701,
+      "mase": 2.8578,
+      "directional_accuracy": 0.5722,
+      "n_skills_scored": 30
+    },
     "moving_avg": {
       "mape": 1.0432,
       "smape": 1.3107,
@@ -30,7 +37,19 @@
       "mase": 4.9705,
       "directional_accuracy": 0.5222,
       "n_skills_scored": 30
+    },
+    "exp_smoothing": {
+      "mape": 1.0921,
+      "smape": 1.294,
+      "mase": 5.6479,
+      "directional_accuracy": 0.4889,
+      "n_skills_scored": 30
     }
   },
-  "best_by_smape": "naive"
+  "best_by_smape": "exp_smoothing",
+  "best_non_naive_by_smape": "exp_smoothing",
+  "naive_smape": 1.3094,
+  "best_non_naive_smape": 1.294,
+  "best_non_naive_beats_naive": true,
+  "best_non_naive_smape_delta_vs_naive": -0.0154
 }

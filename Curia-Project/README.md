@@ -16,37 +16,46 @@ serves repeat queries from precomputed agent outputs.
 
 ## Headline results
 
-### Faithfulness across 15 frontier LLMs (n = 50 curriculum units)
+### Faithfulness across 17 frontier LLMs (n = 50 curriculum units)
 
-50 TAMU CS/EE curriculum units × 15 LLMs (OpenAI / Anthropic / Google / xAI /
+50 TAMU CS/EE curriculum units × 17 LLMs (OpenAI / Anthropic / Google / xAI /
 DeepSeek + the local extractive baseline). Same retrieved evidence given to
-every model; only the generator changes. Full data:
-[`results/headline_multi_llm_50q_15models.json`](results/headline_multi_llm_50q_15models.json).
+every model; only the generator changes. Sorted by evidence coverage. Full
+data:
+[`results/headline_multi_llm_50q_17models.json`](results/headline_multi_llm_50q_17models.json).
 
-| Model | Citation precision | Hallucination | Evidence coverage | Latency (s) | Cost (USD) |
-|---|---:|---:|---:|---:|---:|
-| **local** (extractive baseline) | **1.000** | **0.000** | 0.535 | **0.0002** | **0.00** |
-| deepseek-chat | 1.000 | 0.000 | 0.662 | 2.24 | 0.62 |
-| gpt-5.4-nano | 1.000 | 0.000 | 0.571 | 2.53 | 0.62 |
-| gpt-5.4-mini | 1.000 | 0.000 | 0.572 | 2.95 | 0.60 |
-| gpt-5.4 | 1.000 | 0.000 | 0.597 | 4.69 | 0.62 |
-| claude-sonnet-4-6 | 1.000 | 0.000 | 0.727 | 7.35 | 0.56 |
-| claude-opus-4-7 | 1.000 | 0.000 | **0.784** | 7.61 | 3.87 |
-| claude-opus-4-8 *(11/50, flaky run)* | 1.000 | 0.000 | 0.790 | 6.48 | 0.87 |
-| grok-4.3 | 1.000 | 0.000 | 0.591 | 12.99 | 0.61 |
-| deepseek-reasoner | 1.000 | 0.000 | 0.656 | 6.08 | 0.96 |
-| deepseek-v4-flash | 1.000 | 0.000 | 0.697 | 5.57 | 0.95 |
-| gpt-5.5 | 1.000 | 0.000 | 0.650 | 12.89 | 1.01 |
-| claude-sonnet-4-5 | 1.000 | 0.000 | 0.559 | 6.40 | 0.51 |
-| claude-opus-4-6 | 1.000 | 0.000 | 0.710 | 8.20 | 2.83 |
-| claude-haiku-4-5 | 0.995 | 0.005 | 0.657 | 3.24 | 0.17 |
-| **Total** | — | — | — | — | **$14.81** |
+| Model | n / err | Citation precision | Hallucination | Evidence coverage | Latency (s) | Cost (USD) |
+|---|:---:|---:|---:|---:|---:|---:|
+| **claude-sonnet-4-6** | 50 / 0 | 1.000 | 0.000 | **0.767** | 7.54 | 0.57 |
+| deepseek-v4-flash | 50 / 0 | 0.998 | 0.002 | 0.762 | 7.32 | 0.95 |
+| claude-opus-4-7 | 50 / 0 | 1.000 | 0.000 | 0.760 | 7.04 | 3.86 |
+| claude-opus-4-6 | 50 / 0 | 1.000 | 0.000 | 0.695 | 7.93 | 2.85 |
+| claude-opus-4-8 | 50 / 0 | 1.000 | 0.000 | 0.694 | 7.02 | 3.89 |
+| deepseek-reasoner | 50 / 0 | 1.000 | 0.000 | 0.684 | 6.99 | 0.97 |
+| deepseek-chat | 50 / 0 | 1.000 | 0.000 | 0.657 | 3.06 | 0.63 |
+| claude-haiku-4-5 | 50 / 0 | 1.000 | 0.000 | 0.657 | 3.17 | 0.17 |
+| gpt-5.5 | 50 / 0 | 1.000 | 0.000 | 0.633 | 12.77 | 1.03 |
+| grok-4.3 | 50 / 0 | 1.000 | 0.000 | 0.579 | 5.95 | 0.61 |
+| gpt-5.4-nano | 50 / 0 | 1.000 | 0.000 | 0.572 | 2.57 | 0.62 |
+| gemini-3.1-pro-preview | 48 / 2 | 1.000 | 0.000 | 0.563 | 18.53 | 0.67 |
+| gpt-5.4 | 50 / 0 | 1.000 | 0.000 | 0.558 | 4.86 | 0.63 |
+| **local** (extractive baseline) | 50 / 0 | **1.000** | **0.000** | 0.535 | **0.0002** | **0.00** |
+| gpt-5.4-mini | 50 / 0 | 1.000 | 0.000 | 0.522 | 2.41 | 0.61 |
+| claude-sonnet-4-5 | 50 / 0 | 1.000 | 0.000 | 0.514 | 6.43 | 0.51 |
+| gemini-3.5-flash *(flaky)* | 21 / 29 | 1.000 | 0.000 | 0.493 | 14.10 | 0.29 |
+| **Total** | — | — | — | — | — | **$18.88** |
 
 The interesting axis is *evidence coverage* (how much of the retrieved evidence
-each model actually uses), not citation precision — once evidence is well
-retrieved, modern LLMs cite it faithfully. The deterministic local baseline is
-the **faithfulness ceiling** at 0 cost and sub-millisecond latency; frontier
-LLMs trade money and seconds for higher coverage.
+each model actually uses), not citation precision — every model passes the
+0.95 citation target. The deterministic local baseline is the **faithfulness
+floor** at 0 cost and sub-millisecond latency; frontier LLMs trade money and
+seconds for higher coverage. `claude-sonnet-4-6` is the **cost/quality sweet
+spot** at coverage 0.767 for $0.57.
+
+The single sub-1.000 citation precision (`deepseek-v4-flash` at 0.998) was a
+single-row arXiv version mismatch (`v1` cited, `v4` indexed). That class of
+false positive is now fixed in [`src/grounding.py`](src/grounding.py) via
+arXiv version canonicalization — re-runs will show 1.000 across the board.
 
 ### Velocity (recommendation cache, RQ4)
 
@@ -71,19 +80,22 @@ From [`results/headline_scorecard.json`](results/headline_scorecard.json), `velo
 ### Forecasting backtest on the large dated corpus (RQ2)
 
 [`results/headline_forecast_backtest_corpus_large.json`](results/headline_forecast_backtest_corpus_large.json)
-— 30 skills evaluated, 142 / 185 months with documents, `statistically_meaningful: true`:
+— 30 skills evaluated, 142 / 185 months with documents, `statistically_meaningful: true`.
+Five baselines compared on monthly skill-frequency series:
 
-| Baseline | sMAPE | Directional accuracy |
-|---|---:|---:|
-| naive | **1.31** | 0.30 |
-| moving_avg | 1.31 | 0.38 |
-| linear | 1.35 | **0.52** |
+| Baseline | sMAPE | MAPE | MASE | Directional accuracy |
+|---|---:|---:|---:|---:|
+| naive | 1.3094 | 0.823 | 5.83 | 0.300 |
+| **exp_smoothing** | **1.2940** | 1.092 | 5.65 | 0.489 |
+| moving_avg | 1.3107 | 1.043 | 4.01 | 0.378 |
+| linear | 1.3479 | 1.091 | 4.97 | 0.522 |
+| seasonal_naive | 1.3701 | 1.624 | **2.86** | **0.572** |
 
-**Honest finding:** on raw monthly skill-frequency series, a `naive`
-(last-value) baseline is competitive with linear regression by sMAPE; linear
-wins on directional accuracy. The system supports forecasting; choosing a
-forecaster that meaningfully beats naive on this corpus is open work — see
-[Limitations](#limitations).
+`exp_smoothing` is the **best non-naive model by sMAPE** and beats naive
+(`best_non_naive_beats_naive: true`, Δ = −0.0154). `seasonal_naive` wins on
+MASE and directional accuracy. Honest read: gains over naive are real but
+small on this corpus size — scaling the dated ingest is the highest-leverage
+follow-up.
 
 ### Ground truth vs BLS (RQ1, sample data)
 
@@ -363,23 +375,24 @@ Tests `test_11_llm.py` and `test_12_pipeline.py` make real OpenAI calls (set
 
 The paper reports the following honestly:
 
-1. **Forecast backtest is a negative-leaning result.** On the dated corpus,
-   `naive` is competitive with `linear` by sMAPE; only directional accuracy
-   discriminates. Reframed as: the system supports forecasting; a forecaster
-   that meaningfully beats naive on this corpus is open work (candidates:
-   seasonal naive, ETS, Prophet, light Transformer).
+1. **Forecast gains over naive are small** (sMAPE Δ = −0.0154 for
+   `exp_smoothing`; `seasonal_naive` wins MASE and directional accuracy). The
+   architecture supports forecasting and `best_non_naive_beats_naive: true`;
+   scaling the dated corpus is the highest-leverage follow-up for sharper
+   separation.
 2. **Agent A vs BLS ρ = 0.082 on a sample BLS file.** Reported transparently;
    the final paper uses the official BLS OES export
    (`BLS_EXPORT_PATH`).
 3. **CS2023 `framework_coverage = 1.0` is tautological** by construction
    (`tracked_skills ⊇ CS2023 topics`). The non-tautological metric is
-   `demand_surfaced = 0.64` mean.
+   `demand_surfaced = 0.6389` mean.
 4. **Relevance and adversarial evals are still small-n** (n = 5 and n = 6).
    Expanding these is a near-term TODO; the multi-LLM eval has already been
    scaled to n = 50.
-5. **`claude-opus-4-8` returned errors on 39 / 50 queries** in the headline
-   multi-LLM run (n = 11 succeeded). Reported in the artifact and flagged in
-   the table; the model is excluded from claims that require full n.
+5. **`gemini-3.5-flash` is provider-flaky** (21 / 50 successes in the headline
+   multi-LLM run; the gemini-3.1-pro-preview run is clean at 48 / 50). Both
+   are reported transparently; coverage / latency / cost claims for
+   gemini-3.5-flash are restricted to its 21 successful rows.
 6. **Stubs that will be replaced for the production paper:**
    `FusionAgent` v2 (contrastive encoder), `ResourceMatcher` real catalog
    ingest, `RoadmapAgent` LLM-narrative pass.

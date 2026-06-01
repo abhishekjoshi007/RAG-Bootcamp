@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from src.config import CORPUS_DIR
-from src.forecasting import DataPoint, _linear_forecast, tracked_skills
+from src.forecasting import DataPoint, _exp_smoothing_forecast, _linear_forecast, tracked_skills
 from src.skill_series import monthly_skill_frequency
 
 
@@ -69,6 +69,11 @@ def _forecast(model: str, train: list[float], h: int,
         return [0.0] * h
     if model == "naive":
         return [train[-1]] * h
+    if model == "seasonal_naive":
+        season = 12
+        if len(train) < season:
+            return [train[-1]] * h
+        return [train[-season + (step % season)] for step in range(h)]
     if model == "moving_avg":
         w = train[-window:]
         return [sum(w) / len(w)] * h
@@ -77,10 +82,37 @@ def _forecast(model: str, train: list[float], h: int,
         history = tuple(DataPoint(month=labels[i], frequency=v) for i, v in enumerate(train))
         fc, _slope, _r2 = _linear_forecast(history, h)
         return [max(0.0, p.frequency) for p in fc][:h] or [train[-1]] * h
+    if model == "exp_smoothing":
+        labels = train_months or [f"2000-{(i % 12) + 1:02d}" for i in range(len(train))]
+        history = tuple(DataPoint(month=labels[i], frequency=v) for i, v in enumerate(train))
+        fc = _exp_smoothing_forecast(history, h)
+        return [max(0.0, p.frequency) for p in fc][:h] or [train[-1]] * h
     raise ValueError(model)
 
 
-MODELS = ("naive", "moving_avg", "linear")
+MODELS = ("naive", "seasonal_naive", "moving_avg", "linear", "exp_smoothing")
+
+
+def _model_comparison(per_model: dict[str, dict]) -> dict:
+    naive_smape = per_model.get("naive", {}).get("smape")
+    candidates = [m for m in MODELS if per_model.get(m, {}).get("smape") is not None]
+    best = min(candidates, key=lambda m: per_model[m]["smape"], default=None)
+    best_non_naive = min(
+        (m for m in candidates if m != "naive"),
+        key=lambda m: per_model[m]["smape"],
+        default=None,
+    )
+    comparison = {
+        "best_by_smape": best,
+        "best_non_naive_by_smape": best_non_naive,
+        "naive_smape": naive_smape,
+    }
+    if naive_smape is not None and best_non_naive is not None:
+        best_smape = per_model[best_non_naive]["smape"]
+        comparison["best_non_naive_smape"] = best_smape
+        comparison["best_non_naive_beats_naive"] = best_smape < naive_smape
+        comparison["best_non_naive_smape_delta_vs_naive"] = round(best_smape - naive_smape, 4)
+    return comparison
 
 
 def main() -> int:
@@ -144,6 +176,7 @@ def main() -> int:
 
     nonzero_months = sum(1 for v in month_counts.values() if v > 0)
     sufficient = evaluated >= 30 and nonzero_months >= 24
+    comparison = _model_comparison(per_model)
     report = {
         "corpus_dir": str(corpus_dir),
         "horizon_months": args.horizon,
@@ -158,10 +191,7 @@ def main() -> int:
                      "scale the dated ingest then re-run"),
         },
         "per_model": per_model,
-        "best_by_smape": min(
-            (m for m in MODELS if per_model[m]["smape"] is not None),
-            key=lambda m: per_model[m]["smape"], default=None,
-        ),
+        **comparison,
     }
     print(json.dumps(report, indent=2))
 
