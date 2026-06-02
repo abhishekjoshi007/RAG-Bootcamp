@@ -81,6 +81,57 @@ From [`results/headline_scorecard.json`](results/headline_scorecard.json), `velo
 | LLM calls avoided | **900 / 1,000** |
 | Cache DB size at steady state | 408 KB |
 
+### Cache-policy ablation (Paper 1 core contribution)
+
+Same 1,000-query workload across three policies. Full data:
+[`results/headline_cache_ablation.json`](results/headline_cache_ablation.json).
+Paper-ready algorithm + invariants + complexity:
+[`results/cache_velocity_algorithm_section.md`](results/cache_velocity_algorithm_section.md).
+
+| Policy | Hit rate | LLM calls | Hit p95 (ms) | Cost ($) | Drift rows | **Served-staleness** |
+|---|---:|---:|---:|---:|---:|---:|
+| No cache | 0.000 | 1,000 | — | 10.00 | 0 | 0.000 |
+| TTL-only | 0.900 | 100 | 0.51 | 1.00 | 0 | **0.416** |
+| **Drift-cascade** | 0.783 | 217 | 0.63 | 2.17 | 145 | **0.000** |
+
+The drift-cascade trades **11.7 pp** hit rate and **$1.17** per 1,000 queries
+to eliminate served-staleness entirely. TTL-only's served-staleness rate of
+**41.6%** is what makes the cascade non-optional when any tracked skill can
+drift: without it, ~4 in 10 cached responses serve stale skill semantics.
+The cascade reports zero served-staleness by construction (invalidation
+forces re-cache post-drift).
+
+### System-level baseline: LlamaIndex vs CURIA
+
+Same 50 TAMU benchmark units × same `gpt-4o-mini` generator × same 3,375-doc
+dated corpus; only the surrounding RAG framework changes. Full data:
+[`results/headline_llamaindex_baseline.json`](results/headline_llamaindex_baseline.json).
+
+| System | Embedding | Citation precision | Evidence coverage | Mean latency (s) | $ / query | Proj. $ over 1,000-query workload |
+|---|---|---:|---:|---:|---:|---:|
+| LlamaIndex (default) | `text-embedding-3-small` | 1.000\* | **0.000** | 3.48 | 0.0002 | 0.24 |
+| LlamaIndex (matched) | `all-mpnet-base-v2` | 1.000\* | **0.000** | 4.11 | 0.0002 | 0.28 |
+| **CURIA** (cache hit) | `all-mpnet-base-v2` | 1.000 | 0.535 | **0.0005** | **0.00** | **0.06** |
+| CURIA (cache miss) | `all-mpnet-base-v2` | 1.000 | 0.535 | ~2.5 | 0.0006 | 0.60 (no-cache mode) |
+
+\* *LlamaIndex's reported 1.000 is vacuous*: across all 50 queries on both
+embedding configs, the model produced **zero inline source-ID citations**
+despite an explicit system prompt requesting them. The framework summarizes
+retrieved evidence in prose without enforcing structural citations, so
+neither hallucination nor faithful citation can be measured against retrieved
+nodes. CURIA's pipeline enforces a JSON output contract with mandatory
+`SOURCE_ID` fields and post-hoc `check_citations` validation, producing the
+0.535 coverage and 1.000 precision in the same conditions.
+
+For the 1,000-query workload, CURIA's measured 90% cache hit rate avoids
+~900 LLM calls and ~57 minutes of generation latency that LlamaIndex would
+pay (no cache). The dollar projection makes the operational story explicit:
+**LlamaIndex baseline ≈ $0.24-0.28; CURIA with drift-cascade cache ≈ $0.06
+at full hit rate, ~$2.17 with drift events.** The point of the comparison is
+not "we beat LlamaIndex on quality" — it is "off-the-shelf framework RAG
+does not produce auditable citations, and operating at hit-rate velocity
+requires a recommendation cache that current frameworks do not ship."
+
 ### Retrieval (RQ retrieval quality)
 
 | Metric | Value | Target | Status |
