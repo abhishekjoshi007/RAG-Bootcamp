@@ -132,7 +132,7 @@ def _build_table2(llamaindex: dict[str, Any], ablation: dict[str, Any]) -> tuple
 
     md = (
         "### Table 2 — System comparison: LlamaIndex vs CURIA "
-        f"(same {n_corpus:,}-document corpus, 50 TAMU units, gpt-4o-mini)\n\n"
+        f"(same {n_corpus:,}-document corpus, 50 courses, gpt-4o-mini)\n\n"
         "Source: `results/headline_llamaindex_baseline.json` + "
         "`results/headline_cache_ablation.json`. LlamaIndex column values are "
         "averaged over the 50 quality-run units; CURIA column is the measured "
@@ -165,7 +165,7 @@ def _build_table2(llamaindex: dict[str, Any], ablation: dict[str, Any]) -> tuple
         "\\begin{table*}[t]\n"
         "\\centering\n"
         "\\caption{System-level comparison on the same "
-        f"{n_corpus:,}-document corpus and 50 TAMU benchmark units, "
+        f"{n_corpus:,}-document corpus and 50 benchmark courses, "
         "with gpt-4o-mini as the generator. LlamaIndex's 1.000 citation "
         "precision is vacuous: no inline citations were produced.}\n"
         "\\label{tab:llamaindex-vs-curia}\n"
@@ -210,7 +210,7 @@ def _build_table3(multi: dict[str, Any]) -> tuple[str, str]:
     incomplete = [(m, v) for m, v in rows if (v.get("n") or 0) < 50]
 
     md = (
-        "### Table 3 — Multi-LLM faithfulness summary (50 TAMU units, 17 models)\n\n"
+        "### Table 3 — Multi-LLM faithfulness summary (50 courses, 17 models)\n\n"
         "Source: `results/headline_multi_llm_50q_17models_rechecked.json`. "
         "Same retrieved evidence given to every model; only the generator "
         "changes. 15 of 17 models completed all 50 units; the two Gemini "
@@ -250,7 +250,7 @@ def _build_table3(multi: dict[str, Any]) -> tuple[str, str]:
     tex = (
         "\\begin{table*}[t]\n"
         "\\centering\n"
-        "\\caption{Multi-LLM faithfulness on 50 TAMU benchmark units, sorted "
+        "\\caption{Multi-LLM faithfulness on 50 benchmark courses, sorted "
         "by evidence coverage. Same retrieved evidence per query; only the "
         "generator changes. Vacuous citation precision is impossible here "
         "because the structured output contract requires citations to be "

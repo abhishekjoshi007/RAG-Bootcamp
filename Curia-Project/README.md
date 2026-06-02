@@ -16,9 +16,9 @@ serves repeat queries from precomputed agent outputs.
 
 ## Headline results
 
-### Faithfulness across 17 frontier LLMs (n = 50 curriculum units)
+### Faithfulness across 17 frontier LLMs (n = 50 courses)
 
-50 TAMU CS/EE curriculum units × 17 LLMs (OpenAI / Anthropic / Google / xAI /
+50 CS/EE courses × 17 LLMs (OpenAI / Anthropic / Google / xAI /
 DeepSeek + the local extractive baseline). Same retrieved evidence given to
 every model; only the generator changes. Sorted by evidence coverage. Paper-canonical
 data (after arXiv-version canonicalization re-check):
@@ -103,7 +103,7 @@ forces re-cache post-drift).
 
 ### System-level baseline: LlamaIndex vs CURIA
 
-Same 50 TAMU benchmark units × same `gpt-4o-mini` generator × same 3,375-doc
+Same 50 benchmark courses × same `gpt-4o-mini` generator × same 3,375-doc
 dated corpus; only the surrounding RAG framework changes. Full data:
 [`results/headline_llamaindex_baseline.json`](results/headline_llamaindex_baseline.json).
 
@@ -415,7 +415,7 @@ data/
     ├── retrieval_labels.jsonl              ground truth for retrieval recall / nDCG
     ├── faithfulness_labels.jsonl           ground truth for citation precision / claim grounding
     ├── relevance_ratings.jsonl             human relevance ratings (1–5)
-    ├── benchmark_units_tamu_50.json        50 TAMU CS/EE units for the multi-LLM benchmark
+    ├── benchmark_units_tamu_50.json        50 CS/EE courses (sourced from TAMU) for the multi-LLM benchmark
     └── bls_oes_sample.json                 SAMPLE BLS OES file — replace via --bls or BLS_EXPORT_PATH
 ```
 

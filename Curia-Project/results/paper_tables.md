@@ -14,7 +14,7 @@ Source: `results/headline_cache_ablation.json`. Workload: 100 unique x 10 repeat
 
 **Headline finding:** drift-cascade costs −11.7 pp hit rate and +$1.17 / 1,000 queries vs TTL-only, but reduces served-staleness from 41.6 % to 0.0 % by construction.
 
-### Table 2 — System comparison: LlamaIndex vs CURIA (same 3,375-document corpus, 50 TAMU units, gpt-4o-mini)
+### Table 2 — System comparison: LlamaIndex vs CURIA (same 3,375-document corpus, 50 courses, gpt-4o-mini)
 
 Source: `results/headline_llamaindex_baseline.json` + `results/headline_cache_ablation.json`. LlamaIndex column values are averaged over the 50 quality-run units; CURIA column is the measured drift-cascade cache.
 
@@ -26,7 +26,7 @@ Source: `results/headline_llamaindex_baseline.json` + `results/headline_cache_ab
 
 **Headline finding:** under the same system prompt, both LlamaIndex configurations produced **zero inline source-ID citations** across all 50 queries; their 1.000 citation precision is vacuous (no citations to audit). CURIA's structured-output contract enforces auditable citations by design.
 
-### Table 3 — Multi-LLM faithfulness summary (50 TAMU units, 17 models)
+### Table 3 — Multi-LLM faithfulness summary (50 courses, 17 models)
 
 Source: `results/headline_multi_llm_50q_17models_rechecked.json`. Same retrieved evidence given to every model; only the generator changes. 15 of 17 models completed all 50 units; the two Gemini models had provider errors and are reported on their successful subset.
 

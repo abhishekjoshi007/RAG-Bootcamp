@@ -225,7 +225,7 @@ def figure_multi_llm_coverage(multi: dict[str, Any]) -> None:
 
     fig, ax = plt.subplots(figsize=(6.5, 4.2))
     bars = ax.barh(labels[::-1], coverages[::-1], color=colors[::-1])
-    ax.set_xlabel("Evidence coverage (mean over 50 TAMU units)")
+    ax.set_xlabel("Evidence coverage (mean over 50 courses)")
     ax.set_xlim(0, 1.0)
     ax.set_title(
         "Evidence coverage discriminates models;\n"

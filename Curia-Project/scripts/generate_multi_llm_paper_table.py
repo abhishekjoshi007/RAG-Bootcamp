@@ -160,8 +160,8 @@ def main() -> int:
     parser.add_argument(
         "--caption",
         default=(
-            "Multi-LLM citation faithfulness and evidence coverage on 50 TAMU "
-            "benchmark units, sorted by evidence coverage."
+            "Multi-LLM citation faithfulness and evidence coverage on 50 "
+            "benchmark courses, sorted by evidence coverage."
         ),
     )
     parser.add_argument("--label", default="tab:multi-llm-faithfulness")
