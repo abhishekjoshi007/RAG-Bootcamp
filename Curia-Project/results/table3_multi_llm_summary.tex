@@ -1,0 +1,31 @@
+\begin{table*}[t]
+\centering
+\caption{Multi-LLM faithfulness on 50 TAMU benchmark units, sorted by evidence coverage. Same retrieved evidence per query; only the generator changes. Vacuous citation precision is impossible here because the structured output contract requires citations to be emitted as evidence IDs.}
+\label{tab:multi-llm-faithfulness}
+\footnotesize
+\begin{tabular}{lrrrrrr}
+\hline
+Model & $N$ & Err. & Cit. & Hall. & Cov. & Cost (\$) \\
+\hline
+Claude Sonnet 4.6 & 50 & 0 & 1.000 & 0.000 & 0.767 & 0.570 \\
+Claude Opus 4.7 & 50 & 0 & 1.000 & 0.000 & 0.760 & 3.861 \\
+DeepSeek V4 Flash & 50 & 0 & 1.000 & 0.000 & 0.757 & 0.951 \\
+Claude Opus 4.6 & 50 & 0 & 1.000 & 0.000 & 0.695 & 2.854 \\
+Claude Opus 4.8 & 50 & 0 & 1.000 & 0.000 & 0.694 & 3.885 \\
+DeepSeek Reasoner & 50 & 0 & 1.000 & 0.000 & 0.684 & 0.965 \\
+DeepSeek Chat & 50 & 0 & 1.000 & 0.000 & 0.657 & 0.632 \\
+Claude Haiku 4.5 & 50 & 0 & 1.000 & 0.000 & 0.657 & 0.173 \\
+GPT-5.5 & 50 & 0 & 1.000 & 0.000 & 0.633 & 1.032 \\
+Grok 4.3 & 50 & 0 & 1.000 & 0.000 & 0.579 & 0.614 \\
+GPT-5.4 Nano & 50 & 0 & 1.000 & 0.000 & 0.572 & 0.624 \\
+GPT-5.4 & 50 & 0 & 1.000 & 0.000 & 0.558 & 0.632 \\
+Local extractive & 50 & 0 & 1.000 & 0.000 & 0.535 & 0.000 \\
+GPT-5.4 Mini & 50 & 0 & 1.000 & 0.000 & 0.522 & 0.609 \\
+Claude Sonnet 4.5 & 50 & 0 & 1.000 & 0.000 & 0.514 & 0.509 \\
+\hline
+\multicolumn{7}{l}{\footnotesize Provider-error subset (Gemini), reported on successful rows only:} \\
+Gemini 3.1 Pro Preview & 48 & 2 & 1.000 & 0.000 & 0.563 & 0.674 \\
+Gemini 3.5 Flash & 21 & 29 & 1.000 & 0.000 & 0.493 & 0.287 \\
+\hline
+\end{tabular}
+\end{table*}

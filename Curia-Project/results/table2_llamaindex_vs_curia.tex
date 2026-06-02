@@ -1,0 +1,17 @@
+\begin{table*}[t]
+\centering
+\caption{System-level comparison on the same 3,375-document corpus and 50 TAMU benchmark units, with gpt-4o-mini as the generator. LlamaIndex's 1.000 citation precision is vacuous: no inline citations were produced.}
+\label{tab:llamaindex-vs-curia}
+\footnotesize
+\begin{tabular}{llrrrr}
+\hline
+System & Embedder & Cit. prec. & Evid. cov. & Mean lat. & Proj. cost/1k \\
+ & & & & (s) & (\$) \\
+\hline
+LlamaIndex default & text-embedding-3-small & 1.000$^{\dagger}$ & 0.000 & 5.77 & 0.31 \\
+LlamaIndex matched & mpnet-base-v2 & 1.000$^{\dagger}$ & 0.000 & 4.42 & 0.29 \\
+\textbf{CURIA (drift-cascade)} & mpnet-base-v2 & \textbf{1.000} & \textbf{0.535}--\textbf{0.767} & \textbf{0.0018} & \textbf{2.17} \\
+\hline
+\multicolumn{6}{l}{\footnotesize $\dagger$ Vacuous: zero inline citations produced.} \\
+\end{tabular}
+\end{table*}

@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\caption{Cache-policy ablation on a 1{,}000-query workload (100 unique queries $\times$ 10 shuffled repeats).}
+\label{tab:cache-ablation}
+\footnotesize
+\begin{tabular}{lrrrrrrr}
+\hline
+Policy & Hit & LLM & Avoid. & p95 & Cost/1k & Drift & Stale \\
+ & rate & calls & calls & (ms) & (\$) & rows & rate \\
+\hline
+No cache & 0.000 & 1,000 & 0 & -- & 10.00 & 0 & 0.000 \\
+TTL-only & 0.900 & 100 & 900 & 3.406 & 1.00 & 0 & 0.416 \\
+Drift-cascade & 0.783 & 217 & 783 & 1.842 & 2.17 & 145 & 0.000 \\
+\hline
+\end{tabular}
+\end{table}
