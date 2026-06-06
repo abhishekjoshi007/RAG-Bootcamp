@@ -300,6 +300,8 @@ def main() -> int:
                 **_model_meta(spec),
                 "unit_id": uid,
                 **metrics,
+                "summary": getattr(rec, "summary", ""),
+                "emerging_topics": list(getattr(rec, "emerging_topics", []) or []),
                 "input_tokens_estimate": estimate.input_tokens,
                 "output_tokens_estimate": estimate.output_tokens,
                 "input_tokens_billed_or_estimated": actual_cost.input_tokens,

@@ -94,3 +94,6 @@ Thumbs.db
 plan.md
 notes.local.md
 audit/llamaindex_*/
+
+# Reviewer bundle is a regenerable deliverable; not source-controlled
+reviewer_bundle/
